@@ -1,0 +1,24 @@
+{% load i18n %}
+
+{% comment %}
+Priority badge component
+Usage: {% include "components/priority_badge.html" with priority=complaint.priority %}
+{% endcomment %}
+
+{% if priority == 'critical' %}
+    <span class="badge-priority badge-priority-critical">
+        <i class="fas fa-exclamation-circle"></i> {% trans "Critical" %}
+    </span>
+{% elif priority == 'high' %}
+    <span class="badge-priority badge-priority-high">
+        <i class="fas fa-exclamation-triangle"></i> {% trans "High" %}
+    </span>
+{% elif priority == 'medium' %}
+    <span class="badge-priority badge-priority-medium">
+        <i class="fas fa-exclamation"></i> {% trans "Medium" %}
+    </span>
+{% elif priority == 'low' %}
+    <span class="badge-priority badge-priority-low">
+        <i class="fas fa-info-circle"></i> {% trans "Low" %}
+    </span>
+{% endif %}

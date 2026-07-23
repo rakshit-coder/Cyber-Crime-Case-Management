@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Manage Users" %} - {% trans "Indian Cyber Crime Portal" %}{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem;">
+        <div>
+            <h1 style="font-size: 2rem; font-weight: bold; color: var(--primary-blue); display: flex; align-items: center; gap: 1rem;">
+                <i class="fas fa-users" style="font-size: 2.5rem;"></i>
+                {% trans "Manage Users" %}
+            </h1>
+            <p style="color: var(--dark-gray); margin-top: 0.5rem;">{% trans "View and manage all registered users" %} ({{ total }} {% trans "total" %})</p>
+        </div>
+        <div style="display: flex; gap: 1rem;">
+            <a href="{% url 'add_user' %}" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none;">
+                <i class="fas fa-plus-circle"></i> {% trans "Add User" %}
+            </a>
+            <a href="{% url 'admin_dashboard' %}" style="display: inline-flex; align-items: center; gap: 0.5rem; color: var(--primary-blue); font-weight: 600; text-decoration: none;">
+                <i class="fas fa-arrow-left"></i> {% trans "Back" %}
+            </a>
+        </div>
+    </div>
+
+    <!-- Users Table -->
+    <div class="card">
+        <div class="overflow-x-auto">
+            {% if user_data %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>{% trans "Name" %}</th>
+                        <th>{% trans "Username" %}</th>
+                        <th>{% trans "Email" %}</th>
+                        <th>{% trans "Phone" %}</th>
+                        <th>{% trans "Complaints" %}</th>
+                        <th>{% trans "Status" %}</th>
+                        <th>{% trans "Joined" %}</th>
+                        <th>{% trans "Actions" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in user_data %}
+                    <tr>
+                        <td style="font-weight: 600;">{{ item.user.get_full_name|default:item.user.username }}</td>
+                        <td style="color: var(--dark-gray); font-family: monospace; font-size: 0.9rem;">{{ item.user.username }}</td>
+                        <td style="color: var(--dark-gray);">{{ item.user.email }}</td>
+                        <td style="color: var(--dark-gray);">{{ item.user.phone|default:"N/A" }}</td>
+                        <td>
+                            <span class="badge badge-warning" style="display: inline-block;">
+                                {{ item.complaint_count }}
+                            </span>
+                        </td>
+                        <td>
+                            {% if item.user.is_active %}
+                                <span class="badge badge-success">{% trans "Active" %}</span>
+                            {% else %}
+                                <span class="badge badge-danger">{% trans "Inactive" %}</span>
+                            {% endif %}
+                        </td>
+                        <td style="color: var(--dark-gray);">{{ item.user.created_at|date:"M d, Y" }}</td>
+                        <td>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <a href="{% url 'edit_user' item.user.id %}" style="color: var(--primary-blue); text-decoration: none; font-weight: 600;" title="{% trans 'Edit' %}">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <form method="post" action="{% url 'toggle_user_status' item.user.id %}" style="display: inline;" onsubmit="return confirm('{% if item.user.is_active %}{% trans 'Deactivate this user?' %}{% else %}{% trans 'Activate this user?' %}{% endif %}');">
+                                    {% csrf_token %}
+                                    <button type="submit" style="background: none; border: none; cursor: pointer; color: {% if item.user.is_active %}var(--danger-red){% else %}var(--success-green){% endif %}; font-weight: 600;" title="{% if item.user.is_active %}{% trans 'Deactivate' %}{% else %}{% trans 'Activate' %}{% endif %}">
+                                        {% if item.user.is_active %}
+                                        <i class="fas fa-ban"></i>
+                                        {% else %}
+                                        <i class="fas fa-check-circle"></i>
+                                        {% endif %}
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <div style="padding: 3rem; text-align: center;">
+                <i class="fas fa-users" style="font-size: 2rem; opacity: 0.3; margin-bottom: 1rem; display: block;"></i>
+                <p style="color: var(--dark-gray);">{% trans "No users found" %}</p>
+                <a href="{% url 'add_user' %}" style="color: var(--primary-blue); text-decoration: none; font-weight: 600; display: inline-block; margin-top: 1rem;">{% trans "Add a user" %}</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Pagination -->
+    {% if users.has_other_pages %}
+    <div class="pagination" style="margin-top: 2rem;">
+        {% if users.has_previous %}
+        <a href="?page=1">{% trans "First" %}</a>
+        <a href="?page={{ users.previous_page_number }}">
+            <i class="fas fa-chevron-left mr-1"></i> {% trans "Previous" %}
+        </a>
+        {% endif %}
+
+        {% for num in users.paginator.page_range %}
+            {% if users.number == num %}
+            <span class="active">{{ num }}</span>
+            {% else %}
+            <a href="?page={{ num }}">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if users.has_next %}
+        <a href="?page={{ users.next_page_number }}">
+            {% trans "Next" %} <i class="fas fa-chevron-right ml-1"></i>
+        </a>
+        <a href="?page={{ users.paginator.num_pages }}">
+            {% trans "Last" %} <i class="fas fa-chevron-right ml-1"></i>
+        </a>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

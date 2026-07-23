@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Law Not Found" %}{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+    <div style="margin-bottom: 2rem;">
+        <i class="fas fa-search" style="font-size: 4rem; color: var(--primary-blue);"></i>
+    </div>
+
+    <h1 style="font-size: 2rem; font-weight: 700; color: var(--dark-gray); margin-bottom: 1rem;">
+        {% trans "Law Category Not Found" %}
+    </h1>
+
+    <p style="color: var(--medium-gray); font-size: 1.05rem; line-height: 1.6; margin-bottom: 2rem;">
+        {% trans "The legal information you're looking for doesn't exist. Please browse our available law categories below or use our search feature." %}
+    </p>
+
+    <div style="background: #e7f3ff; border-left: 4px solid var(--primary-blue); padding: 1.5rem; border-radius: 0.5rem; margin-bottom: 2rem; text-align: left;">
+        <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--primary-blue); margin-bottom: 1rem;">
+            {% trans "Available Law Categories" %}:
+        </h3>
+        <ul style="color: var(--dark-gray); line-height: 1.8; padding-left: 1.5rem; margin: 0;">
+            <li>{% trans "Phishing & Spoofing" %}</li>
+            <li>{% trans "Identity Theft" %}</li>
+            <li>{% trans "Online Fraud" %}</li>
+            <li>{% trans "Hacking & Unauthorized Access" %}</li>
+            <li>{% trans "Ransomware" %}</li>
+            <li>{% trans "Data Breaches" %}</li>
+            <li>{% trans "Cyberbullying & Online Harassment" %}</li>
+            <li>{% trans "Malware Distribution" %}</li>
+        </ul>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;">
+        <a href="{% url 'laws:law_index' %}" style="display: inline-flex; align-items: center; gap: 0.5rem; background: var(--primary-blue); color: white; padding: 0.75rem 1.5rem; border-radius: 0.5rem; text-decoration: none; font-weight: 600; transition: background 0.3s ease;">
+            <i class="fas fa-book"></i> {% trans "Browse All Laws" %}
+        </a>
+        <a href="{% url 'home' %}" style="display: inline-flex; align-items: center; gap: 0.5rem; background: var(--secondary-blue); color: white; padding: 0.75rem 1.5rem; border-radius: 0.5rem; text-decoration: none; font-weight: 600; transition: background 0.3s ease;">
+            <i class="fas fa-home"></i> {% trans "Go to Home" %}
+        </a>
+    </div>
+</div>
+{% endblock %}

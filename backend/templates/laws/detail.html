@@ -1,0 +1,221 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Cyber Crime Laws" %} - {{ legal_info.name }} - {% trans "Indian Cyber Crime Portal" %}{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Breadcrumb -->
+    <div style="margin-bottom: 2rem;">
+        <a href="{% url 'laws:law_index' %}" style="color: var(--primary-blue); text-decoration: none;">
+            <i class="fas fa-home"></i> {% trans "Laws Home" %}
+        </a>
+        <span style="color: #999999; margin: 0 0.75rem;">/</span>
+        <span style="color: #222222;">{{ legal_info.name }}</span>
+    </div>
+
+    <!-- Page Header -->
+    <div style="background: linear-gradient(135deg, var(--primary-blue), #0066cc); color: white; padding: 2rem; border-radius: 0.75rem; margin-bottom: 2rem;">
+        <div style="display: flex; align-items: start; gap: 1.5rem;">
+            <div style="background: rgba(255,255,255,0.2); width: 4rem; height: 4rem; display: flex; align-items: center; justify-content: center; border-radius: 0.5rem; font-size: 2rem; flex-shrink: 0;">
+                {% if category == 'phishing' %}<i class="fas fa-fish"></i>
+                {% elif category == 'identity_theft' %}<i class="fas fa-id-card"></i>
+                {% elif category == 'online_fraud' %}<i class="fas fa-money-bill-wave"></i>
+                {% elif category == 'cyberbullying' %}<i class="fas fa-comments"></i>
+                {% elif category == 'hacking' %}<i class="fas fa-laptop"></i>
+                {% elif category == 'ransomware' %}<i class="fas fa-lock"></i>
+                {% elif category == 'data_breach' %}<i class="fas fa-database"></i>
+                {% elif category == 'malware' %}<i class="fas fa-virus"></i>
+                {% else %}<i class="fas fa-gavel"></i>
+                {% endif %}
+            </div>
+            <div style="flex: 1;">
+                <h1 style="font-size: 2rem; font-weight: 700; margin: 0 0 0.75rem 0;">{{ legal_info.name }}</h1>
+                <p style="margin: 0; opacity: 1; line-height: 1.6; color: white;">{{ legal_info.description }}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Laws and Sections -->
+    {% if legal_info.relevant_laws %}
+    <div style="background: white; border-radius: 0.75rem; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+        <h2 style="font-size: 1.5rem; font-weight: 700; color: var(--primary-blue); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem;">
+            <i class="fas fa-scroll"></i> {% trans "Applicable Laws & Sections" %}
+        </h2>
+
+        {% for law in legal_info.relevant_laws %}
+        <div style="margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid #e0e0e0;" {% if forloop.last %}style="border-bottom: none; margin-bottom: 0; padding-bottom: 0;"{% endif %}>
+            <!-- Law Title -->
+            <h3 style="font-size: 1.3rem; font-weight: 700; color: #222222; margin-bottom: 0.75rem;">{{ law.name }}</h3>
+            
+            {% if law.description %}
+            <p style="color: #333333; line-height: 1.6; margin-bottom: 1rem;">{{ law.description }}</p>
+            {% endif %}
+
+            <!-- Sections -->
+            <div style="margin-top: 1.5rem;">
+                {% if law.sections %}
+                <h4 style="font-size: 1rem; font-weight: 700; color: #222222; margin-bottom: 1rem;">{% trans "Relevant Sections" %}:</h4>
+
+                {% for section_name, section_details in law.details.items %}
+                <div style="background: #f8f9fa; border-left: 4px solid var(--primary-blue); padding: 1.25rem; margin-bottom: 1rem; border-radius: 0.25rem;">
+                    <!-- Section Title -->
+                    <h5 style="font-size: 1.05rem; font-weight: 700; color: var(--primary-blue); margin: 0 0 0.5rem 0;">
+                        <i class="fas fa-tag" style="margin-right: 0.5rem;"></i>{{ section_details.title }}
+                    </h5>
+
+                    <!-- What It Covers -->
+                    <p style="color: #333333; font-size: 0.95rem; line-height: 1.6; margin-bottom: 1rem;">
+                        <strong>{% trans "What it covers:" %}</strong> {{ section_details.description }}
+                    </p>
+
+                    <!-- Punishment -->
+                    <div style="background: white; border-left: 4px solid #dc3545; padding: 1rem; border-radius: 0.25rem;">
+                        <p style="color: #dc3545; font-weight: 700; margin: 0 0 0.5rem 0;">
+                            <i class="fas fa-gavel" style="margin-right: 0.5rem;"></i>{% trans "Punishment" %}:
+                        </p>
+                        <p style="color: #222222; margin: 0;">{{ section_details.punishment }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Government Resources -->
+    {% if legal_info.govt_resources %}
+    <div style="background: white; border-radius: 0.75rem; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+        <h2 style="font-size: 1.5rem; font-weight: 700; color: var(--primary-blue); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem;">
+            <i class="fas fa-globe"></i> {% trans "Government Resources & Support" %}
+        </h2>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem;">
+            {% for resource in legal_info.govt_resources %}
+            <a href="{{ resource.url }}" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+                <div style="background: white; border: 1px solid #e0e0e0; border-top: 4px solid var(--primary-blue); padding: 1.5rem; border-radius: 0.5rem; height: 100%; transition: all 0.3s ease;">
+                    <h4 style="font-size: 1.05rem; font-weight: 700; color: var(--primary-blue); margin: 0 0 0.75rem 0;">
+                        {{ resource.name }}
+                    </h4>
+                    <p style="color: #333333; font-size: 0.95rem; line-height: 1.5; margin-bottom: 1rem;">{{ resource.description }}</p>
+                    <p style="color: #0052cc; font-weight: 600; margin: 0; display: flex; align-items: center; gap: 0.5rem;">
+                        {% trans "Visit Resource" %} <i class="fas fa-external-link-alt"></i>
+                    </p>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Key Points Summary -->
+    <div style="background: #e7f3ff; border-left: 4px solid var(--primary-blue); padding: 1.5rem; border-radius: 0.5rem; margin-bottom: 2rem;">
+        <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--primary-blue); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+            <i class="fas fa-lightbulb"></i> {% trans "Key Points to Remember" %}
+        </h3>
+        <ul style="color: #222222; line-height: 1.8; padding-left: 1.5rem; margin: 0;">
+            <li>{% trans "These laws protect you and provide legal remedies against cyber crimes" %}</li>
+            <li>{% trans "Police investigation is free of charge" %}</li>
+            <li>{% trans "You have the right to file a complaint with cybercrime.gov.in" %}</li>
+            <li>{% trans "Compensation can be claimed in civil court" %}</li>
+            <li>{% trans "Criminal proceedings can result in imprisonment and fines" %}</li>
+            <li>{% trans "Time limits apply - report crimes as soon as possible" %}</li>
+        </ul>
+    </div>
+
+    <!-- What to Do Next -->
+    <div style="background: white; border-radius: 0.75rem; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+        <h2 style="font-size: 1.5rem; font-weight: 700; color: var(--primary-blue); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem;">
+            <i class="fas fa-tasks"></i> {% trans "What to Do Next" %}
+        </h2>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+            <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 0.5rem;">
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                    <div style="background: var(--primary-blue); color: white; width: 2.5rem; height: 2.5rem; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: 700; flex-shrink: 0;">1</div>
+                    <h4 style="font-size: 1rem; font-weight: 700; color: #222222; margin: 0;">{% trans "Document Evidence" %}</h4>
+                </div>
+                <p style="color: #333333; font-size: 0.95rem; line-height: 1.5; margin: 0;">{% trans "Collect screenshots, messages, emails, and transaction records as evidence." %}</p>
+            </div>
+
+            <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 0.5rem;">
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                    <div style="background: var(--primary-blue); color: white; width: 2.5rem; height: 2.5rem; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: 700; flex-shrink: 0;">2</div>
+                    <h4 style="font-size: 1rem; font-weight: 700; color: #222222; margin: 0;">{% trans "File This Complaint" %}</h4>
+                </div>
+                <p style="color: #333333; font-size: 0.95rem; line-height: 1.5; margin: 0;">{% trans "File your complaint through this portal to create an official record." %}</p>
+            </div>
+
+            <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 0.5rem;">
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                    <div style="background: var(--primary-blue); color: white; width: 2.5rem; height: 2.5rem; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: 700; flex-shrink: 0;">3</div>
+                    <h4 style="font-size: 1rem; font-weight: 700; color: #222222; margin: 0;">{% trans "Report to Government" %}</h4>
+                </div>
+                <p style="color: #333333; font-size: 0.95rem; line-height: 1.5; margin: 0;">{% trans "Also report on cybercrime.gov.in for official investigation." %}</p>
+            </div>
+
+            <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 0.5rem;">
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                    <div style="background: var(--primary-blue); color: white; width: 2.5rem; height: 2.5rem; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: 700; flex-shrink: 0;">4</div>
+                    <h4 style="font-size: 1rem; font-weight: 700; color: #222222; margin: 0;">{% trans "Legal Action" %}</h4>
+                </div>
+                <p style="color: #333333; font-size: 0.95rem; line-height: 1.5; margin: 0;">{% trans "Consult lawyer for civil suit and compensation claim." %}</p>
+            </div>
+
+            <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 0.5rem;">
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                    <div style="background: var(--primary-blue); color: white; width: 2.5rem; height: 2.5rem; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: 700; flex-shrink: 0;">5</div>
+                    <h4 style="font-size: 1rem; font-weight: 700; color: #222222; margin: 0;">{% trans "Monitor Progress" %}</h4>
+                </div>
+                <p style="color: #333333; font-size: 0.95rem; line-height: 1.5; margin: 0;">{% trans "Keep track of case number and follow up with authorities regularly." %}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Important Disclaimer -->
+    <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 1.5rem; border-radius: 0.5rem; margin-bottom: 2rem;">
+        <h4 style="font-size: 1rem; font-weight: 700; color: #856404; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
+            <i class="fas fa-info-circle"></i> {% trans "Disclaimer" %}
+        </h4>
+        <p style="color: #856404; font-size: 0.95rem; line-height: 1.6; margin: 0;">
+            {% trans "This information is for educational purposes only and should not be considered as legal advice. For specific legal guidance, please consult with a qualified lawyer. Laws and punishments may change, and circumstances vary by case. Always rely on official government sources and professional legal counsel." %}
+        </p>
+    </div>
+
+    <!-- Action Buttons -->
+    <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;">
+        <a href="{% url 'new_complaint' %}" style="display: inline-flex; align-items: center; gap: 0.5rem; background: #28a745; color: white; padding: 0.75rem 1.5rem; border-radius: 0.5rem; text-decoration: none; font-weight: 600; transition: background 0.3s ease;">
+            <i class="fas fa-file-contract"></i> {% trans "File a Complaint" %}
+        </a>
+        <a href="{% url 'laws:law_index' %}" style="display: inline-flex; align-items: center; gap: 0.5rem; background: var(--primary-blue); color: white; padding: 0.75rem 1.5rem; border-radius: 0.5rem; text-decoration: none; font-weight: 600; transition: background 0.3s ease;">
+            <i class="fas fa-book"></i> {% trans "Back to Laws" %}
+        </a>
+        <a href="https://cybercrime.gov.in" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.5rem; background: var(--secondary-blue); color: white; padding: 0.75rem 1.5rem; border-radius: 0.5rem; text-decoration: none; font-weight: 600; transition: background 0.3s ease;">
+            <i class="fas fa-external-link-alt"></i> {% trans "Report on cybercrime.gov.in" %}
+        </a>
+    </div>
+</div>
+
+<style>
+    a {
+        transition: all 0.3s ease;
+    }
+
+    a:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    @media (max-width: 768px) {
+        h1 {
+            font-size: 1.5rem !important;
+        }
+        
+        h2 {
+            font-size: 1.2rem !important;
+        }
+    }
+</style>
+{% endblock %}

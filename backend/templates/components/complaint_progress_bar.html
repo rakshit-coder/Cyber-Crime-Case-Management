@@ -1,0 +1,113 @@
+{% load i18n %}
+
+<!-- Complaint Status Progress Bar -->
+<div style="background: white; border-radius: 0.75rem; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+    <h3 style="font-size: 1.3rem; font-weight: 700; color: #0052cc; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem;">
+        <i class="fas fa-tasks"></i> {% trans "Case Status Progress" %}
+    </h3>
+    
+    <div style="position: relative; margin-bottom: 2rem;">
+        <!-- Progress bar background -->
+        <div style="background: #e0e0e0; height: 8px; border-radius: 10px; overflow: hidden; margin-bottom: 1.5rem;">
+            {% if complaint.status == 'pending' %}
+                <div style="background: linear-gradient(90deg, #ff9800, #ff6b35); height: 100%; width: 16.67%; transition: width 0.3s ease;"></div>
+            {% elif complaint.status == 'approved' %}
+                <div style="background: linear-gradient(90deg, #ff9800, #ff6b35); height: 100%; width: 33.33%; transition: width 0.3s ease;"></div>
+            {% elif complaint.status == 'assigned' %}
+                <div style="background: linear-gradient(90deg, #ff9800, #2196f3); height: 100%; width: 50%; transition: width 0.3s ease;"></div>
+            {% elif complaint.status == 'in_progress' %}
+                <div style="background: linear-gradient(90deg, #2196f3, #9c27b0); height: 100%; width: 66.67%; transition: width 0.3s ease;"></div>
+            {% elif complaint.status == 'near_to_close' %}
+                <div style="background: linear-gradient(90deg, #9c27b0, #27ae60); height: 100%; width: 83.33%; transition: width 0.3s ease;"></div>
+            {% elif complaint.status == 'closed' %}
+                <div style="background: linear-gradient(90deg, #27ae60, #1b5621); height: 100%; width: 100%; transition: width 0.3s ease;"></div>
+            {% endif %}
+        </div>
+        
+        <!-- Status stages -->
+        <div style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.5rem;">
+            <!-- Stage 1: Pending -->
+            <div style="text-align: center;">
+                <div style="display: flex; justify-content: center; margin-bottom: 0.5rem;">
+                    <div style="width: 2.5rem; height: 2.5rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; color: white; {% if complaint.status in 'pending,approved,assigned,in_progress,near_to_close,closed' %}background: #ff9800;{% else %}background: #ccc;{% endif %} {% if complaint.status == 'pending' %}box-shadow: 0 0 0 3px rgba(255, 152, 0, 0.2);{% endif %}">
+                        <i class="fas fa-file"></i>
+                    </div>
+                </div>
+                <p style="font-size: 0.75rem; font-weight: 600; color: {% if complaint.status in 'pending,approved,assigned,in_progress,near_to_close,closed' %}#333;{% else %}#999;{% endif %}">{% trans "Pending" %}</p>
+            </div>
+            
+            <!-- Stage 2: Approved -->
+            <div style="text-align: center;">
+                <div style="display: flex; justify-content: center; margin-bottom: 0.5rem;">
+                    <div style="width: 2.5rem; height: 2.5rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; color: white; {% if complaint.status in 'approved,assigned,in_progress,near_to_close,closed' %}background: #ff9800;{% else %}background: #ccc;{% endif %} {% if complaint.status == 'approved' %}box-shadow: 0 0 0 3px rgba(255, 152, 0, 0.2);{% endif %}">
+                        <i class="fas fa-check"></i>
+                    </div>
+                </div>
+                <p style="font-size: 0.75rem; font-weight: 600; color: {% if complaint.status in 'approved,assigned,in_progress,near_to_close,closed' %}#333;{% else %}#999;{% endif %}">{% trans "Approved" %}</p>
+            </div>
+            
+            <!-- Stage 3: Assigned -->
+            <div style="text-align: center;">
+                <div style="display: flex; justify-content: center; margin-bottom: 0.5rem;">
+                    <div style="width: 2.5rem; height: 2.5rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; color: white; {% if complaint.status in 'assigned,in_progress,near_to_close,closed' %}background: #2196f3;{% else %}background: #ccc;{% endif %} {% if complaint.status == 'assigned' %}box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.2);{% endif %}">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                </div>
+                <p style="font-size: 0.75rem; font-weight: 600; color: {% if complaint.status in 'assigned,in_progress,near_to_close,closed' %}#333;{% else %}#999;{% endif %}">{% trans "Assigned" %}</p>
+            </div>
+            
+            <!-- Stage 4: In Progress -->
+            <div style="text-align: center;">
+                <div style="display: flex; justify-content: center; margin-bottom: 0.5rem;">
+                    <div style="width: 2.5rem; height: 2.5rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; color: white; {% if complaint.status in 'in_progress,near_to_close,closed' %}background: #9c27b0;{% else %}background: #ccc;{% endif %} {% if complaint.status == 'in_progress' %}box-shadow: 0 0 0 3px rgba(156, 39, 176, 0.2);{% endif %}">
+                        <i class="fas fa-spinner"></i>
+                    </div>
+                </div>
+                <p style="font-size: 0.75rem; font-weight: 600; color: {% if complaint.status in 'in_progress,near_to_close,closed' %}#333;{% else %}#999;{% endif %}">{% trans "In Progress" %}</p>
+            </div>
+            
+            <!-- Stage 5: Near to Close -->
+            <div style="text-align: center;">
+                <div style="display: flex; justify-content: center; margin-bottom: 0.5rem;">
+                    <div style="width: 2.5rem; height: 2.5rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; color: white; {% if complaint.status in 'near_to_close,closed' %}background: #27ae60;{% else %}background: #ccc;{% endif %} {% if complaint.status == 'near_to_close' %}box-shadow: 0 0 0 3px rgba(39, 174, 96, 0.2);{% endif %}">
+                        <i class="fas fa-door-open"></i>
+                    </div>
+                </div>
+                <p style="font-size: 0.75rem; font-weight: 600; color: {% if complaint.status in 'near_to_close,closed' %}#333;{% else %}#999;{% endif %}">{% trans "Near to Close" %}</p>
+            </div>
+            
+            <!-- Stage 6: Closed -->
+            <div style="text-align: center;">
+                <div style="display: flex; justify-content: center; margin-bottom: 0.5rem;">
+                    <div style="width: 2.5rem; height: 2.5rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; color: white; {% if complaint.status == 'closed' %}background: #1b5621;{% else %}background: #ccc;{% endif %} {% if complaint.status == 'closed' %}box-shadow: 0 0 0 3px rgba(27, 86, 33, 0.2);{% endif %}">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                </div>
+                <p style="font-size: 0.75rem; font-weight: 600; color: {% if complaint.status == 'closed' %}#333;{% else %}#999;{% endif %}">{% trans "Closed" %}</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Current Status Display -->
+    <div style="background: #f0f4ff; border-left: 4px solid #0052cc; padding: 1rem; border-radius: 4px;">
+        <p style="margin: 0; color: #333; font-weight: 600;">
+            {% trans "Current Status:" %}
+            {% if complaint.status == 'pending' %}
+                <span style="color: #ff9800;">{% trans "Pending Admin Approval" %}</span>
+            {% elif complaint.status == 'approved' %}
+                <span style="color: #ff9800;">{% trans "Approved" %}</span>
+            {% elif complaint.status == 'assigned' %}
+                <span style="color: #2196f3;">{% trans "Assigned to Officer" %}</span>
+            {% elif complaint.status == 'in_progress' %}
+                <span style="color: #9c27b0;">{% trans "Investigation in Progress" %}</span>
+            {% elif complaint.status == 'near_to_close' %}
+                <span style="color: #27ae60;">{% trans "Near to Closure" %}</span>
+            {% elif complaint.status == 'closed' %}
+                <span style="color: #1b5621;">{% trans "Case Closed" %}</span>
+            {% endif %}
+        </p>
+        <p style="margin: 0.5rem 0 0 0; font-size: 0.85rem; color: #666;">
+            {% trans "Last updated:" %} {{ complaint.updated_at|date:"M d, Y H:i:s" }}
+        </p>
+    </div>
+</div>

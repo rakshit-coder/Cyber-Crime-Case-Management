@@ -1,0 +1,71 @@
+{% autoescape off %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to Cyber Crime System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            background-color: white;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px 8px 0 0;
+            text-align: center;
+        }
+        .content {
+            padding: 20px 0;
+        }
+        .button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 4px;
+            display: inline-block;
+            margin: 20px 0;
+        }
+        .footer {
+            background-color: #f5f5f5;
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid #e9ecef;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Welcome to Cyber Crime System!</h1>
+        </div>
+        <div class="content">
+            <p>Hi {{ user_name }},</p>
+            <p>Thank you for registering with our Cyber Crime System. We're glad to have you on board!</p>
+            <p>Please verify your email address to complete your registration:</p>
+            <a href="{{ activation_link }}" class="button">Verify Email Address</a>
+            <p>If you didn't create this account, please ignore this email.</p>
+            <p>Best regards,<br>Cyber Crime Team</p>
+        </div>
+        <div class="footer">
+            <p>&copy; 2024 Cyber Crime System. All rights reserved.</p>
+            <p>Your data is encrypted and protected with AES-256 encryption.</p>
+        </div>
+    </div>
+</body>
+</html>
+{% endautoescape %}

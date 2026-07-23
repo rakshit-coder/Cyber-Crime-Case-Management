@@ -1,0 +1,57 @@
+{% autoescape off %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Case Update</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            background-color: white;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px 8px 0 0;
+            text-align: center;
+        }
+        .update-box {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-left: 4px solid #26de81;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Case Update - {{ complaint_id }}</h1>
+        </div>
+        <div class="content" style="padding: 20px 0;">
+            <p>Hi {{ user_name }},</p>
+            <p>There is an update on your case:</p>
+            <div class="update-box">
+                {{ update_message }}
+            </div>
+            <p>You can log in to your account to view more details and any additional information about your case.</p>
+            <p>Best regards,<br>Cyber Crime Team</p>
+        </div>
+        <div style="background-color: #f5f5f5; text-align: center; padding: 20px; border-top: 1px solid #e9ecef; font-size: 12px; color: #666;">
+            <p>&copy; 2024 Cyber Crime System. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>
+{% endautoescape %}

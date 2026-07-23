@@ -1,0 +1,24 @@
+{% load i18n %}
+
+<nav aria-label="Breadcrumb" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{% url 'landing' %}">
+                <i class="fas fa-home"></i> {% trans "Home" %}
+            </a>
+        </li>
+        {% for item in breadcrumbs %}
+            {% if forloop.last %}
+                <li class="breadcrumb-item active">
+                    <i class="{{ item.icon }}"></i> {{ item.label }}
+                </li>
+            {% else %}
+                <li class="breadcrumb-item">
+                    <a href="{{ item.url }}">
+                        <i class="{{ item.icon }}"></i> {{ item.label }}
+                    </a>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ol>
+</nav>

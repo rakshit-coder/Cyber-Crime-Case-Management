@@ -1,0 +1,473 @@
+{% load i18n %}
+
+<style>
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        animation: fadeIn 0.3s ease-in;
+    }
+    
+    .modal.show {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .modal-content {
+        background-color: white;
+        border-radius: 8px;
+        max-width: 700px;
+        width: 90%;
+        max-height: 80vh;
+        overflow-y: auto;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        animation: slideIn 0.3s ease-in;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    
+    @keyframes slideIn {
+        from { transform: translateY(-50px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+    
+    .modal-header {
+        padding: 2rem;
+        border-bottom: 1px solid #e0e0e0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .modal-header h2 {
+        margin: 0;
+        color: #0052cc;
+        font-size: 1.5rem;
+    }
+    
+    .close-btn {
+        background: none;
+        border: none;
+        font-size: 2rem;
+        cursor: pointer;
+        color: #999;
+        line-height: 1;
+        padding: 0;
+    }
+    
+    .close-btn:hover {
+        color: #333;
+    }
+    
+    .modal-body {
+        padding: 2rem;
+    }
+    
+    .complaint-item {
+        background: #f5f5f5;
+        border-left: 4px solid #0052cc;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+        border-radius: 4px;
+    }
+    
+    .complaint-item.pending {
+        border-left-color: #ff9800;
+        background: #fff8e1;
+    }
+    
+    .complaint-item.approved {
+        border-left-color: #27ae60;
+        background: #e8f5e9;
+    }
+    
+    .complaint-item.rejected {
+        border-left-color: #f44336;
+        background: #ffebee;
+    }
+    
+    .complaint-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        margin-bottom: 1rem;
+    }
+    
+    .complaint-title {
+        font-weight: 700;
+        color: #333;
+        font-size: 1.1rem;
+    }
+    
+    .complaint-case {
+        color: #666;
+        font-size: 0.9rem;
+        margin-top: 0.25rem;
+    }
+    
+    .complaint-meta {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        flex-wrap: wrap;
+    }
+    
+    .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+        color: #666;
+    }
+    
+    .meta-icon {
+        color: #0052cc;
+    }
+    
+    .complaint-description {
+        color: #555;
+        font-size: 0.95rem;
+        line-height: 1.5;
+        margin-bottom: 1rem;
+    }
+    
+    .complaint-actions {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+    
+    .btn-approve {
+        flex: 1;
+        background: #27ae60;
+        color: white;
+        padding: 0.75rem;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: background 0.3s;
+    }
+    
+    .btn-approve:hover {
+        background: #229954;
+    }
+    
+    .btn-reject {
+        flex: 1;
+        background: #f44336;
+        color: white;
+        padding: 0.75rem;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: background 0.3s;
+    }
+    
+    .btn-reject:hover {
+        background: #d32f2f;
+    }
+    
+    .loading {
+        display: none;
+        text-align: center;
+        padding: 2rem;
+    }
+    
+    .spinner {
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #0052cc;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+        margin: 0 auto;
+    }
+    
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    
+    .empty-state {
+        text-align: center;
+        padding: 2rem;
+        color: #999;
+    }
+    
+    .empty-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        opacity: 0.5;
+    }
+    
+    .rejection-reason {
+        display: none;
+        margin-top: 0.5rem;
+    }
+    
+    .rejection-reason textarea {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-family: inherit;
+        font-size: 0.9rem;
+    }
+    
+    .notification-badge {
+        display: inline-block;
+        background: #ff5722;
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin-left: 0.5rem;
+    }
+</style>
+
+<div id="approval-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>
+                <i class="fas fa-check-circle"></i> {% trans "Pending Complaints Approval" %}
+                <span class="notification-badge" id="pending-count">0</span>
+            </h2>
+            <button class="close-btn" onclick="closeApprovalModal()">&times;</button>
+        </div>
+        
+        <div class="modal-body">
+            <div id="complaints-list">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>{% trans "Loading pending complaints..." %}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function loadPendingComplaints() {
+        const complaintsList = document.getElementById('complaints-list');
+        complaintsList.innerHTML = '<div class="loading"><div class="spinner"></div><p>{% trans "Loading pending complaints..." %}</p></div>';
+        
+        fetch('{% url "pending_complaints_api" %}')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('pending-count').textContent = data.pending_count;
+                
+                if (data.pending_count === 0) {
+                    complaintsList.innerHTML = '<div class="empty-state"><div class="empty-icon"><i class="fas fa-check"></i></div><p>{% trans "No pending complaints for approval" %}</p></div>';
+                    return;
+                }
+                
+                let html = '';
+                data.complaints.forEach(complaint => {
+                    html += `
+                        <div class="complaint-item pending" id="complaint-${complaint.case_number}">
+                            <div class="complaint-header">
+                                <div>
+                                    <div class="complaint-title">${complaint.title}</div>
+                                    <div class="complaint-case">Case: ${complaint.case_number}</div>
+                                </div>
+                            </div>
+                            
+                            <div class="complaint-meta">
+                                <div class="meta-item">
+                                    <i class="fas fa-user meta-icon"></i>
+                                    <span>${complaint.complainant}</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-tag meta-icon"></i>
+                                    <span>${complaint.category}</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-calendar meta-icon"></i>
+                                    <span>${complaint.created_at}</span>
+                                </div>
+                            </div>
+                            
+                            <div class="complaint-description">
+                                ${complaint.description}
+                            </div>
+                            
+                            <div class="complaint-actions">
+                                <button class="btn-approve" onclick="approveComplaint('${complaint.case_number}')">
+                                    <i class="fas fa-check"></i> {% trans "Approve" %}
+                                </button>
+                                <button class="btn-reject" onclick="showRejectionReason('${complaint.case_number}')">
+                                    <i class="fas fa-times"></i> {% trans "Reject" %}
+                                </button>
+                            </div>
+                            
+                            <div class="rejection-reason" id="reason-${complaint.case_number}">
+                                <textarea placeholder="{% trans 'Enter reason for rejection...' %}" id="text-${complaint.case_number}"></textarea>
+                                <div class="complaint-actions" style="margin-top: 0.5rem;">
+                                    <button class="btn-reject" onclick="rejectComplaint('${complaint.case_number}')">
+                                        {% trans "Confirm Rejection" %}
+                                    </button>
+                                    <button style="flex: 1; background: #999; color: white; padding: 0.75rem; border: none; border-radius: 4px; cursor: pointer;" onclick="hideRejectionReason('${complaint.case_number}')">
+                                        {% trans "Cancel" %}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                complaintsList.innerHTML = html;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                complaintsList.innerHTML = '<div class="empty-state"><p>{% trans "Error loading complaints" %}</p></div>';
+            });
+    }
+    
+    function approveComplaint(caseNumber) {
+        if (!confirm(`{% trans "Are you sure you want to approve this complaint?" %}`)) return;
+        
+        const formData = new FormData();
+        formData.append('csrfmiddlewaretoken', document.querySelector('[name=csrfmiddlewaretoken]').value);
+        
+        // Get current language from page URL
+        const currentLang = window.location.pathname.split('/')[1] || 'en';
+        
+        fetch(`/${currentLang}/complaints/${caseNumber}/approve/`, {
+            method: 'POST',
+            body: formData,
+            credentials: 'include'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const element = document.getElementById(`complaint-${caseNumber}`);
+                element.classList.remove('pending');
+                element.classList.add('approved');
+                element.querySelector('.complaint-actions').remove();
+                element.insertAdjacentHTML('beforeend', '<div style="color: #27ae60; font-weight: 600; margin-top: 1rem;"><i class="fas fa-check"></i> {% trans "Approved" %}</div>');
+                
+                setTimeout(() => {
+                    element.style.opacity = '0.6';
+                }, 2000);
+                
+                alert(`{% trans "Complaint approved successfully" %}`);
+                loadPendingComplaints();
+            } else {
+                alert(`Error: ${data.message}`);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert(`{% trans "Error approving complaint" %}`);
+        });
+    }
+    
+    function rejectComplaint(caseNumber) {
+        const reason = document.getElementById(`text-${caseNumber}`).value;
+        if (!reason.trim()) {
+            alert(`{% trans "Please enter a reason for rejection" %}`);
+            return;
+        }
+        
+        if (!confirm(`{% trans "Are you sure you want to reject this complaint?" %}`)) return;
+        
+        const formData = new FormData();
+        formData.append('csrfmiddlewaretoken', document.querySelector('[name=csrfmiddlewaretoken]').value);
+        formData.append('reason', reason);
+        
+        // Get current language from page URL
+        const currentLang = window.location.pathname.split('/')[1] || 'en';
+        
+        fetch(`/${currentLang}/complaints/${caseNumber}/reject/`, {
+            method: 'POST',
+            body: formData,
+            credentials: 'include'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const element = document.getElementById(`complaint-${caseNumber}`);
+                element.classList.remove('pending');
+                element.classList.add('rejected');
+                element.querySelector('.complaint-actions')?.remove();
+                element.querySelector('.rejection-reason')?.remove();
+                element.insertAdjacentHTML('beforeend', '<div style="color: #f44336; font-weight: 600; margin-top: 1rem;"><i class="fas fa-times"></i> {% trans "Rejected" %}</div>');
+                
+                setTimeout(() => {
+                    element.style.opacity = '0.6';
+                }, 2000);
+                
+                alert(`{% trans "Complaint rejected successfully" %}`);
+                loadPendingComplaints();
+            } else {
+                alert(`Error: ${data.message}`);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert(`{% trans "Error rejecting complaint" %}`);
+        });
+    }
+    
+    function showRejectionReason(caseNumber) {
+        document.getElementById(`reason-${caseNumber}`).style.display = 'block';
+    }
+    
+    function hideRejectionReason(caseNumber) {
+        document.getElementById(`reason-${caseNumber}`).style.display = 'none';
+        document.getElementById(`text-${caseNumber}`).value = '';
+    }
+    
+    function closeApprovalModal() {
+        document.getElementById('approval-modal').classList.remove('show');
+    }
+    
+    function openApprovalModal() {
+        document.getElementById('approval-modal').classList.add('show');
+        loadPendingComplaints();
+    }
+    
+    // Close modal when clicking outside
+    window.addEventListener('click', function(event) {
+        const modal = document.getElementById('approval-modal');
+        if (event.target === modal) {
+            closeApprovalModal();
+        }
+    });
+    
+    // Load on page load if admin
+    document.addEventListener('DOMContentLoaded', function() {
+        // Only show if this is the admin dashboard
+        {% if request.user.role == 'admin' %}
+            // Check periodically for new complaints
+            function checkPendingComplaints() {
+                fetch('{% url "pending_complaints_api" %}')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.pending_count > 0) {
+                            // Show notification badge or auto-open modal
+                            const modal = document.getElementById('approval-modal');
+                            if (modal && !modal.classList.contains('show')) {
+                                // Could auto-open, but for now just have it available via click
+                            }
+                        }
+                    });
+            }
+            
+            // Check every 30 seconds
+            setInterval(checkPendingComplaints, 30000);
+        {% endif %}
+    });
+</script>

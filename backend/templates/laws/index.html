@@ -1,0 +1,253 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Cyber Crime Laws & Legal Information" %} - {% trans "Indian Cyber Crime Portal" %}{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Page Header -->
+    <div class="mb-8">
+        <h1 style="font-size: 2.5rem; font-weight: 700; color: var(--primary-blue); display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+            <i class="fas fa-book"></i> {% trans "Indian Cyber Crime Laws & Legal Information" %}
+        </h1>
+        <p style="color: #333333; font-size: 1.05rem;">{% trans "Comprehensive guide to laws protecting you against cyber crimes" %}</p>
+    </div>
+
+    <!-- Introduction Card -->
+    <div style="background: linear-gradient(135deg, var(--primary-blue), #0066cc); color: white; border-radius: 0.75rem; padding: 2rem; margin-bottom: 2rem;">
+        <h2 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem;">
+            <i class="fas fa-shield-alt"></i> {% trans "Know Your Legal Rights" %}
+        </h2>
+        <p style="line-height: 1.7; margin: 0;">
+            {% trans "India has comprehensive laws to protect citizens from cyber crimes. This guide explains the key legal sections under the Information Technology Act 2000, Indian Penal Code, and other relevant statutes. Understanding these laws empowers you to recognize violations and take appropriate legal action." %}
+        </p>
+    </div>
+
+    <!-- Search/Filter -->
+    <div style="background: white; border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+        <input type="text" id="searchLaws" placeholder="{% trans "Search laws by keyword..." %}" 
+               style="width: 100%; padding: 0.75rem 1rem; border: 1px solid #ddd; border-radius: 0.5rem; font-size: 1rem;">
+    </div>
+
+    <!-- Laws Grid -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
+        {% for category, law_info in laws.items %}
+        <a href="{% url 'laws:law_detail' category %}" style="text-decoration: none; transition: all 0.3s ease;">
+            <div class="law-card" style="background: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); height: 100%; border-top: 4px solid var(--primary-blue); hover:box-shadow: 0 4px 12px rgba(0,0,0,0.15); cursor: pointer;">
+                <div style="display: flex; align-items: start; gap: 1rem; margin-bottom: 1rem;">
+                    <div style="background: var(--primary-blue); color: white; width: 3rem; height: 3rem; display: flex; align-items: center; justify-content: center; border-radius: 0.5rem; font-size: 1.5rem; flex-shrink: 0;">
+                        {% if category == 'phishing' %}<i class="fas fa-fish"></i>
+                        {% elif category == 'identity_theft' %}<i class="fas fa-id-card"></i>
+                        {% elif category == 'online_fraud' %}<i class="fas fa-money-bill-wave"></i>
+                        {% elif category == 'cyberbullying' %}<i class="fas fa-comments"></i>
+                        {% elif category == 'hacking' %}<i class="fas fa-laptop"></i>
+                        {% elif category == 'ransomware' %}<i class="fas fa-lock"></i>
+                        {% elif category == 'data_breach' %}<i class="fas fa-database"></i>
+                        {% elif category == 'malware' %}<i class="fas fa-virus"></i>
+                        {% else %}<i class="fas fa-gavel"></i>
+                        {% endif %}
+                    </div>
+                    <div style="flex: 1;">
+                        <h3 style="font-size: 1.1rem; font-weight: 700; color: #222222; margin: 0 0 0.5rem 0;">{{ law_info.name }}</h3>
+                        <p style="color: #333333; font-size: 0.9rem; margin: 0;">
+                            {% if law_info.relevant_laws %}
+                                {{ law_info.relevant_laws|length }} {% trans "law(s) apply" %}
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+                <p style="color: #333333; font-size: 0.95rem; line-height: 1.5; margin: 1rem 0; flex-grow: 1;">
+                    {{ law_info.description }}
+                </p>
+                <div style="display: flex; align-items: center; gap: 0.5rem; color: #0052cc; font-weight: 600;">
+                    {% trans "Learn More" %} <i class="fas fa-arrow-right"></i>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+
+    <!-- Key Acts Section -->
+    <div style="background: white; border-radius: 0.75rem; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+        <h2 style="font-size: 1.5rem; font-weight: 700; color: var(--primary-blue); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem;">
+            <i class="fas fa-scroll"></i> {% trans "Key Legal Acts in India" %}
+        </h2>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+            <!-- Information Technology Act -->
+            <div style="border-left: 4px solid var(--primary-blue); padding: 1.5rem; background: #f8f9fa; border-radius: 0.5rem;">
+                <h3 style="font-size: 1.1rem; font-weight: 700; color: #222222; margin-bottom: 0.75rem;">
+                    {% trans "Information Technology Act, 2000" %}
+                </h3>
+                <p style="color: #333333; font-size: 0.9rem; line-height: 1.6; margin-bottom: 1rem;">
+                    {% trans "Primary law for cyber crimes. Covers unauthorized access, hacking, phishing, identity theft, and data breaches." %}
+                </p>
+                <div style="font-size: 0.85rem; color: var(--medium-gray);">
+                    <p style="margin: 0.5rem 0;"><strong>{% trans "Key Sections:" %}</strong></p>
+                    <ul style="margin: 0.5rem 0; padding-left: 1.5rem;">
+                        <li>{% trans "Section 43 - Penalty for damage" %}</li>
+                        <li>{% trans "Section 66 - Computer offences" %}</li>
+                        <li>{% trans "Section 66A - Offensive messages" %}</li>
+                        <li>{% trans "Section 66B - Stealing data" %}</li>
+                        <li>{% trans "Section 66C - Identity theft" %}</li>
+                        <li>{% trans "Section 66D - Phishing" %}</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Indian Penal Code -->
+            <div style="border-left: 4px solid #17a2b8; padding: 1.5rem; background: #f8f9fa; border-radius: 0.5rem;">
+                <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--dark-gray); margin-bottom: 0.75rem;">
+                    {% trans "Indian Penal Code (IPC)" %}
+                </h3>
+                <p style="color: var(--medium-gray); font-size: 0.9rem; line-height: 1.6; margin-bottom: 1rem;">
+                    {% trans "Covers general crimes that also apply online: cheating, fraud, extortion, harassment, and theft." %}
+                </p>
+                <div style="font-size: 0.85rem; color: var(--medium-gray);">
+                    <p style="margin: 0.5rem 0;"><strong>{% trans "Key Sections:" %}</strong></p>
+                    <ul style="margin: 0.5rem 0; padding-left: 1.5rem;">
+                        <li>{% trans "Section 379 - Theft" %}</li>
+                        <li>{% trans "Section 406 - Criminal breach of trust" %}</li>
+                        <li>{% trans "Section 420 - Cheating" %}</li>
+                        <li>{% trans "Section 383-384 - Extortion" %}</li>
+                        <li>{% trans "Section 509 - Insult to modesty" %}</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Other Key Laws -->
+            <div style="border-left: 4px solid #28a745; padding: 1.5rem; background: #f8f9fa; border-radius: 0.5rem;">
+                <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--dark-gray); margin-bottom: 0.75rem;">
+                    {% trans "Other Important Laws" %}
+                </h3>
+                <p style="color: var(--medium-gray); font-size: 0.9rem; line-height: 1.6; margin-bottom: 1rem;">
+                    {% trans "Digital Personal Data Protection Act 2023, Aadhaar Act 2016, and various RBI guidelines." %}
+                </p>
+                <div style="font-size: 0.85rem; color: var(--medium-gray);">
+                    <p style="margin: 0.5rem 0;"><strong>{% trans "Applicable to:" %}</strong></p>
+                    <ul style="margin: 0.5rem 0; padding-left: 1.5rem;">
+                        <li>{% trans "Data privacy violations" %}</li>
+                        <li>{% trans "Aadhaar misuse" %}</li>
+                        <li>{% trans "Financial fraud" %}</li>
+                        <li>{% trans "Banking scams" %}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Punishment Guidelines -->
+    <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 2rem; border-radius: 0.75rem; margin-bottom: 2rem;">
+        <h2 style="font-size: 1.3rem; font-weight: 700; color: #856404; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem;">
+            <i class="fas fa-exclamation-triangle"></i> {% trans "Typical Punishments" %}
+        </h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+            <div>
+                <p style="font-weight: 600; color: #856404; margin-bottom: 0.25rem;">{% trans "Simple cyber crimes" %}</p>
+                <p style="color: #856404; margin: 0;">{% trans "Up to 3 years imprisonment & ₹5 lakh fine" %}</p>
+            </div>
+            <div>
+                <p style="font-weight: 600; color: #856404; margin-bottom: 0.25rem;">{% trans "Serious fraud/cheating" %}</p>
+                <p style="color: #856404; margin: 0;">{% trans "Up to 7 years imprisonment & ₹10 lakh fine" %}</p>
+            </div>
+            <div>
+                <p style="font-weight: 600; color: #856404; margin-bottom: 0.25rem;">{% trans "Damage awards" %}</p>
+                <p style="color: #856404; margin: 0;">{% trans "Compensation up to ₹1 crore" %}</p>
+            </div>
+            <div>
+                <p style="font-weight: 600; color: #856404; margin-bottom: 0.25rem;">{% trans "Data breach" %}</p>
+                <p style="color: #856404; margin: 0;">{% trans "Up to 3 years & ₹2 lakh + compensation" %}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Government Resources -->
+    <div style="background: white; border-radius: 0.75rem; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+        <h2 style="font-size: 1.5rem; font-weight: 700; color: var(--primary-blue); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem;">
+            <i class="fas fa-globe"></i> {% trans "Government Resources" %}
+        </h2>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem;">
+            <a href="https://cybercrime.gov.in" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+                <div style="background: linear-gradient(135deg, var(--primary-blue), #0066cc); color: white; padding: 1.5rem; border-radius: 0.5rem; height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.75rem;">{% trans "National Cyber Crime Portal" %}</h3>
+                        <p style="font-size: 0.95rem; line-height: 1.5;">{% trans "Official government portal to report cyber crimes in India." %}</p>
+                    </div>
+                    <p style="margin: 0; font-weight: 600;">cybercrime.gov.in ↗</p>
+                </div>
+            </a>
+
+            <a href="https://cert-in.org.in" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+                <div style="background: linear-gradient(135deg, #17a2b8, #138496); color: white; padding: 1.5rem; border-radius: 0.5rem; height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.75rem;">{% trans "CERT-In" %}</h3>
+                        <p style="font-size: 0.95rem; line-height: 1.5;">{% trans "Indian Computer Emergency Response Team for security incidents." %}</p>
+                    </div>
+                    <p style="margin: 0; font-weight: 600;">cert-in.org.in ↗</p>
+                </div>
+            </a>
+
+            <a href="https://www.rbi.org.in" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+                <div style="background: linear-gradient(135deg, #6f42c1, #5a32a3); color: white; padding: 1.5rem; border-radius: 0.5rem; height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.75rem;">{% trans "Reserve Bank of India" %}</h3>
+                        <p style="font-size: 0.95rem; line-height: 1.5;">{% trans "Banking fraud alerts and financial cyber security guidelines." %}</p>
+                    </div>
+                    <p style="margin: 0; font-weight: 600;">rbi.org.in ↗</p>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-bottom: 2rem;">
+        <a href="{% url 'new_complaint' %}" style="display: inline-flex; align-items: center; gap: 0.5rem; background: #28a745; color: white; padding: 0.75rem 1.5rem; border-radius: 0.5rem; text-decoration: none; font-weight: 600; transition: background 0.3s ease;">
+            <i class="fas fa-file-contract"></i> {% trans "File a Complaint" %}
+        </a>
+        <a href="{% url 'cyber_awareness' %}" style="display: inline-flex; align-items: center; gap: 0.5rem; background: var(--primary-blue); color: white; padding: 0.75rem 1.5rem; border-radius: 0.5rem; text-decoration: none; font-weight: 600; transition: background 0.3s ease;">
+            <i class="fas fa-info-circle"></i> {% trans "Cyber Awareness" %}
+        </a>
+        <a href="https://cybercrime.gov.in" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.5rem; background: var(--secondary-blue); color: white; padding: 0.75rem 1.5rem; border-radius: 0.5rem; text-decoration: none; font-weight: 600; transition: background 0.3s ease;">
+            <i class="fas fa-external-link-alt"></i> {% trans "Report to Government" %}
+        </a>
+    </div>
+</div>
+
+<script>
+document.getElementById('searchLaws').addEventListener('keyup', function(e) {
+    const searchTerm = e.target.value.toLowerCase();
+    const cards = document.querySelectorAll('.law-card');
+    
+    cards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        if (text.includes(searchTerm)) {
+            card.parentElement.style.display = 'block';
+        } else {
+            card.parentElement.style.display = 'none';
+        }
+    });
+});
+</script>
+
+<style>
+    .law-card {
+        transition: all 0.3s ease;
+    }
+
+    .law-card:hover {
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+        transform: translateY(-4px);
+    }
+
+    @media (max-width: 768px) {
+        h1 {
+            font-size: 1.8rem !important;
+        }
+        
+        h2 {
+            font-size: 1.2rem !important;
+        }
+    }
+</style>
+{% endblock %}

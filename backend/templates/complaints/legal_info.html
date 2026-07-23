@@ -1,0 +1,221 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Legal Information" %} - {{ complaint.case_number }}{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Page Header -->
+    <div class="mb-8">
+        <h1 style="font-size: 2.5rem; font-weight: 700; color: var(--primary-blue); display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+            <i class="fas fa-gavel"></i>{% trans "Legal Information & Applicable Laws" %}
+        </h1>
+        <p style="color: #333333; font-size: 1.05rem;">Case Number: <strong>{{ complaint.case_number }}</strong></p>
+    </div>
+
+    <!-- Success Message -->
+    <div style="background: #d4edda; border: 1px solid #c3e6cb; border-radius: 0.5rem; padding: 1.5rem; margin-bottom: 2rem; color: #155724;">
+        <div style="display: flex; align-items: start; gap: 1rem;">
+            <i class="fas fa-check-circle" style="font-size: 1.5rem; flex-shrink: 0;"></i>
+            <div>
+                <h3 style="margin: 0 0 0.5rem 0; font-weight: 600;">{% trans "Complaint Filed Successfully!" %}</h3>
+                <p style="margin: 0; line-height: 1.6;">
+                    {% trans "Your complaint has been registered with case number" %} <strong>{{ complaint.case_number }}</strong>. 
+                    {% trans "Below you will find information about the laws and legal sections that apply to your complaint category." %}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Complaint Summary Card -->
+    <div style="background: white; border-radius: 0.75rem; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border-left: 4px solid var(--primary-blue);">
+        <h2 style="font-size: 1.3rem; font-weight: 700; color: var(--primary-blue); margin-bottom: 1.5rem;">
+            <i class="fas fa-info-circle"></i> {% trans "Your Complaint Summary" %}
+        </h2>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+            <div>
+                <p style="color: var(--medium-gray); font-size: 0.9rem; margin-bottom: 0.25rem;">{% trans "Complaint Title" %}</p>
+                <p style="font-weight: 600; color: var(--dark-gray);">{{ complaint.title }}</p>
+            </div>
+            <div>
+                <p style="color: var(--medium-gray); font-size: 0.9rem; margin-bottom: 0.25rem;">{% trans "Category" %}</p>
+                <p style="font-weight: 600; color: var(--dark-gray); display: inline-block; background: #e3f2fd; color: var(--primary-blue); padding: 0.5rem 1rem; border-radius: 0.25rem;">
+                    {% for choice_value, choice_label in categories %}
+                        {% if choice_value == complaint.category %}
+                            {{ choice_label }}
+                        {% endif %}
+                    {% endfor %}
+                </p>
+            </div>
+            <div>
+                <p style="color: var(--medium-gray); font-size: 0.9rem; margin-bottom: 0.25rem;">{% trans "Filing Date" %}</p>
+                <p style="font-weight: 600; color: var(--dark-gray);">{{ complaint.created_at|date:"d M Y, H:i" }}</p>
+            </div>
+            <div>
+                <p style="color: var(--medium-gray); font-size: 0.9rem; margin-bottom: 0.25rem;">{% trans "Status" %}</p>
+                <p style="font-weight: 600;">
+                    {% if complaint.status == 'pending' %}
+                        <span style="background: #fff3cd; color: #856404; padding: 0.5rem 1rem; border-radius: 0.25rem;">{% trans "Pending" %}</span>
+                    {% elif complaint.status == 'approved' %}
+                        <span style="background: #d1ecf1; color: #0c5460; padding: 0.5rem 1rem; border-radius: 0.25rem;">{% trans "Approved" %}</span>
+                    {% elif complaint.status == 'assigned' %}
+                        <span style="background: #cfe2ff; color: #084298; padding: 0.5rem 1rem; border-radius: 0.25rem;">{% trans "Assigned" %}</span>
+                    {% elif complaint.status == 'in_progress' %}
+                        <span style="background: #cfe2ff; color: #084298; padding: 0.5rem 1rem; border-radius: 0.25rem;">{% trans "In Progress" %}</span>
+                    {% elif complaint.status == 'near_to_close' %}
+                        <span style="background: #d1e7dd; color: #0f5132; padding: 0.5rem 1rem; border-radius: 0.25rem;">{% trans "Near Closure" %}</span>
+                    {% elif complaint.status == 'closed' %}
+                        <span style="background: #d1e7dd; color: #0f5132; padding: 0.5rem 1rem; border-radius: 0.25rem;">{% trans "Closed" %}</span>
+                    {% else %}
+                        <span style="background: #f8d7da; color: #842029; padding: 0.5rem 1rem; border-radius: 0.25rem;">{{ complaint.get_status_display }}</span>
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Applicable Laws Section -->
+    <div style="background: white; border-radius: 0.75rem; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+        <h2 style="font-size: 1.5rem; font-weight: 700; color: var(--primary-blue); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.75rem;">
+            <i class="fas fa-book"></i> {% trans "Applicable Laws and Legal Sections" %}
+        </h2>
+        <p style="color: var(--medium-gray); margin-bottom: 2rem;">
+            {% trans "For complaints related to" %} <strong>"{{ legal_info.name }}"</strong>, {% trans "the following laws and sections apply:" %}
+        </p>
+
+        {% for law in legal_info.relevant_laws %}
+        <div style="background: #f8f9fa; border-left: 4px solid var(--primary-blue); padding: 1.5rem; margin-bottom: 1.5rem; border-radius: 0.5rem;">
+            <h3 style="font-size: 1.2rem; font-weight: 700; color: var(--dark-gray); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i class="fas fa-file-contract"></i> {{ law.law_name }}
+            </h3>
+            
+            {% if law.sections %}
+            <div style="margin-bottom: 1rem;">
+                <p style="color: var(--medium-gray); font-size: 0.9rem; margin-bottom: 0.5rem;">{% trans "Relevant Sections:" %}</p>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                    {% for section in law.sections %}
+                        <span style="background: var(--primary-blue); color: white; padding: 0.5rem 1rem; border-radius: 0.25rem; font-weight: 600;">
+                            {{ section }}
+                        </span>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Section Details -->
+            {% for key, details in law.details.items %}
+            <div style="background: white; padding: 1rem; margin: 1rem 0; border-radius: 0.5rem; border: 1px solid #e0e0e0;">
+                <h4 style="font-size: 1.05rem; font-weight: 700; color: var(--primary-blue); margin-bottom: 0.5rem;">
+                    {{ details.title }}
+                </h4>
+                <div style="margin-bottom: 0.75rem;">
+                    <p style="color: var(--medium-gray); font-size: 0.9rem; margin-bottom: 0.25rem;">{% trans "Punishment" %}:</p>
+                    <p style="color: #c41c3b; font-weight: 600;">{{ details.punishment }}</p>
+                </div>
+                <div>
+                    <p style="color: var(--medium-gray); font-size: 0.9rem; margin-bottom: 0.25rem;">{% trans "Description" %}:</p>
+                    <p style="color: var(--dark-gray); line-height: 1.6;">{{ details.description }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Government Resources Section -->
+    <!-- All URLs are normalized and properly percent-encoded for safe display -->
+    {% if legal_info.govt_resources %}
+    <div style="background: white; border-radius: 0.75rem; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+        <h2 style="font-size: 1.5rem; font-weight: 700; color: var(--primary-blue); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem;">
+            <i class="fas fa-globe"></i> {% trans "Government Resources & Links" %}
+        </h2>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem;">
+            {% for resource in legal_info.govt_resources %}
+            <div style="background: linear-gradient(135deg, var(--primary-blue), #0066cc); color: white; padding: 1.5rem; border-radius: 0.5rem; display: flex; flex-direction: column; justify-content: space-between;">
+                <div style="margin-bottom: 1rem;">
+                    <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem;">
+                        <i class="fas fa-external-link-alt"></i> {{ resource.name }}
+                    </h3>
+                    <p style="font-size: 0.95rem; line-height: 1.5;">{{ resource.description }}</p>
+                </div>
+                <!-- URL is normalized and percent-encoded, Django auto-escaping handles safe HTML rendering -->
+                <a href="{{ resource.url }}" target="_blank" rel="noopener noreferrer" style="display: inline-block; background: rgba(255,255,255,0.2); color: white; padding: 0.75rem 1.5rem; border-radius: 0.25rem; text-decoration: none; font-weight: 600; border: 1px solid rgba(255,255,255,0.3); transition: all 0.3s ease;">
+                    {% trans "Visit Portal" %} <i class="fas fa-arrow-right" style="margin-left: 0.5rem;"></i>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- What to Do Next Section -->
+    <div style="background: #e8f4f8; border-left: 4px solid #17a2b8; padding: 2rem; border-radius: 0.75rem; margin-bottom: 2rem;">
+        <h2 style="font-size: 1.3rem; font-weight: 700; color: #17a2b8; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem;">
+            <i class="fas fa-arrow-right"></i> {% trans "What to Do Next" %}
+        </h2>
+        <ol style="color: var(--dark-gray); line-height: 1.8; margin: 0; padding-left: 1.5rem;">
+            <li style="margin-bottom: 0.75rem;">
+                <strong>{% trans "Keep Your Case Number Safe" %}:</strong> {{ complaint.case_number }} {% trans "is your unique reference number. Use it to track your complaint." %}
+            </li>
+            <li style="margin-bottom: 0.75rem;">
+                <strong>{% trans "Report to Police (if financial loss)" %}:</strong> {% trans "File an FIR at the nearest police station with your complaint details and case number." %}
+            </li>
+            <li style="margin-bottom: 0.75rem;">
+                <strong>{% trans "Gather Evidence" %}:</strong> {% trans "Collect screenshots, emails, transaction receipts, and other supporting documents mentioned in your complaint." %}
+            </li>
+            <li style="margin-bottom: 0.75rem;">
+                <strong>{% trans "Monitor Your Case" %}:</strong> {% trans "Use your dashboard to track the progress of your complaint." %}
+            </li>
+            <li>
+                <strong>{% trans "Know Your Rights" %}:</strong> {% trans "As a victim, you have rights under the applicable laws. Consult a legal professional if needed." %}
+            </li>
+        </ol>
+    </div>
+
+    <!-- Action Buttons -->
+    <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-bottom: 2rem;">
+        <a href="{% url 'complaint_detail' complaint.case_number %}" style="display: inline-flex; align-items: center; gap: 0.5rem; background: var(--primary-blue); color: white; padding: 0.75rem 1.5rem; border-radius: 0.5rem; text-decoration: none; font-weight: 600; transition: background 0.3s ease;">
+            <i class="fas fa-arrow-left"></i> {% trans "View Complaint Details" %}
+        </a>
+        <a href="{% url 'complaints_list' %}" style="display: inline-flex; align-items: center; gap: 0.5rem; background: var(--secondary-blue); color: white; padding: 0.75rem 1.5rem; border-radius: 0.5rem; text-decoration: none; font-weight: 600; transition: background 0.3s ease;">
+            <i class="fas fa-list"></i> {% trans "View All Complaints" %}
+        </a>
+        <a href="https://cybercrime.gov.in" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.5rem; background: #28a745; color: white; padding: 0.75rem 1.5rem; border-radius: 0.5rem; text-decoration: none; font-weight: 600; transition: background 0.3s ease;">
+            <i class="fas fa-globe"></i> {% trans "Report on Cybercrime.gov.in" %}
+        </a>
+    </div>
+
+    <!-- Important Notice -->
+    <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 1.5rem; border-radius: 0.75rem;">
+        <p style="color: #856404; margin: 0; line-height: 1.6;">
+            <i class="fas fa-exclamation-triangle"></i> <strong>{% trans "Important Notice:" %}</strong> 
+            {% trans "This information is for educational purposes. For specific legal advice, please consult with a qualified lawyer. The information provided is based on Indian laws as of the date of filing." %}
+        </p>
+    </div>
+</div>
+
+<style>
+    a[href*="cybercrime.gov.in"]:hover,
+    a[href*="complaint_detail"]:hover,
+    a[href*="complaints_list"]:hover {
+        opacity: 0.9;
+        transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+        h1 {
+            font-size: 1.8rem !important;
+        }
+        
+        h2 {
+            font-size: 1.2rem !important;
+        }
+
+        div[style*="grid"] {
+            grid-template-columns: 1fr !important;
+        }
+    }
+</style>
+{% endblock %}

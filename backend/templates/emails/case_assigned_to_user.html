@@ -1,0 +1,111 @@
+{% autoescape off %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Your Case Has Been Assigned</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            background-color: white;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px 8px 0 0;
+            text-align: center;
+        }
+        .case-info {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-left: 4px solid #4bcffa;
+            margin: 15px 0;
+        }
+        .officer-info {
+            background-color: #e8f5e9;
+            padding: 15px;
+            border-left: 4px solid #66bb6a;
+            margin: 15px 0;
+        }
+        .button {
+            display: inline-block;
+            background-color: #667eea;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .footer {
+            background-color: #f5f5f5;
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid #e9ecef;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>✓ Your Case Has Been Assigned</h1>
+        </div>
+        <div class="content" style="padding: 20px 0;">
+            <p>Hi {{ user_name }},</p>
+            
+            <p>Good news! Your complaint has been assigned to an investigating officer.</p>
+            
+            <div class="case-info">
+                <strong>Case Number:</strong> {{ complaint_id }}<br>
+                <strong>Title:</strong> {{ complaint_title }}<br>
+                <strong>Status:</strong> Assigned for Investigation
+            </div>
+            
+            <div class="officer-info">
+                <strong>Assigned To:</strong> {{ officer_name }}<br>
+                <p style="margin: 10px 0 0 0; font-size: 13px; color: #555;">
+                    Your case is now being investigated by the assigned officer. You will receive updates on the progress of your case.
+                </p>
+            </div>
+            
+            <p>You can log in to your account to:</p>
+            <ul>
+                <li>View the current status of your case</li>
+                <li>Receive updates from the investigating officer</li>
+                <li>View any additional evidence or remarks added to your case</li>
+            </ul>
+            
+            <p style="text-align: center;">
+                <a href="http://127.0.0.1:8000/complaints/{{ complaint_id }}" class="button">View Your Case</a>
+            </p>
+            
+            <p style="color: #666; font-size: 13px; margin-top: 20px;">
+                If you have any urgent matters related to your case, please log in to your account to add remarks or contact the investigating officer directly through the system.
+            </p>
+        </div>
+        
+        <div class="footer">
+            <p style="margin: 0;">
+                Cyber Crime Investigation System<br>
+                This is an automated message. Please do not reply to this email.
+            </p>
+            <p style="margin: 10px 0 0 0; color: #999;">
+                &copy; 2024 Cyber Crime Investigation System. All rights reserved.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
+{% endautoescape %}

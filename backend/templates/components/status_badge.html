@@ -1,0 +1,43 @@
+{% load i18n %}
+
+{% comment %}
+Status badge component
+Usage: {% include "components/status_badge.html" with status=complaint.status %}
+{% endcomment %}
+
+{% if status == 'pending' %}
+    <span class="badge-status badge-pending">
+        <i class="fas fa-hourglass-half"></i>
+        {% trans "Pending" %}
+    </span>
+{% elif status == 'assigned' %}
+    <span class="badge-status badge-assigned">
+        <i class="fas fa-check-square"></i>
+        {% trans "Assigned" %}
+    </span>
+{% elif status == 'in_progress' %}
+    <span class="badge-status badge-in-progress">
+        <i class="fas fa-spinner"></i>
+        {% trans "In Progress" %}
+    </span>
+{% elif status == 'investigating' %}
+    <span class="badge-status badge-investigating">
+        <i class="fas fa-magnifying-glass"></i>
+        {% trans "Investigating" %}
+    </span>
+{% elif status == 'resolved' %}
+    <span class="badge-status badge-resolved">
+        <i class="fas fa-check-circle"></i>
+        {% trans "Resolved" %}
+    </span>
+{% elif status == 'closed' %}
+    <span class="badge-status badge-closed">
+        <i class="fas fa-lock"></i>
+        {% trans "Closed" %}
+    </span>
+{% else %}
+    <span class="badge-status" style="background: #f0f0f0; color: #666;">
+        <i class="fas fa-question-circle"></i>
+        {{ status|upper }}
+    </span>
+{% endif %}

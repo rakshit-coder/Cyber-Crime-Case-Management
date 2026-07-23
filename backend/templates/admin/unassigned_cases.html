@@ -1,0 +1,342 @@
+{% extends "base.html" %}
+
+{% block title %}Unassigned Cases - Cyber Crime System{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-8">
+        <div>
+            <h1 class="text-4xl font-bold text-slate-900 flex items-center gap-2">
+                <i class="fas fa-tasks text-orange-600"></i>
+                Unassigned Cases
+            </h1>
+            <p class="text-slate-600 mt-2">Assign pending cases to investigation officers</p>
+        </div>
+        <a href="{% url 'admin_dashboard' %}" class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-semibold">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
+
+    <!-- Stats Row -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <div class="bg-white rounded-lg shadow-md border border-slate-100 p-6">
+            <div class="text-center">
+                <p class="text-slate-600 text-sm mb-2">Total Unassigned</p>
+                <p class="text-3xl font-bold text-orange-600">{{ total }}</p>
+            </div>
+        </div>
+        <div class="bg-white rounded-lg shadow-md border border-slate-100 p-6">
+            <div class="text-center">
+                <p class="text-slate-600 text-sm mb-2">Available Officers</p>
+                <p class="text-3xl font-bold text-blue-600">{{ officers|length }}</p>
+            </div>
+        </div>
+        <div class="bg-white rounded-lg shadow-md border border-slate-100 p-6">
+            <div class="text-center">
+                <p class="text-slate-600 text-sm mb-2">Showing Page</p>
+                <p class="text-3xl font-bold text-slate-600">{{ complaints.number }}/{{ complaints.paginator.num_pages }}</p>
+            </div>
+        </div>
+    </div>
+
+    {% if officers %}
+    <div class="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+        <p class="text-blue-800"><i class="fas fa-info-circle"></i> <strong>Quick Assign:</strong> Click the "Assign" button on any case to view available officers and their workload</p>
+    </div>
+    {% endif %}
+
+    <!-- Cases Table -->
+    <div class="bg-white rounded-lg shadow-md border border-slate-100 overflow-hidden">
+        <div class="overflow-x-auto">
+            {% if complaints %}
+            <table class="w-full">
+                <thead class="bg-slate-50 border-b border-slate-200">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Case #</th>
+                        <th class="px-6 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Title</th>
+                        <th class="px-6 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Complainant</th>
+                        <th class="px-6 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Priority</th>
+                        <th class="px-6 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Category</th>
+                        <th class="px-6 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Date Filed</th>
+                        <th class="px-6 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Action</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-200">
+                    {% for complaint in complaints %}
+                    <tr class="hover:bg-slate-50 transition-colors">
+                        <td class="px-6 py-4 font-semibold text-slate-900">
+                            <a href="{% url 'complaint_detail' complaint.case_number %}" class="text-blue-600 hover:text-blue-700">
+                                {{ complaint.case_number }}
+                            </a>
+                        </td>
+                        <td class="px-6 py-4 text-slate-700">{{ complaint.title }}</td>
+                        <td class="px-6 py-4 text-slate-700">{{ complaint.complainant.get_full_name }}</td>
+                        <td class="px-6 py-4">
+                            {% if complaint.priority == 'critical' %}
+                                <span class="inline-block bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-medium">
+                                    <i class="fas fa-exclamation-triangle"></i> Critical
+                                </span>
+                            {% elif complaint.priority == 'high' %}
+                                <span class="inline-block bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm font-medium">
+                                    <i class="fas fa-arrow-up"></i> High
+                                </span>
+                            {% elif complaint.priority == 'medium' %}
+                                <span class="inline-block bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-medium">
+                                    <i class="fas fa-minus"></i> Medium
+                                </span>
+                            {% else %}
+                                <span class="inline-block bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
+                                    <i class="fas fa-arrow-down"></i> Low
+                                </span>
+                            {% endif %}
+                        </td>
+                        <td class="px-6 py-4 text-slate-700">{{ complaint.get_category_display }}</td>
+                        <td class="px-6 py-4 text-slate-700">{{ complaint.created_at|date:"M d, Y" }}</td>
+                        <td class="px-6 py-4">
+                            {% if officers %}
+                            <button class="assign-btn px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition text-sm font-medium" data-case="{{ complaint.case_number }}" data-title="{{ complaint.title }}">
+                                <i class="fas fa-user-tie mr-2"></i>Assign
+                            </button>
+                            {% else %}
+                            <span class="text-slate-400 text-sm">No officers</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- Pagination -->
+            {% if complaints.has_other_pages %}
+            <div class="flex justify-center items-center gap-4 px-6 py-4 border-t border-slate-200 bg-slate-50">
+                {% if complaints.has_previous %}
+                <a href="?page=1" class="px-3 py-2 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-100">First</a>
+                <a href="?page={{ complaints.previous_page_number }}" class="px-3 py-2 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-100">Previous</a>
+                {% endif %}
+
+                <span class="text-slate-700">Page {{ complaints.number }} of {{ complaints.paginator.num_pages }}</span>
+
+                {% if complaints.has_next %}
+                <a href="?page={{ complaints.next_page_number }}" class="px-3 py-2 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-100">Next</a>
+                <a href="?page={{ complaints.paginator.num_pages }}" class="px-3 py-2 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-100">Last</a>
+                {% endif %}
+            </div>
+            {% endif %}
+            {% else %}
+            <div class="p-12 text-center">
+                <i class="fas fa-check-circle text-4xl text-green-400 mb-4 block"></i>
+                <h3 class="text-xl font-semibold text-slate-900 mb-2">No Unassigned Cases</h3>
+                <p class="text-slate-600">All pending cases have been assigned to officers.</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+// Wait for DOM to be fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // Create modal HTML
+    const modalHTML = `
+        <div id="assignmentModal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); display: none; z-index: 1000; align-items: center; justify-content: center;">
+            <div style="background: white; border-radius: 12px; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; box-shadow: 0 20px 25px rgba(0, 0, 0, 0.15);">
+                <div style="padding: 24px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(to right, #0052cc, #0052cc);">
+                    <h2 style="margin: 0; color: white; font-size: 1.5rem; font-weight: bold;">
+                        <i class="fas fa-user-tie mr-2"></i>Assign Officer
+                    </h2>
+                    <button id="closeModal" style="background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; padding: 0; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;">×</button>
+                </div>
+                
+                <div style="padding: 24px;">
+                    <div id="caseInfo" style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 16px; margin-bottom: 24px;">
+                        <p style="margin: 0; color: #64748b; font-size: 0.875rem; font-weight: 600;">CASE DETAILS</p>
+                        <p id="caseTitle" style="margin: 8px 0 0 0; font-weight: 600; font-size: 1.1rem; color: #1e293b;"></p>
+                        <p id="caseNumber" style="margin: 4px 0 0 0; color: #64748b; font-family: monospace; font-size: 0.9rem;"></p>
+                    </div>
+
+                    <p style="font-size: 0.875rem; font-weight: 600; color: #475569; margin: 0 0 12px 0; text-transform: uppercase;">SELECT OFFICER</p>
+                    <div id="officersList" style="display: grid; gap: 12px;"></div>
+                </div>
+
+                <div style="padding: 16px; border-top: 1px solid #e2e8f0; text-align: right; background: #f8fafc;">
+                    <button id="cancelBtn" style="padding: 10px 20px; border: 1px solid #cbd5e1; background: white; color: #475569; border-radius: 6px; cursor: pointer; font-weight: 500; margin-right: 8px;">Cancel</button>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Insert modal into DOM
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+    const modal = document.getElementById('assignmentModal');
+    
+    // Get CSRF token
+    function getCsrfToken() {
+        return document.querySelector('[name=csrfmiddlewaretoken]')?.value || '';
+    }
+    
+    // Officer data from template
+    const officersData = [
+        {% for officer in officers %}
+        { id: {{ officer.id }}, name: "{{ officer.get_full_name }}", badge: "{{ officer.badge_number|default:'N/A' }}", email: "{{ officer.email }}" }{% if not forloop.last %},{% endif %}
+        {% endfor %}
+    ];
+    
+    // Attach click handlers to all assign buttons
+    const assignButtons = document.querySelectorAll('.assign-btn');
+    console.log('Found assign buttons:', assignButtons.length);
+    
+    assignButtons.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const caseNumber = this.getAttribute('data-case');
+            const caseTitle = this.getAttribute('data-title');
+            
+            console.log('Opening modal for case:', caseNumber);
+            
+            // Update case info
+            document.getElementById('caseTitle').textContent = caseTitle;
+            document.getElementById('caseNumber').textContent = 'Case #: ' + caseNumber;
+            
+            // Generate officer cards
+            const officersList = document.getElementById('officersList');
+            officersList.innerHTML = '';
+            
+            officersData.forEach(officer => {
+                const card = document.createElement('div');
+                card.style.cssText = `
+                    border: 2px solid #e2e8f0;
+                    border-radius: 8px;
+                    padding: 16px;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    background: white;
+                `;
+                card.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <div style="flex: 1;">
+                            <div style="font-weight: 600; color: #1e293b; font-size: 1.05rem;">${officer.name}</div>
+                            <div style="font-size: 0.875rem; color: #64748b; margin: 4px 0;">
+                                <i class="fas fa-id-card" style="margin-right: 6px;"></i>Badge: ${officer.badge}
+                            </div>
+                            <div style="font-size: 0.875rem; color: #64748b;">
+                                <i class="fas fa-envelope" style="margin-right: 6px;"></i>${officer.email}
+                            </div>
+                        </div>
+                        <div style="text-align: right; font-size: 2rem; opacity: 0.15; color: #0052cc;">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                    </div>
+                `;
+                
+                // Hover effects
+                card.addEventListener('mouseenter', function() {
+                    this.style.borderColor = '#0052cc';
+                    this.style.backgroundColor = '#f0f4ff';
+                    this.style.boxShadow = '0 4px 12px rgba(0, 82, 204, 0.15)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.borderColor = '#e2e8f0';
+                    this.style.backgroundColor = 'white';
+                    this.style.boxShadow = 'none';
+                });
+                
+                // Click to assign
+                card.addEventListener('click', async function() {
+                    try {
+                        const csrfToken = getCsrfToken();
+                        const response = await fetch('{% url "assign_case" %}', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRFToken': csrfToken,
+                            },
+                            body: JSON.stringify({
+                                case_number: caseNumber,
+                                officer_id: officer.id,
+                            })
+                        });
+                        
+                        const data = await response.json();
+                        
+                        if (data.success) {
+                            // Show success notification
+                            const successMsg = document.createElement('div');
+                            successMsg.style.cssText = `
+                                position: fixed;
+                                top: 20px;
+                                right: 20px;
+                                background: #10b981;
+                                color: white;
+                                padding: 16px 24px;
+                                border-radius: 8px;
+                                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+                                z-index: 2000;
+                                font-weight: 500;
+                            `;
+                            successMsg.innerHTML = '<i class="fas fa-check-circle mr-2"></i>' + data.message;
+                            document.body.appendChild(successMsg);
+                            
+                            // Close and reload
+                            modal.style.display = 'none';
+                            setTimeout(() => location.reload(), 1500);
+                        } else {
+                            alert('Error: ' + data.message);
+                        }
+                    } catch (error) {
+                        console.error('Assignment error:', error);
+                        alert('Error assigning case: ' + error.message);
+                    }
+                });
+                
+                officersList.appendChild(card);
+            });
+            
+            // Show modal
+            modal.style.display = 'flex';
+        });
+    });
+    
+    // Close modal handlers
+    document.getElementById('closeModal').addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+    
+    document.getElementById('cancelBtn').addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+    
+    // Click outside to close
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+    
+    // Escape key to close
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.style.display === 'flex') {
+            modal.style.display = 'none';
+        }
+    });
+});
+</script>
+
+<style>
+tr.fadeOut {
+    animation: fadeOut 0.3s ease-out forwards;
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+</style>
+{% endblock %}

@@ -1,0 +1,628 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Admin Dashboard" %} - {% trans "Indian Cyber Crime Portal" %}{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Header Section -->
+    <div class="mb-8" style="margin-bottom: 2rem;">
+        <h1 style="font-size: 2rem; font-weight: bold; color: #0052cc; display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+            <i class="fas fa-sliders-h" style="font-size: 2.5rem;"></i>
+            {% trans "Admin Dashboard" %}
+        </h1>
+        <p style="color: #666666; margin: 0;">{% trans "System Administration & User Management" %}</p>
+    </div>
+
+    <!-- Primary Statistics Cards -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+        <!-- Total Users -->
+        <div class="stat-card" style="border-left-color: #0052cc; padding: 1.5rem; background: white; border-radius: 6px; border-left: 4px solid #0052cc; box-shadow: 0 1px 3px rgba(0,0,0,0.1); position: relative; height: 130px;">
+            <div style="position: absolute; right: 1rem; top: 1rem; font-size: 1.5rem; opacity: 0.15;"><i class="fas fa-users"></i></div>
+            <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; color: #666666; margin-bottom: 0.75rem; font-weight: 600;">{% trans "Total Users" %}</div>
+            <div class="stat-value" style="color: #0052cc; font-size: 2.5rem; font-weight: 700; line-height: 1;">{{ total_users }}</div>
+        </div>
+
+        <!-- Total Officers -->
+        <div class="stat-card" style="border-left-color: #27ae60; padding: 1.5rem; background: white; border-radius: 6px; border-left: 4px solid #27ae60; box-shadow: 0 1px 3px rgba(0,0,0,0.1); position: relative; height: 130px;">
+            <div style="position: absolute; right: 1rem; top: 1rem; font-size: 1.5rem; opacity: 0.15;"><i class="fas fa-badge"></i></div>
+            <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; color: #666666; margin-bottom: 0.75rem; font-weight: 600;">{% trans "Officers" %}</div>
+            <div class="stat-value" style="color: #27ae60; font-size: 2.5rem; font-weight: 700; line-height: 1;">{{ total_officers }}</div>
+        </div>
+
+        <!-- Total Cases -->
+        <div class="stat-card" style="border-left-color: #ff9800; padding: 1.5rem; background: white; border-radius: 6px; border-left: 4px solid #ff9800; box-shadow: 0 1px 3px rgba(0,0,0,0.1); position: relative; height: 130px;">
+            <div style="position: absolute; right: 1rem; top: 1rem; font-size: 1.5rem; opacity: 0.15;"><i class="fas fa-file-alt"></i></div>
+            <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; color: #666666; margin-bottom: 0.75rem; font-weight: 600;">{% trans "Total Cases" %}</div>
+            <div class="stat-value" style="color: #ff9800; font-size: 2.5rem; font-weight: 700; line-height: 1;">{{ total_complaints }}</div>
+        </div>
+
+        <!-- Assigned Cases -->
+        <div class="stat-card" style="border-left-color: #1e90ff; padding: 1.5rem; background: white; border-radius: 6px; border-left: 4px solid #1e90ff; box-shadow: 0 1px 3px rgba(0,0,0,0.1); position: relative; height: 130px;">
+            <div style="position: absolute; right: 1rem; top: 1rem; font-size: 1.5rem; opacity: 0.15;"><i class="fas fa-check-square"></i></div>
+            <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; color: #666666; margin-bottom: 0.75rem; font-weight: 600;">{% trans "Assigned" %}</div>
+            <div class="stat-value" style="color: #1e90ff; font-size: 2.5rem; font-weight: 700; line-height: 1;">{{ assigned_count }}</div>
+        </div>
+
+        <!-- Investigating -->
+        <div class="stat-card" style="border-left-color: #9370db; padding: 1.5rem; background: white; border-radius: 6px; border-left: 4px solid #9370db; box-shadow: 0 1px 3px rgba(0,0,0,0.1); position: relative; height: 130px;">
+            <div style="position: absolute; right: 1rem; top: 1rem; font-size: 1.5rem; opacity: 0.15;"><i class="fas fa-search"></i></div>
+            <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; color: #666666; margin-bottom: 0.75rem; font-weight: 600;">{% trans "Investigating" %}</div>
+            <div class="stat-value" style="color: #9370db; font-size: 2.5rem; font-weight: 700; line-height: 1;">{{ investigating_count }}</div>
+        </div>
+
+        <!-- Pending Cases -->
+        <div class="stat-card" style="border-left-color: #ff9800; padding: 1.5rem; background: white; border-radius: 6px; border-left: 4px solid #ff9800; box-shadow: 0 1px 3px rgba(0,0,0,0.1); position: relative; height: 130px;">
+            <div style="position: absolute; right: 1rem; top: 1rem; font-size: 1.5rem; opacity: 0.15;"><i class="fas fa-hourglass-half"></i></div>
+            <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; color: #666666; margin-bottom: 0.75rem; font-weight: 600;">{% trans "Pending" %}</div>
+            <div class="stat-value" style="color: #ff9800; font-size: 2.5rem; font-weight: 700; line-height: 1;">{{ pending_count }}</div>
+        </div>
+
+        <!-- Resolved Cases -->
+        <div class="stat-card" style="border-left-color: #27ae60; padding: 1.5rem; background: white; border-radius: 6px; border-left: 4px solid #27ae60; box-shadow: 0 1px 3px rgba(0,0,0,0.1); position: relative; height: 130px;">
+            <div style="position: absolute; right: 1rem; top: 1rem; font-size: 1.5rem; opacity: 0.15;"><i class="fas fa-check-circle"></i></div>
+            <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; color: #666666; margin-bottom: 0.75rem; font-weight: 600;">{% trans "Resolved" %}</div>
+            <div class="stat-value" style="color: #27ae60; font-size: 2.5rem; font-weight: 700; line-height: 1;">{{ resolved_count }}</div>
+        </div>
+
+        <!-- Closed Cases -->
+        <div class="stat-card" style="border-left-color: #6c757d; padding: 1.5rem; background: white; border-radius: 6px; border-left: 4px solid #6c757d; box-shadow: 0 1px 3px rgba(0,0,0,0.1); position: relative; height: 130px;">
+            <div style="position: absolute; right: 1rem; top: 1rem; font-size: 1.5rem; opacity: 0.15;"><i class="fas fa-lock"></i></div>
+            <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; color: #666666; margin-bottom: 0.75rem; font-weight: 600;">{% trans "Closed" %}</div>
+            <div class="stat-value" style="color: #6c757d; font-size: 2.5rem; font-weight: 700; line-height: 1;">{{ closed_count }}</div>
+        </div>
+    </div>
+
+    <!-- Management Options Grid -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; grid-auto-rows: 1fr;">
+        <!-- Users Management -->
+        <div class="card" style="border-left: 4px solid #0052cc; padding: 1.25rem; background: white; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); display: flex; flex-direction: column;">
+            <div style="flex-grow: 1;">
+                <h3 style="font-size: 0.95rem; font-weight: 600; color: #0052cc; margin-bottom: 0.4rem; margin-top: 0; display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fas fa-users"></i> {% trans "Manage Users" %}
+                </h3>
+                <p style="color: #666666; font-size: 0.8rem; margin-bottom: 0; margin-top: 0.4rem;">{% trans "View and manage registered users" %}</p>
+            </div>
+            <a href="{% url 'manage_users' %}" class="btn btn-primary" style="width: 100%; text-align: center; margin-top: 1.2rem; padding: 0.65rem; background: #0052cc; color: white; border: none; border-radius: 4px; font-weight: 600; text-decoration: none; cursor: pointer; font-size: 0.85rem;">
+                {% trans "Manage" %} <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+        </div>
+
+        <!-- Officers Management -->
+        <div class="card" style="border-left: 4px solid #27ae60; padding: 1.25rem; background: white; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); display: flex; flex-direction: column;">
+            <div style="flex-grow: 1;">
+                <h3 style="font-size: 0.95rem; font-weight: 600; color: #27ae60; margin-bottom: 0.4rem; margin-top: 0; display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fas fa-shield-alt"></i> {% trans "Manage Officers" %}
+                </h3>
+                <p style="color: #666666; font-size: 0.8rem; margin-bottom: 0; margin-top: 0.4rem;">{% trans "Manage cybercrime investigation officers" %}</p>
+            </div>
+            <a href="{% url 'manage_officers' %}" class="btn btn-success" style="width: 100%; text-align: center; margin-top: 1.2rem; padding: 0.65rem; background: #27ae60; color: white; border: none; border-radius: 4px; font-weight: 600; text-decoration: none; cursor: pointer; font-size: 0.85rem;">
+                {% trans "Manage" %} <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+        </div>
+        
+        <!-- Complaint Approval -->
+        <div class="card" style="border-left: 4px solid #ff9800; background: #fff8f0; padding: 1.25rem; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); display: flex; flex-direction: column;">
+            <div style="flex-grow: 1;">
+                <h3 style="font-size: 0.95rem; font-weight: 600; color: #ff9800; margin-bottom: 0.4rem; margin-top: 0; display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fas fa-tasks"></i> {% trans "Pending Approvals" %}
+                </h3>
+                <p style="color: #666666; font-size: 0.8rem; margin-bottom: 0; margin-top: 0.4rem;">{% trans "Review and approve new complaints" %}</p>
+            </div>
+            <button onclick="openApprovalModal()" class="btn btn-warning" style="width: 100%; text-align: center; margin-top: 1.2rem; padding: 0.65rem; background: #ff9800; color: white; border: none; border-radius: 4px; font-weight: 600; cursor: pointer; font-size: 0.85rem;">
+                {% trans "Review" %} <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+        </div>
+
+        <!-- View All Cases -->
+        <div class="card" style="border-left: 4px solid #ff9800; padding: 1.25rem; background: white; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); display: flex; flex-direction: column;">
+            <div style="flex-grow: 1;">
+                <h3 style="font-size: 0.95rem; font-weight: 600; color: #ff9800; margin-bottom: 0.4rem; margin-top: 0; display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fas fa-folder-open"></i> {% trans "View All Cases" %}
+                </h3>
+                <p style="color: #666666; font-size: 0.8rem; margin-bottom: 0.8rem; margin-top: 0.4rem;">{% trans "Review all complaints and cases" %}</p>
+                
+                <!-- Case Statistics -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-bottom: 0.8rem; font-size: 0.8rem;">
+                    <div style="background: #f8f9fa; padding: 0.4rem; border-radius: 3px; border-left: 2px solid #ff9800; text-align: center;">
+                        <div style="font-size: 1.1rem; font-weight: 700; color: #ff9800;">{{ total_complaints }}</div>
+                        <div style="color: #999; font-size: 0.65rem; text-transform: uppercase;">{% trans "Total" %}</div>
+                    </div>
+                    <div style="background: #f8f9fa; padding: 0.4rem; border-radius: 3px; border-left: 2px solid #9370db; text-align: center;">
+                        <div style="font-size: 1.1rem; font-weight: 700; color: #9370db;">{{ investigating_count }}</div>
+                        <div style="color: #999; font-size: 0.65rem; text-transform: uppercase;">{% trans "Review" %}</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: 0.4rem;">
+                <a href="{% url 'admin_cases' %}" class="btn btn-secondary" style="flex: 1; text-align: center; padding: 0.55rem; font-size: 0.8rem; background: #0052cc; color: white; border: none; border-radius: 4px; text-decoration: none; font-weight: 600;">
+                    <i class="fas fa-eye"></i> {% trans "View All" %}
+                </a>
+                <a href="{% url 'admin_cases' %}?status=pending" class="btn btn-warning" style="flex: 1; text-align: center; padding: 0.55rem; font-size: 0.8rem; background: #ff9800; color: white; border: none; border-radius: 4px; text-decoration: none; font-weight: 600;">
+                    <i class="fas fa-hourglass-half"></i> {% trans "Pending" %}
+                </a>
+            </div>
+        </div>
+
+        <!-- Assign Cases -->
+        <div class="card" style="border-left: 4px solid #e74c3c; padding: 1.25rem; background: white; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); display: flex; flex-direction: column;">
+            <div style="flex-grow: 1;">
+                <h3 style="font-size: 0.95rem; font-weight: 600; color: #e74c3c; margin-bottom: 0.4rem; margin-top: 0; display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fas fa-tasks"></i> {% trans "Assign Cases" %}
+                </h3>
+                <p style="color: #666666; font-size: 0.8rem; margin-bottom: 0.8rem; margin-top: 0.4rem;">{% trans "Assign unassigned cases to officers" %}</p>
+                
+                <!-- Assignment Statistics -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-bottom: 0.8rem; font-size: 0.8rem;">
+                    <div style="background: #f8f9fa; padding: 0.4rem; border-radius: 3px; border-left: 2px solid #e74c3c; text-align: center;">
+                        <div style="font-size: 1.1rem; font-weight: 700; color: #e74c3c;">{{ pending_count }}</div>
+                        <div style="color: #999; font-size: 0.65rem; text-transform: uppercase;">{% trans "Unassigned" %}</div>
+                    </div>
+                    <div style="background: #f8f9fa; padding: 0.4rem; border-radius: 3px; border-left: 2px solid #1e90ff; text-align: center;">
+                        <div style="font-size: 1.1rem; font-weight: 700; color: #1e90ff;">{{ assigned_count }}</div>
+                        <div style="color: #999; font-size: 0.65rem; text-transform: uppercase;">{% trans "Assigned" %}</div>
+                    </div>
+                </div>
+            </div>
+            
+            <a href="{% url 'unassigned_cases' %}" class="btn btn-danger" style="width: 100%; text-align: center; padding: 0.65rem; background: #e74c3c; color: white; border: none; border-radius: 4px; text-decoration: none; font-weight: 600; font-size: 0.85rem;">
+                <i class="fas fa-arrow-right"></i> {% trans "Assign Now" %}
+            </a>
+        </div>
+
+        <!-- Email Settings -->
+        <div class="card" style="border-left: 4px solid #8e44ad; padding: 1.25rem; background: white; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); display: flex; flex-direction: column;">
+            <div style="flex-grow: 1;">
+                <h3 style="font-size: 0.95rem; font-weight: 600; color: #8e44ad; margin-bottom: 0.4rem; margin-top: 0; display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fas fa-envelope"></i> {% trans "Email Settings" %}
+                </h3>
+                <p style="color: #666666; font-size: 0.8rem; margin-bottom: 0; margin-top: 0.4rem;">{% trans "Configure email notifications" %}</p>
+            </div>
+            <a href="{% url 'email_settings' %}" class="btn btn-outline" style="width: 100%; text-align: center; margin-top: 1.2rem; padding: 0.65rem; color: #8e44ad; border: 2px solid #8e44ad; border-radius: 4px; font-weight: 600; text-decoration: none; cursor: pointer; background: white; font-size: 0.85rem;">
+                {% trans "Configure" %} <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Recent Complaints Table -->
+    <div class="card">
+        <div class="card-header">
+            <i class="fas fa-list mr-2"></i> {% trans "Recent Complaints" %}
+        </div>
+        <div class="overflow-x-auto">
+            {% if recent_complaints %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>{% trans "Case #" %}</th>
+                        <th>{% trans "Title" %}</th>
+                        <th>{% trans "Complainant" %}</th>
+                        <th>{% trans "Status" %}</th>
+                        <th>{% trans "Priority" %}</th>
+                        <th>{% trans "Date" %}</th>
+                        <th>{% trans "Action" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for complaint in recent_complaints %}
+                    <tr>
+                        <td style="font-weight: 600;">{{ complaint.case_number }}</td>
+                        <td>{{ complaint.title|truncatewords:3 }}</td>
+                        <td>{{ complaint.complainant.get_full_name }}</td>
+                        <td>
+                            {% if complaint.status == 'pending' %}
+                                <span class="badge badge-pending">{% trans "Pending" %}</span>
+                            {% elif complaint.status == 'approved' %}
+                                <span class="badge badge-secondary">{% trans "Approved" %}</span>
+                            {% elif complaint.status == 'assigned' %}
+                                <span class="badge badge-info">{% trans "Assigned" %}</span>
+                            {% elif complaint.status == 'in_progress' %}
+                                <span class="badge badge-in-progress">{% trans "In Progress" %}</span>
+                            {% elif complaint.status == 'near_to_close' %}
+                                <span class="badge badge-success">{% trans "Near Closure" %}</span>
+                            {% elif complaint.status == 'closed' %}
+                                <span class="badge badge-resolved">{% trans "Closed" %}</span>
+                            {% else %}
+                                <span class="badge badge-closed">{% trans "Closed" %}</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if complaint.priority == 'critical' %}
+                                <span class="badge badge-danger">{% trans "Critical" %}</span>
+                            {% elif complaint.priority == 'high' %}
+                                <span class="badge badge-warning">{% trans "High" %}</span>
+                            {% elif complaint.priority == 'medium' %}
+                                <span class="badge badge-warning">{% trans "Medium" %}</span>
+                            {% else %}
+                                <span class="badge badge-info">{% trans "Low" %}</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ complaint.created_at|date:"M d, Y" }}</td>
+                        <td>
+                            <a href="{% url 'complaint_detail' complaint.case_number %}" style="color: #0052cc; text-decoration: none; font-weight: 600;">
+                                <i class="fas fa-eye"></i> {% trans "View" %}
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <div style="padding: 3rem; text-align: center;">
+                <i class="fas fa-inbox" style="font-size: 2rem; opacity: 0.3; margin-bottom: 1rem; display: block;"></i>
+                <p style="color: #555555;">{% trans "No complaints found" %}</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Security Info Banner -->
+    <div style="margin-top: 2rem; background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 100%); border-left: 4px solid #ff9800; border-radius: 8px; padding: 1.5rem; display: flex; gap: 1rem;">
+        <div style="font-size: 1.5rem; flex-shrink: 0;">
+            <i class="fas fa-shield-alt" style="color: #ff9800;"></i>
+        </div>
+        <div>
+            <h3 style="font-weight: 600; color: #333333; margin-bottom: 0.5rem;">
+                <i class="fas fa-lock"></i> {% trans "Admin Security Notice" %}
+            </h3>
+            <p style="color: #555555; font-size: 0.9rem;">
+                {% trans "This is a restricted administrative area. All admin activities are logged, encrypted, and monitored. Unauthorized access attempts are recorded and investigated." %}
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Complaint Approval Modal -->
+<div id="approval-modal" style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); animation: fadeIn 0.3s ease-in;">
+    <div style="background-color: white; border-radius: 8px; max-width: 700px; width: 90%; max-height: 80vh; overflow-y: auto; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3); animation: slideIn 0.3s ease-in; margin: auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+        <div style="padding: 2rem; border-bottom: 1px solid #e0e0e0; display: flex; justify-content: space-between; align-items: center;">
+            <h2 style="margin: 0; color: #0052cc; font-size: 1.5rem;">
+                <i class="fas fa-check-circle"></i> {% trans "Pending Complaints Approval" %}
+                <span style="display: inline-block; background: #ff5722; color: white; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-left: 0.5rem;" id="pending-count">0</span>
+            </h2>
+            <button style="background: none; border: none; font-size: 2rem; cursor: pointer; color: #999; line-height: 1; padding: 0;" onclick="closeApprovalModal()">&times;</button>
+        </div>
+        
+        <div style="padding: 2rem;" id="complaints-list">
+            <div style="text-align: center; padding: 2rem;">
+                <div style="border: 4px solid #f3f3f3; border-top: 4px solid #0052cc; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto;"></div>
+                <p>{% trans "Loading pending complaints..." %}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    
+    @keyframes slideIn {
+        from { transform: translate(-50%, -60px); opacity: 0; }
+        to { transform: translate(-50%, -50%); opacity: 1; }
+    }
+    
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    
+    /* Better card alignment */
+    .stat-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        min-height: 120px;
+    }
+    
+    .card {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        aspect-ratio: 1 / 1;
+        overflow: hidden;
+    }
+    
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+    
+    .card-body a,
+    .card-body button {
+        margin-top: auto;
+    }
+    
+    /* Responsive grid improvements */
+    @media (max-width: 1024px) {
+        /* Tablet: Show 2 cards per row */
+        [style*="grid-template-columns: repeat(auto-fit, minmax(250px"] {
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) !important;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        /* Small tablet: Show 1-2 cards per row */
+        [style*="grid-template-columns: repeat(auto-fit, minmax(250px"] {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
+        }
+        
+        .stat-card {
+            min-height: 100px;
+            padding: 1rem;
+        }
+        
+        .card {
+            border-radius: 6px;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        /* Mobile: Show 1 card per row */
+        [style*="grid-template-columns: repeat(auto-fit"] {
+            grid-template-columns: 1fr !important;
+        }
+        
+        .stat-card {
+            min-height: 90px;
+            padding: 0.75rem;
+        }
+        
+        .card {
+            aspect-ratio: auto !important;
+            min-height: 350px;
+        }
+    }
+    }
+
+    
+    .complaint-item {
+        background: #f5f5f5;
+        border-left: 4px solid #ff9800;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+        border-radius: 4px;
+        background: #fff8e1;
+    }
+    
+    .complaint-title {
+        font-weight: 700;
+        color: #333;
+        font-size: 1.1rem;
+    }
+    
+    .complaint-case {
+        color: #666;
+        font-size: 0.9rem;
+        margin-top: 0.25rem;
+    }
+    
+    .complaint-meta {
+        display: flex;
+        gap: 1rem;
+        margin: 0.75rem 0;
+        flex-wrap: wrap;
+    }
+    
+    .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+        color: #666;
+    }
+    
+    .complaint-description {
+        color: #555;
+        font-size: 0.95rem;
+        line-height: 1.5;
+        margin: 1rem 0;
+    }
+    
+    .complaint-actions {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+    
+    .btn-approve {
+        flex: 1;
+        background: #27ae60;
+        color: white;
+        padding: 0.75rem;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 600;
+    }
+    
+    .btn-approve:hover {
+        background: #229954;
+    }
+    
+    .btn-reject {
+        flex: 1;
+        background: #f44336;
+        color: white;
+        padding: 0.75rem;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 600;
+    }
+    
+    .btn-reject:hover {
+        background: #d32f2f;
+    }
+</style>
+
+<script>
+    function loadPendingComplaints() {
+        const complaintsList = document.getElementById('complaints-list');
+        
+        fetch('{% url "pending_complaints_api" %}')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('pending-count').textContent = data.pending_count;
+                
+                if (data.pending_count === 0) {
+                    complaintsList.innerHTML = '<div style="text-align: center; padding: 2rem; color: #999;"><div style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"><i class="fas fa-check"></i></div><p>{% trans "No pending complaints for approval" %}</p></div>';
+                    return;
+                }
+                
+                let html = '';
+                data.complaints.forEach(complaint => {
+                    html += `
+                        <div class="complaint-item" id="complaint-${complaint.case_number}">
+                            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+                                <div>
+                                    <div class="complaint-title">${complaint.title}</div>
+                                    <div class="complaint-case">Case: ${complaint.case_number}</div>
+                                </div>
+                            </div>
+                            
+                            <div class="complaint-meta">
+                                <div class="meta-item">
+                                    <i class="fas fa-user" style="color: #0052cc;"></i>
+                                    <span>${complaint.complainant}</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-tag" style="color: #0052cc;"></i>
+                                    <span>${complaint.category}</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-calendar" style="color: #0052cc;"></i>
+                                    <span>${complaint.created_at}</span>
+                                </div>
+                            </div>
+                            
+                            <div class="complaint-description">
+                                ${complaint.description}
+                            </div>
+                            
+                            <div class="complaint-actions">
+                                <button class="btn-approve" onclick="approveComplaint('${complaint.case_number}')">
+                                    <i class="fas fa-check"></i> {% trans "Approve" %}
+                                </button>
+                                <button class="btn-reject" onclick="showRejectionReason('${complaint.case_number}')">
+                                    <i class="fas fa-times"></i> {% trans "Reject" %}
+                                </button>
+                            </div>
+                            
+                            <div style="display: none; margin-top: 0.5rem;" id="reason-${complaint.case_number}">
+                                <textarea placeholder="{% trans 'Enter reason for rejection...' %}" id="text-${complaint.case_number}" style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-family: inherit; font-size: 0.9rem;"></textarea>
+                                <div class="complaint-actions" style="margin-top: 0.5rem; gap: 0;">
+                                    <button class="btn-reject" onclick="rejectComplaint('${complaint.case_number}')">{% trans "Confirm" %}</button>
+                                    <button style="width: auto; flex: 0; background: #999; margin-left: 0.5rem;" class="btn-reject" onclick="hideRejectionReason('${complaint.case_number}')">{% trans "Cancel" %}</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                complaintsList.innerHTML = html;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                complaintsList.innerHTML = '<div style="text-align: center; padding: 2rem; color: #999;"><p>{% trans "Error loading complaints" %}</p></div>';
+            });
+    }
+    
+    function approveComplaint(caseNumber) {
+        if (!confirm(`{% trans "Approve this complaint?" %}`)) return;
+        
+        const formData = new FormData();
+        formData.append('csrfmiddlewaretoken', document.querySelector('[name=csrfmiddlewaretoken]').value);
+        
+        // Get current language from page URL
+        const currentLang = window.location.pathname.split('/')[1] || 'en';
+        
+        fetch(`/${currentLang}/complaints/${caseNumber}/approve/`, {
+            method: 'POST',
+            body: formData,
+            credentials: 'include'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(`{% trans "Complaint approved successfully" %}`);
+                loadPendingComplaints();
+            } else {
+                alert(`Error: ${data.message}`);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert(`{% trans "Error approving complaint" %}`);
+        });
+    }
+    
+    function rejectComplaint(caseNumber) {
+        const reason = document.getElementById(`text-${caseNumber}`).value;
+        if (!reason.trim()) {
+            alert(`{% trans "Please enter a reason for rejection" %}`);
+            return;
+        }
+        
+        if (!confirm(`{% trans "Reject this complaint?" %}`)) return;
+        
+        const formData = new FormData();
+        formData.append('csrfmiddlewaretoken', document.querySelector('[name=csrfmiddlewaretoken]').value);
+        formData.append('reason', reason);
+        
+        // Get current language from page URL
+        const currentLang = window.location.pathname.split('/')[1] || 'en';
+        
+        fetch(`/${currentLang}/complaints/${caseNumber}/reject/`, {
+            method: 'POST',
+            body: formData,
+            credentials: 'include'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(`{% trans "Complaint rejected successfully" %}`);
+                loadPendingComplaints();
+            } else {
+                alert(`Error: ${data.message}`);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert(`{% trans "Error rejecting complaint" %}`);
+        });
+    }
+    
+    function showRejectionReason(caseNumber) {
+        document.getElementById(`reason-${caseNumber}`).style.display = 'block';
+    }
+    
+    function hideRejectionReason(caseNumber) {
+        document.getElementById(`reason-${caseNumber}`).style.display = 'none';
+        document.getElementById(`text-${caseNumber}`).value = '';
+    }
+    
+    function closeApprovalModal() {
+        document.getElementById('approval-modal').style.display = 'none';
+    }
+    
+    function openApprovalModal() {
+        document.getElementById('approval-modal').style.display = 'flex';
+        document.getElementById('approval-modal').style.alignItems = 'center';
+        document.getElementById('approval-modal').style.justifyContent = 'center';
+        loadPendingComplaints();
+    }
+    
+    // Close modal when clicking outside
+    window.addEventListener('click', function(event) {
+        const modal = document.getElementById('approval-modal');
+        if (event.target === modal) {
+            closeApprovalModal();
+        }
+    });
+</script>
+
+{% endblock %}

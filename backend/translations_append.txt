@@ -1,0 +1,109 @@
+
+# Additional Awareness Page Translations
+msgid "Safe Browsing Practices"
+msgstr "सुरक्षित ब्राउजिंग प्रथाएं"
+
+msgid "Email & SMS Safety"
+msgstr "ईमेल और एसएमएस सुरक्षा"
+
+msgid "Device Security"
+msgstr "डिवाइस सुरक्षा"
+
+msgid "Financial Fraud Prevention"
+msgstr "वित्तीय धोखाधड़ी रोकथाम"
+
+msgid "Women & Child Online Safety"
+msgstr "महिला और बाल ऑनलाइन सुरक्षा"
+
+msgid "How to Report Cyber Crime"
+msgstr "साइबर अपराध की रिपोर्ट कैसे करें"
+
+msgid "Use strong passwords with minimum 12 characters including uppercase, lowercase, numbers, and special characters"
+msgstr "कम से कम 12 अक्षरों वाले मजबूत पासवर्ड का उपयोग करें जिसमें अपरकेस, लोअरकेस, संख्याएं और विशेष वर्ण हों"
+
+msgid "Enable Two-Factor Authentication (2FA) on all important accounts"
+msgstr "सभी महत्वपूर्ण खातों पर टू-फैक्टर ऑथेंटिकेशन (2FA) सक्षम करें"
+
+msgid "Use different passwords for different accounts - use a password manager"
+msgstr "विभिन्न खातों के लिए विभिन्न पासवर्ड का उपयोग करें - एक पासवर्ड मैनेजर का उपयोग करें"
+
+msgid "Never use personal info like DOB, name, or phone number as passwords"
+msgstr "DOB, नाम या फोन नंबर जैसी व्यक्तिगत जानकारी को कभी भी पासवर्ड के रूप में उपयोग न करें"
+
+msgid "Never share passwords via email, SMS, or phone calls"
+msgstr "ईमेल, एसएमएस या फोन कॉल के माध्यम से कभी भी पासवर्ड साझा न करें"
+
+msgid "Always check for HTTPS (padlock icon) before entering sensitive information"
+msgstr "संवेदनशील जानकारी दर्ज करने से पहले हमेशा HTTPS (पैडलॉक आइकन) की जांच करें"
+
+msgid "Verify website URLs carefully - fraudsters use similar-looking domains (e.g., amaz0n.com)"
+msgstr "वेबसाइट के यूआरएल को सावधानी से सत्यापित करें - धोखेबाज़ समान दिखने वाले डोमेन का उपयोग करते हैं"
+
+msgid "Keep your browser and operating system updated"
+msgstr "अपने ब्राउज़र और ऑपरेटिंग सिस्टम को अपडेट रखें"
+
+msgid "Avoid clicking on pop-up ads or downloading from unknown sources"
+msgstr "पॉप-अप विज्ञापनों पर क्लिक करने या अज्ञात स्रोतों से डाउनलोड करने से बचें"
+
+msgid "Don't use public WiFi for banking or sensitive transactions"
+msgstr "बैंकिंग या संवेदनशील लेनदेन के लिए सार्वजनिक वाईफाई का उपयोग न करें"
+
+msgid "Verify sender's email address - official emails come from company domains"
+msgstr "प्रेषक के ईमेल पते को सत्यापित करें - आधिकारिक ईमेल कंपनी के डोमेन से आते हैं"
+
+msgid "Hover over links to see actual URL before clicking"
+msgstr "क्लिक करने से पहले लिंक पर होवर करके वास्तविक यूआरएल देखें"
+
+msgid "Never download attachments from unknown senders"
+msgstr "अज्ञात प्रेषकों से कभी भी अटैचमेंट डाउनलोड न करें"
+
+msgid "Ignore emails creating urgency like Account suspended or Act now"
+msgstr "ईमेल को अनदेखा करें जो जरूरीपन पैदा करते हैं जैसे खाता निलंबित या अभी कार्य करें"
+
+msgid "Government agencies like Income Tax, TRAI don't threaten via calls/SMS"
+msgstr "आयकर, TRAI जैसी सरकारी एजेंसियां कॉल/एसएमएस के माध्यम से धमकी नहीं देती हैं"
+
+msgid "Install apps only from official stores (Play Store/App Store)"
+msgstr "ऐप्स केवल आधिकारिक स्टोर (Play Store/App Store) से इंस्टॉल करें"
+
+msgid "Review app permissions - calculator doesn't need camera access"
+msgstr "ऐप की अनुमतियों की समीक्षा करें - कैलकुलेटर को कैमरे की एक्सेस की आवश्यकता नहीं है"
+
+msgid "Use screen lock (PIN/Pattern/Biometric) on all devices"
+msgstr "सभी डिवाइस पर स्क्रीन लॉक (पिन/पैटर्न/बायोमेट्रिक) का उपयोग करें"
+
+msgid "Never install remote access apps (AnyDesk, TeamViewer) on strangers' request"
+msgstr "अजनबियों के अनुरोध पर कभी भी रिमोट एक्सेस ऐप्स (AnyDesk, TeamViewer) इंस्टॉल न करें"
+
+msgid "Enable Find My Device feature for remote wipe if stolen"
+msgstr "चोरी होने पर दूरस्थ वाइप के लिए 'मेरा डिवाइस खोजें' सुविधा सक्षम करें"
+
+msgid "Step-by-Step Reporting Process"
+msgstr "चरण-दर-चरण रिपोर्टिंग प्रक्रिया"
+
+msgid "Filing a Complaint"
+msgstr "शिकायत दर्ज करना"
+
+msgid "Cyber Crime Helpline"
+msgstr "साइबर अपराध हेल्पलाइन"
+
+msgid "Visit Official Cyber Crime Portal"
+msgstr "आधिकारिक साइबर अपराध पोर्टल पर जाएं"
+
+msgid "What Happens After Reporting"
+msgstr "रिपोर्ट करने के बाद क्या होता है"
+
+msgid "Importance of Evidence"
+msgstr "साक्ष्य की महत्ता"
+
+msgid "Save screenshots of fraudulent messages, websites, and transactions"
+msgstr "धोखाधड़ी संदेशों, वेबसाइटों और लेनदेन के स्क्रीनशॉट सहेजें"
+
+msgid "Keep details of communication with fraudsters"
+msgstr "धोखेबाज़ों के साथ संचार का विवरण रखें"
+
+msgid "Note down URLs, email addresses, phone numbers used"
+msgstr "उपयोग किए गए URL, ईमेल पते, फोन नंबर नीचे लिखें"
+
+msgid "Record timestamps of incidents"
+msgstr "घटनाओं के टाइमस्टैम्प रिकॉर्ड करें"

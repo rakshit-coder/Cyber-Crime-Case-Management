@@ -1,0 +1,283 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "File New Complaint" %} - {% trans "Indian Cyber Crime Portal" %}{% endblock %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Page Header -->
+    <div class="mb-8">
+        <h1 style="font-size: 2.5rem; font-weight: 700; color: var(--primary-blue); display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+            <i class="fas fa-edit" style="font-size: 2.5rem;"></i>{% trans "File a New Complaint" %}
+        </h1>
+        <p style="color: var(--medium-gray); font-size: 1.05rem;">{% trans "Secure, confidential reporting of cybercrime incidents" %}</p>
+    </div>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- Complaint Details Section -->
+        <div style="background: white; border-radius: 0.75rem; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border-left: 4px solid var(--primary-blue);">
+            <h2 style="font-size: 1.4rem; font-weight: 700; color: var(--primary-blue); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem;">
+                <i class="fas fa-pen-square"></i>{% trans "Complaint Details" %}
+            </h2>
+
+            <!-- Title -->
+            <div style="margin-bottom: 1.5rem;">
+                <label style="display: block; font-weight: 600; color: var(--dark-gray); margin-bottom: 0.5rem;">
+                    <i class="fas fa-heading" style="color: var(--primary-blue); margin-right: 0.5rem;"></i>{% trans "Complaint Title" %} <span style="color: var(--danger-red);">*</span>
+                </label>
+                <input type="text" name="title" 
+                       placeholder="{% trans "Brief title of the incident" %}"
+                       class="form-control"
+                       style="width: 100%;"
+                       required>
+                <p style="font-size: 0.85rem; color: var(--medium-gray); margin-top: 0.3rem;">{% trans "Enter a concise title for the complaint" %}</p>
+            </div>
+
+            <!-- Description -->
+            <div style="margin-bottom: 1.5rem;">
+                <label style="display: block; font-weight: 600; color: var(--dark-gray); margin-bottom: 0.5rem;">
+                    <i class="fas fa-align-left" style="color: var(--primary-blue); margin-right: 0.5rem;"></i>{% trans "Detailed Description" %} <span style="color: var(--danger-red);">*</span>
+                </label>
+                <textarea name="description" 
+                          rows="6"
+                          placeholder="{% trans "Provide detailed information about the incident, including when it occurred, what happened, and any relevant details" %}"
+                          class="form-control"
+                          style="width: 100%; resize: vertical;"
+                          required></textarea>
+                <p style="font-size: 0.85rem; color: var(--medium-gray); margin-top: 0.3rem;">{% trans "Be as detailed as possible to help with the investigation" %}</p>
+            </div>
+
+            <!-- Category and Priority Row -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                <div>
+                    <label style="display: block; font-weight: 600; color: var(--dark-gray); margin-bottom: 0.5rem;">
+                        <i class="fas fa-tag" style="color: var(--primary-blue); margin-right: 0.5rem;"></i>{% trans "Category" %} <span style="color: var(--danger-red);">*</span>
+                    </label>
+                    <select name="category" class="form-control" style="width: 100%;" required>
+                        <option value="">-- {% trans "Select Category" %} --</option>
+                        <option value="phishing">{% trans "Phishing" %}</option>
+                        <option value="identity_theft">{% trans "Identity Theft" %}</option>
+                        <option value="online_fraud">{% trans "Online Fraud" %}</option>
+                        <option value="cyberbullying">{% trans "Cyberbullying" %}</option>
+                        <option value="hacking">{% trans "Hacking" %}</option>
+                        <option value="ransomware">{% trans "Ransomware" %}</option>
+                        <option value="data_breach">{% trans "Data Breach" %}</option>
+                        <option value="other">{% trans "Other" %}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Incident Details Section -->
+        <div style="background: white; border-radius: 0.75rem; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border-left: 4px solid var(--accent-orange);">
+            <h2 style="font-size: 1.4rem; font-weight: 700; color: var(--accent-orange); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem;">
+                <i class="fas fa-calendar-alt"></i>{% trans "Incident Details" %}
+            </h2>
+
+            <div style="margin-bottom: 1.5rem;">
+                <label style="display: block; font-weight: 600; color: var(--dark-gray); margin-bottom: 0.5rem;">
+                    <i class="fas fa-calendar" style="color: var(--accent-orange); margin-right: 0.5rem;"></i>{% trans "Date of Incident" %} <span style="color: var(--danger-red);">*</span>
+                </label>
+                <input type="datetime-local" name="incident_date" id="incident_date" class="form-control" style="width: 100%;" required>
+                <p style="font-size: 0.85rem; color: var(--medium-gray); margin-top: 0.3rem;">
+                    <i class="fas fa-info-circle"></i> {% trans "Cannot be in the future" %}
+                </p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                <div>
+                    <label style="display: block; font-weight: 600; color: var(--dark-gray); margin-bottom: 0.5rem;">
+                        <i class="fas fa-map-marker-alt" style="color: var(--accent-orange); margin-right: 0.5rem;"></i>{% trans "Location/Platform" %}
+                    </label>
+                    <input type="text" name="incident_location"
+                           placeholder="{% trans "e.g., Email, Facebook, Bank Website" %}"
+                           class="form-control"
+                           style="width: 100%;">
+                </div>
+
+                <div>
+                    <label style="display: block; font-weight: 600; color: var(--dark-gray); margin-bottom: 0.5rem;">
+                        <i class="fas fa-laptop" style="color: var(--accent-orange); margin-right: 0.5rem;"></i>{% trans "Affected System/Account" %}
+                    </label>
+                    <input type="text" name="affected_system"
+                           placeholder="{% trans "e.g., Gmail account, Bank account" %}"
+                           class="form-control"
+                           style="width: 100%;">
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Information Section -->
+        <div style="background: rgba(0, 82, 204, 0.05); border-radius: 0.75rem; padding: 2rem; margin-bottom: 2rem; border: 2px solid var(--primary-blue); border-left: 4px solid var(--primary-blue);">
+            <h2 style="font-size: 1.4rem; font-weight: 700; color: var(--primary-blue); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem;">
+                <i class="fas fa-lock"></i>{% trans "Contact Information (Encrypted)" %}
+            </h2>
+
+            <div style="margin-bottom: 1.5rem;">
+                <label style="display: block; font-weight: 600; color: var(--dark-gray); margin-bottom: 0.5rem;">
+                    <i class="fas fa-phone" style="color: var(--primary-blue); margin-right: 0.5rem;"></i>{% trans "Phone Numbers" %}
+                </label>
+                <input type="text" name="phone_numbers"
+                       placeholder="+91-9876543210, +91-9876543211"
+                       class="form-control"
+                       style="width: 100%;">
+                <p style="font-size: 0.85rem; color: var(--medium-gray); margin-top: 0.3rem;"><i class="fas fa-info-circle"></i> {% trans "Comma separated values" %}</p>
+            </div>
+
+            <div style="margin-bottom: 1.5rem;">
+                <label style="display: block; font-weight: 600; color: var(--dark-gray); margin-bottom: 0.5rem;">
+                    <i class="fas fa-envelope" style="color: var(--primary-blue); margin-right: 0.5rem;"></i>{% trans "Email Addresses" %}
+                </label>
+                <input type="text" name="email_addresses"
+                       placeholder="attacker@example.com, suspicious@domain.com"
+                       class="form-control"
+                       style="width: 100%;">
+                <p style="font-size: 0.85rem; color: var(--medium-gray); margin-top: 0.3rem;"><i class="fas fa-info-circle"></i> {% trans "Comma separated values" %}</p>
+            </div>
+
+            <div>
+                <label style="display: block; font-weight: 600; color: var(--dark-gray); margin-bottom: 0.5rem;">
+                    <i class="fas fa-link" style="color: var(--primary-blue); margin-right: 0.5rem;"></i>{% trans "URLs/Websites" %}
+                </label>
+                <textarea name="urls" rows="3"
+                          placeholder="https://example.com&#10;https://suspicious-site.com"
+                          class="form-control"
+                          style="width: 100%; resize: vertical;"></textarea>
+                <p style="font-size: 0.85rem; color: var(--medium-gray); margin-top: 0.3rem;"><i class="fas fa-info-circle"></i> {% trans "One URL per line" %}</p>
+            </div>
+        </div>
+
+        <!-- Evidence Section -->
+        <div style="background: white; border-radius: 0.75rem; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border-left: 4px solid var(--success-green);">
+            <h2 style="font-size: 1.4rem; font-weight: 700; color: var(--success-green); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem;">
+                <i class="fas fa-file-upload"></i>{% trans "Evidence Files" %}
+            </h2>
+
+            <div style="margin-bottom: 1.5rem;">
+                <label style="display: block; font-weight: 600; color: var(--dark-gray); margin-bottom: 0.5rem;">
+                    <i class="fas fa-paperclip" style="color: var(--success-green); margin-right: 0.5rem;"></i>{% trans "Upload Evidence" %}
+                </label>
+                <div style="border: 2px dashed var(--primary-blue); border-radius: 0.75rem; padding: 3rem 2rem; text-align: center; cursor: pointer; background: rgba(0, 82, 204, 0.02); transition: all 0.3s ease;" 
+                     onmouseover="this.style.background='rgba(0, 82, 204, 0.05)'; this.style.borderColor='var(--accent-orange)';"
+                     onmouseout="this.style.background='rgba(0, 82, 204, 0.02)'; this.style.borderColor='var(--primary-blue)';"
+                     onclick="document.querySelector('input[name=evidence_files]').click();">
+                    <input type="file" name="evidence_files" multiple
+                           accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.gif,.txt,.mp4,.mp3"
+                           style="display: none;">
+                    <i class="fas fa-cloud-upload-alt" style="font-size: 3rem; color: var(--primary-blue); margin-bottom: 1rem; display: block;"></i>
+                    <p style="color: var(--dark-gray); font-weight: 600; margin: 0.5rem 0; font-size: 1.05rem;">{% trans "Click to upload or drag and drop" %}</p>
+                    <p style="font-size: 0.9rem; color: var(--medium-gray); margin: 0;">PDF, DOC, DOCX, JPG, PNG, GIF, TXT, MP4, MP3 (Max 50MB per file)</p>
+                </div>
+            </div>
+
+            <div>
+                <label style="display: block; font-weight: 600; color: var(--dark-gray); margin-bottom: 0.5rem;">
+                    <i class="fas fa-layer-group" style="color: var(--success-green); margin-right: 0.5rem;"></i>{% trans "Evidence Type" %}
+                </label>
+                <select name="evidence_type" class="form-control" style="width: 100%;">
+                    <option value="screenshot">{% trans "Screenshot" %}</option>
+                    <option value="document">{% trans "Document" %}</option>
+                    <option value="email">{% trans "Email" %}</option>
+                    <option value="video">{% trans "Video" %}</option>
+                    <option value="audio">{% trans "Audio" %}</option>
+                    <option value="other">{% trans "Other" %}</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Submit Buttons -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem;">
+            <button type="submit" class="btn btn-primary" style="padding: 0.75rem 1.5rem; font-size: 1.05rem; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 0.75rem;">
+                <i class="fas fa-paper-plane"></i>{% trans "Submit Complaint" %}
+            </button>
+            <a href="{% url 'complaints_list' %}" class="btn btn-outline" style="padding: 0.75rem 1.5rem; font-size: 1.05rem; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 0.75rem; text-decoration: none;">
+                <i class="fas fa-times"></i>{% trans "Cancel" %}
+            </a>
+        </div>
+    </form>
+
+    <!-- Privacy Notice -->
+    <div style="background: rgba(40, 167, 69, 0.08); border-left: 4px solid var(--success-green); border-radius: 0.75rem; padding: 1.5rem; border: 1px solid rgba(40, 167, 69, 0.3);">
+        <div style="display: flex; gap: 1rem; align-items: flex-start;">
+            <i class="fas fa-shield-alt" style="color: var(--success-green); font-size: 1.5rem; flex-shrink: 0; margin-top: 0.25rem;"></i>
+            <div>
+                <h3 style="font-weight: 700; color: var(--dark-gray); margin: 0 0 0.5rem 0; font-size: 1.1rem;">
+                    <i class="fas fa-lock"></i> {% trans "Privacy & Security Notice" %}
+                </h3>
+                <p style="color: var(--dark-gray); font-size: 0.95rem; margin: 0; line-height: 1.6;">
+                    {% trans "All information you provide is encrypted using AES-256 encryption and stored securely. Only authorized officers will have access to your case. Your identity and sensitive information are protected at all times." %}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Get the incident date input element
+    const incidentDateInput = document.getElementById('incident_date');
+    
+    // Function to set the maximum date to current date/time
+    function setMaxDateTime() {
+        const now = new Date();
+        
+        // Format: YYYY-MM-DDTHH:mm
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        
+        const maxDateTime = `${year}-${month}-${day}T${hours}:${minutes}`;
+        incidentDateInput.max = maxDateTime;
+    }
+    
+    // Set max datetime on page load
+    setMaxDateTime();
+    
+    // Add validation on form submit
+    const form = document.querySelector('form');
+    form.addEventListener('submit', function(event) {
+        if (incidentDateInput.value) {
+            const selectedDate = new Date(incidentDateInput.value);
+            const now = new Date();
+            
+            if (selectedDate > now) {
+                event.preventDefault();
+                alert("{% trans 'Incident date cannot be in the future. Please select a past date and time.' %}");
+                incidentDateInput.focus();
+                return false;
+            }
+        }
+    });
+    
+    // Real-time validation feedback
+    incidentDateInput.addEventListener('change', function() {
+        if (this.value) {
+            const selectedDate = new Date(this.value);
+            const now = new Date();
+            
+            if (selectedDate > now) {
+                this.style.borderColor = 'var(--danger-red)';
+                this.style.backgroundColor = 'rgba(220, 53, 69, 0.05)';
+                // Remove the error highlighting after 2 seconds
+                setTimeout(() => {
+                    if (this.value && new Date(this.value) > new Date()) {
+                        this.style.borderColor = 'var(--danger-red)';
+                    } else {
+                        this.style.borderColor = '';
+                        this.style.backgroundColor = '';
+                    }
+                }, 2000);
+            } else {
+                this.style.borderColor = '';
+                this.style.backgroundColor = '';
+            }
+        }
+    });
+});
+</script>
+
+{% endblock %}

@@ -1,0 +1,898 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Cyber Awareness" %} - {% trans "Cyber Crime System" %}{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Hero Section -->
+    <div class="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-2xl p-8 mb-8 text-white">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div>
+                <h1 class="text-4xl font-bold mb-4 flex items-center gap-3">
+                    <i class="fas fa-shield-alt"></i>
+                    {% trans "Cyber Awareness Programme" %}
+                </h1>
+                <p class="text-blue-100 text-lg max-w-2xl">
+                    {% trans "Stay informed, stay safe! Learn about cyber threats and how to protect yourself online." %}
+                    {% trans "Information sourced from official Indian Government Cyber Crime Portal." %}
+                </p>
+                <div class="mt-4 flex gap-4">
+                    <a href="https://cybercrime.gov.in" target="_blank" class="inline-flex items-center gap-2 bg-white text-blue-600 px-4 py-2 rounded-lg font-semibold hover:bg-blue-50 transition-colors">
+                        <i class="fas fa-external-link-alt"></i> {% trans "Visit cybercrime.gov.in" %}
+                    </a>
+                    <a href="tel:1930" class="inline-flex items-center gap-2 bg-red-500 text-white px-4 py-2 rounded-lg font-semibold hover:bg-red-600 transition-colors">
+                        <i class="fas fa-phone"></i> {% trans "Helpline" %}: 1930
+                    </a>
+                </div>
+            </div>
+            <div class="text-center">
+                <i class="fas fa-user-shield text-8xl text-blue-200"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+        <div class="bg-red-50 border border-red-200 rounded-lg p-6 text-center">
+            <i class="fas fa-exclamation-triangle text-3xl text-red-500 mb-2"></i>
+            <p class="text-2xl font-bold text-red-700">₹1.25 {% trans "Lakh Cr" %}</p>
+            <p class="text-red-600 text-sm">{% trans "Annual Cyber Crime Loss in India" %}</p>
+        </div>
+        <div class="bg-orange-50 border border-orange-200 rounded-lg p-6 text-center">
+            <i class="fas fa-user-times text-3xl text-orange-500 mb-2"></i>
+            <p class="text-2xl font-bold text-orange-700">65%</p>
+            <p class="text-orange-600 text-sm">{% trans "Victims are 18-45 years old" %}</p>
+        </div>
+        <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 text-center">
+            <i class="fas fa-mobile-alt text-3xl text-blue-500 mb-2"></i>
+            <p class="text-2xl font-bold text-blue-700">52%</p>
+            <p class="text-blue-600 text-sm">{% trans "Attacks via Mobile Devices" %}</p>
+        </div>
+        <div class="bg-green-50 border border-green-200 rounded-lg p-6 text-center">
+            <i class="fas fa-clock text-3xl text-green-500 mb-2"></i>
+            <p class="text-2xl font-bold text-green-700">{% trans "Golden Hour" %}</p>
+            <p class="text-green-600 text-sm">{% trans "Report within 1 hour for recovery" %}</p>
+        </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="bg-white rounded-lg shadow-md border border-slate-100 mb-8">
+        <div class="border-b border-slate-200">
+            <nav class="flex flex-wrap gap-2 p-4" id="awareness-tabs">
+                <button class="tab-btn active px-4 py-2 rounded-lg font-semibold text-sm bg-blue-600 text-white" data-tab="types">
+                    <i class="fas fa-bug mr-2"></i>{% trans "Types of Cyber Crimes" %}
+                </button>
+                <button class="tab-btn px-4 py-2 rounded-lg font-semibold text-sm bg-slate-100 text-slate-700 hover:bg-slate-200" data-tab="prevention">
+                    <i class="fas fa-shield-alt mr-2"></i>{% trans "Prevention Tips" %}
+                </button>
+                <button class="tab-btn px-4 py-2 rounded-lg font-semibold text-sm bg-slate-100 text-slate-700 hover:bg-slate-200" data-tab="financial">
+                    <i class="fas fa-rupee-sign mr-2"></i>{% trans "Financial Frauds" %}
+                </button>
+                <button class="tab-btn px-4 py-2 rounded-lg font-semibold text-sm bg-slate-100 text-slate-700 hover:bg-slate-200" data-tab="social">
+                    <i class="fas fa-users mr-2"></i>{% trans "Social Media Safety" %}
+                </button>
+                <button class="tab-btn px-4 py-2 rounded-lg font-semibold text-sm bg-slate-100 text-slate-700 hover:bg-slate-200" data-tab="women">
+                    <i class="fas fa-female mr-2"></i>{% trans "Women & Child Safety" %}
+                </button>
+                <button class="tab-btn px-4 py-2 rounded-lg font-semibold text-sm bg-slate-100 text-slate-700 hover:bg-slate-200" data-tab="report">
+                    <i class="fas fa-file-alt mr-2"></i>{% trans "How to Report" %}
+                </button>
+            </nav>
+        </div>
+
+        <!-- Tab Content -->
+        <div class="p-6">
+            <!-- Types of Cyber Crimes -->
+            <div id="types" class="tab-content">
+                <h2 class="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+                    <i class="fas fa-bug text-red-500"></i> {% trans "Types of Cyber Crimes" %}
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Phishing -->
+                    <div class="bg-slate-50 rounded-lg p-6 border border-slate-200">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="bg-red-100 p-3 rounded-lg">
+                                <i class="fas fa-fish text-red-600 text-xl"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-slate-900">{% trans "Phishing" %}</h3>
+                        </div>
+                        <p class="text-slate-600 text-sm mb-3">
+                            {% trans "Fraudulent attempts to obtain sensitive information by disguising as trustworthy entities via email, SMS, or fake websites." %}
+                        </p>
+                        <div class="text-xs text-red-600 bg-red-50 p-2 rounded">
+                            <strong>Warning:</strong> Banks never ask for OTP, PIN, or CVV via calls/SMS
+                        </div>
+                    </div>
+
+                    <!-- UPI/Banking Fraud -->
+                    <div class="bg-slate-50 rounded-lg p-6 border border-slate-200">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="bg-orange-100 p-3 rounded-lg">
+                                <i class="fas fa-mobile-alt text-orange-600 text-xl"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-slate-900">{% trans "UPI/Banking Fraud" %}</h3>
+                        </div>
+                        <p class="text-slate-600 text-sm mb-3">
+                            {% trans "Fraudsters trick victims into sending money via UPI using fake payment requests, QR codes, or remote access apps." %}
+                        </p>
+                        <div class="text-xs text-orange-600 bg-orange-50 p-2 rounded">
+                            <strong>Remember:</strong> {% trans "You don't need to enter PIN to RECEIVE money" %}
+                        </div>
+                    </div>
+
+                    <!-- Online Job Fraud -->
+                    <div class="bg-slate-50 rounded-lg p-6 border border-slate-200">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="bg-yellow-100 p-3 rounded-lg">
+                                <i class="fas fa-briefcase text-yellow-600 text-xl"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-slate-900">{% trans "Job Fraud" %}</h3>
+                        </div>
+                        <p class="text-slate-600 text-sm mb-3">
+                            {% trans "Fake job offers demanding registration fees, training charges, or security deposits. Often impersonate reputed companies." %}
+                        </p>
+                        <div class="text-xs text-yellow-600 bg-yellow-50 p-2 rounded">
+                            <strong>Alert:</strong> {% trans "Legitimate companies never charge for jobs" %}
+                        </div>
+                    </div>
+
+                    <!-- Sextortion -->
+                    <div class="bg-slate-50 rounded-lg p-6 border border-slate-200">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="bg-purple-100 p-3 rounded-lg">
+                                <i class="fas fa-user-secret text-purple-600 text-xl"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-slate-900">{% trans "Sextortion" %}</h3>
+                        </div>
+                        <p class="text-slate-600 text-sm mb-3">
+                            {% trans "Blackmail using intimate images/videos obtained through fake relationships or by hacking devices." %}
+                        </p>
+                        <div class="text-xs text-purple-600 bg-purple-50 p-2 rounded">
+                            <strong>Don't Panic:</strong> {% trans "Don't Panic: Report immediately, don't pay blackmailers" %}
+                        </div>
+                    </div>
+
+                    <!-- Investment/Crypto Fraud -->
+                    <div class="bg-slate-50 rounded-lg p-6 border border-slate-200">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="bg-green-100 p-3 rounded-lg">
+                                <i class="fas fa-chart-line text-green-600 text-xl"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-slate-900">{% trans "Investment Fraud" %}</h3>
+                        </div>
+                        <p class="text-slate-600 text-sm mb-3">
+                            {% trans "Ponzi schemes, fake trading apps, cryptocurrency scams promising unrealistic returns on investments." %}
+                        </p>
+                        <div class="text-xs text-green-600 bg-green-50 p-2 rounded">
+                            <strong>Rule:</strong> {% trans "If returns seem too good, it's probably a scam" %}
+                        </div>
+                    </div>
+
+                    <!-- Sim Swap -->
+                    <div class="bg-slate-50 rounded-lg p-6 border border-slate-200">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="bg-blue-100 p-3 rounded-lg">
+                                <i class="fas fa-sim-card text-blue-600 text-xl"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-slate-900">{% trans "SIM Swap Fraud" %}</h3>
+                        </div>
+                        <p class="text-slate-600 text-sm mb-3">
+                            {% trans "Fraudsters get duplicate SIM of your number to intercept OTPs and access your bank accounts." %}
+                        </p>
+                        <div class="text-xs text-blue-600 bg-blue-50 p-2 rounded">
+                            <strong>Warning:</strong> {% trans "If SIM stops working suddenly, contact operator immediately" %}
+                        </div>
+                    </div>
+
+                    <!-- Lottery/Prize Fraud -->
+                    <div class="bg-slate-50 rounded-lg p-6 border border-slate-200">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="bg-pink-100 p-3 rounded-lg">
+                                <i class="fas fa-gift text-pink-600 text-xl"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-slate-900">{% trans "Lottery/KBC Fraud" %}</h3>
+                        </div>
+                        <p class="text-slate-600 text-sm mb-3">
+                            {% trans "Fake lottery wins, KBC prize calls asking for processing fees or taxes before releasing winnings." %}
+                        </p>
+                        <div class="text-xs text-pink-600 bg-pink-50 p-2 rounded">
+                            <strong>Fact:</strong> {% trans "Real lotteries don't ask for advance payments" %}
+                        </div>
+                    </div>
+
+                    <!-- Ransomware -->
+                    <div class="bg-slate-50 rounded-lg p-6 border border-slate-200">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="bg-slate-200 p-3 rounded-lg">
+                                <i class="fas fa-lock text-slate-600 text-xl"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-slate-900">{% trans "Ransomware" %}</h3>
+                        </div>
+                        <p class="text-slate-600 text-sm mb-3">
+                            {% trans "Malware that encrypts your data and demands ransom for decryption. Spreads via malicious emails and downloads." %}
+                        </p>
+                        <div class="text-xs text-slate-600 bg-slate-100 p-2 rounded">
+                            <strong>Prevention:</strong> {% trans "Regular backups and updated antivirus" %}
+                        </div>
+                    </div>
+
+                    <!-- Identity Theft -->
+                    <div class="bg-slate-50 rounded-lg p-6 border border-slate-200">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="bg-indigo-100 p-3 rounded-lg">
+                                <i class="fas fa-id-card text-indigo-600 text-xl"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-slate-900">{% trans "Identity Theft" %}</h3>
+                        </div>
+                        <p class="text-slate-600 text-sm mb-3">
+                            {% trans "Stealing personal information (Aadhaar, PAN, etc.) to commit fraud, open fake accounts, or take loans." %}
+                        </p>
+                        <div class="text-xs text-indigo-600 bg-indigo-50 p-2 rounded">
+                            <strong>Protect:</strong> {% trans "Never share Aadhaar/PAN on unknown portals" %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Prevention Tips -->
+            <div id="prevention" class="tab-content hidden">
+                <h2 class="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+                    <i class="fas fa-shield-alt text-green-500"></i> {% trans "Cyber Safety Prevention Tips" %}
+                </h2>
+                
+                <!-- Password Security -->
+                <div class="mb-8">
+                    <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                        <i class="fas fa-key text-yellow-500"></i> {% trans "Password Security" %}
+                    </h3>
+                    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
+                        <ul class="space-y-3">
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                <span>Use <strong>strong passwords</strong> with minimum 12 characters including uppercase, lowercase, numbers, and special characters</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                <span>Enable <strong>Two-Factor Authentication (2FA)</strong> on all important accounts</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                <span>Use different passwords for different accounts - use a <strong>password manager</strong></span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-times-circle text-red-500 mt-1"></i>
+                                <span><strong>Never</strong> use personal info like DOB, name, or phone number as passwords</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-times-circle text-red-500 mt-1"></i>
+                                <span><strong>Never</strong> share passwords via email, SMS, or phone calls</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Safe Browsing -->
+                <div class="mb-8">
+                    <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                        <i class="fas fa-globe text-blue-500"></i> Safe Browsing Practices
+                    </h3>
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
+                        <ul class="space-y-3">
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                <span>Always check for <strong>HTTPS</strong> (padlock icon) before entering sensitive information</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                <span>Verify website URLs carefully - fraudsters use similar-looking domains (e.g., amaz0n.com)</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                <span>Keep your browser and operating system <strong>updated</strong></span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-times-circle text-red-500 mt-1"></i>
+                                <span><strong>Avoid</strong> clicking on pop-up ads or downloading from unknown sources</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-times-circle text-red-500 mt-1"></i>
+                                <span><strong>Don't</strong> use public WiFi for banking or sensitive transactions</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Email Safety -->
+                <div class="mb-8">
+                    <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                        <i class="fas fa-envelope text-red-500"></i> Email & SMS Safety
+                    </h3>
+                    <div class="bg-red-50 border border-red-200 rounded-lg p-6">
+                        <ul class="space-y-3">
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                <span>Verify sender's email address - official emails come from company domains</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                <span>Hover over links to see actual URL before clicking</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-times-circle text-red-500 mt-1"></i>
+                                <span><strong>Never</strong> download attachments from unknown senders</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-times-circle text-red-500 mt-1"></i>
+                                <span><strong>Ignore</strong> emails creating urgency like "Account suspended" or "Act now"</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-exclamation-triangle text-orange-500 mt-1"></i>
+                                <span>Government agencies like Income Tax, TRAI don't threaten via calls/SMS</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Device Security -->
+                <div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                        <i class="fas fa-mobile-alt text-purple-500"></i> Device Security
+                    </h3>
+                    <div class="bg-purple-50 border border-purple-200 rounded-lg p-6">
+                        <ul class="space-y-3">
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                <span>Install apps only from <strong>official stores</strong> (Play Store/App Store)</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                <span>Review app <strong>permissions</strong> - calculator doesn't need camera access</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                <span>Use <strong>screen lock</strong> (PIN/Pattern/Biometric) on all devices</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-times-circle text-red-500 mt-1"></i>
+                                <span><strong>Never</strong> install remote access apps (AnyDesk, TeamViewer) on strangers' request</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                <span>Enable <strong>Find My Device</strong> feature for remote wipe if stolen</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Financial Frauds -->
+            <div id="financial" class="tab-content hidden">
+                <h2 class="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+                    <i class="fas fa-rupee-sign text-green-500"></i> Financial Fraud Prevention
+                </h2>
+
+                <!-- UPI Safety -->
+                <div class="bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg p-6 text-white mb-6">
+                    <h3 class="text-xl font-bold mb-4"><i class="fas fa-mobile-alt mr-2"></i> UPI Safety Guidelines</h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="bg-white/20 rounded-lg p-4">
+                            <h4 class="font-bold mb-2">✅ Do's</h4>
+                            <ul class="text-sm space-y-2">
+                                <li>• Verify UPI ID before sending money</li>
+                                <li>• Check transaction details carefully</li>
+                                <li>• Use UPI PIN only to SEND money</li>
+                                <li>• Set daily transaction limits</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white/20 rounded-lg p-4">
+                            <h4 class="font-bold mb-2">❌ Don'ts</h4>
+                            <ul class="text-sm space-y-2">
+                                <li>• Never share UPI PIN with anyone</li>
+                                <li>• Don't scan unknown QR codes</li>
+                                <li>• Never enter PIN to receive money</li>
+                                <li>• Don't click "Pay" on collect requests</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Common Financial Scams -->
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-lg">
+                        <h4 class="font-bold text-red-800 mb-3"><i class="fas fa-phone-alt mr-2"></i> Fake Bank Calls</h4>
+                        <p class="text-sm text-red-700 mb-3">Fraudsters pose as bank officials asking for card details, OTP, or CVV to "update KYC" or "block suspicious transaction".</p>
+                        <div class="bg-red-100 p-3 rounded text-xs text-red-800">
+                            <strong>Remember:</strong> Banks NEVER ask for OTP, PIN, CVV, or full card number
+                        </div>
+                    </div>
+
+                    <div class="bg-orange-50 border-l-4 border-orange-500 p-6 rounded-r-lg">
+                        <h4 class="font-bold text-orange-800 mb-3"><i class="fas fa-qrcode mr-2"></i> QR Code Scam</h4>
+                        <p class="text-sm text-orange-700 mb-3">Scammers send QR codes claiming you'll receive money. Scanning and entering PIN actually sends YOUR money to them.</p>
+                        <div class="bg-orange-100 p-3 rounded text-xs text-orange-800">
+                            <strong>Remember:</strong> QR codes are for PAYING, not receiving money
+                        </div>
+                    </div>
+
+                    <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg">
+                        <h4 class="font-bold text-yellow-800 mb-3"><i class="fas fa-desktop mr-2"></i> Screen Sharing Fraud</h4>
+                        <p class="text-sm text-yellow-700 mb-3">Fraudsters ask to install AnyDesk/TeamViewer to "help" with banking issues, then steal money while watching your screen.</p>
+                        <div class="bg-yellow-100 p-3 rounded text-xs text-yellow-800">
+                            <strong>Never:</strong> Install remote access apps on strangers' request
+                        </div>
+                    </div>
+
+                    <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
+                        <h4 class="font-bold text-blue-800 mb-3"><i class="fas fa-shopping-cart mr-2"></i> Fake Shopping Sites</h4>
+                        <p class="text-sm text-blue-700 mb-3">Fraudulent e-commerce sites with heavy discounts. They take payment but never deliver, or deliver fake products.</p>
+                        <div class="bg-blue-100 p-3 rounded text-xs text-blue-800">
+                            <strong>Verify:</strong> Check reviews, contact info, and use COD when possible
+                        </div>
+                    </div>
+                </div>
+
+                <!-- If You're a Victim -->
+                <div class="bg-slate-900 text-white rounded-lg p-6">
+                    <h3 class="text-xl font-bold mb-4 text-yellow-400"><i class="fas fa-exclamation-triangle mr-2"></i> If You've Lost Money to Fraud</h3>
+                    <div class="grid md:grid-cols-4 gap-4">
+                        <div class="text-center">
+                            <div class="bg-yellow-500 text-slate-900 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2 font-bold text-xl">1</div>
+                            <p class="text-sm">Call <strong class="text-yellow-400">1930</strong> immediately (Cyber Crime Helpline)</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-yellow-500 text-slate-900 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2 font-bold text-xl">2</div>
+                            <p class="text-sm">Report on <strong class="text-yellow-400">cybercrime.gov.in</strong></p>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-yellow-500 text-slate-900 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2 font-bold text-xl">3</div>
+                            <p class="text-sm">Inform your <strong class="text-yellow-400">bank</strong> to block card/account</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-yellow-500 text-slate-900 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2 font-bold text-xl">4</div>
+                            <p class="text-sm">File <strong class="text-yellow-400">FIR</strong> at nearest police station</p>
+                        </div>
+                    </div>
+                    <p class="text-center mt-4 text-yellow-300 text-sm">
+                        <i class="fas fa-clock mr-1"></i> Act within the <strong>GOLDEN HOUR</strong> - Faster reporting increases recovery chances
+                    </p>
+                </div>
+            </div>
+
+            <!-- Social Media Safety -->
+            <div id="social" class="tab-content hidden">
+                <h2 class="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+                    <i class="fas fa-users text-blue-500"></i> Social Media Safety
+                </h2>
+
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <!-- Privacy Settings -->
+                    <div class="bg-white border border-slate-200 rounded-lg p-6">
+                        <h3 class="font-bold text-lg mb-4 flex items-center gap-2">
+                            <i class="fas fa-user-lock text-blue-500"></i> Privacy Settings
+                        </h3>
+                        <ul class="space-y-3 text-sm">
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check text-green-500 mt-1"></i>
+                                <span>Set profiles to <strong>Private</strong> instead of Public</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check text-green-500 mt-1"></i>
+                                <span>Review and limit who can see your posts, friends list, and personal info</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check text-green-500 mt-1"></i>
+                                <span>Disable location tagging on posts</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check text-green-500 mt-1"></i>
+                                <span>Regularly review connected third-party apps</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Information Sharing -->
+                    <div class="bg-white border border-slate-200 rounded-lg p-6">
+                        <h3 class="font-bold text-lg mb-4 flex items-center gap-2">
+                            <i class="fas fa-share-alt text-red-500"></i> What NOT to Share
+                        </h3>
+                        <ul class="space-y-3 text-sm">
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-times text-red-500 mt-1"></i>
+                                <span>Phone number, home address, workplace location</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-times text-red-500 mt-1"></i>
+                                <span>ID cards (Aadhaar, PAN, Passport)</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-times text-red-500 mt-1"></i>
+                                <span>Travel plans while you're away</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-times text-red-500 mt-1"></i>
+                                <span>Children's school name, routine, or photos with location</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Common Social Media Scams -->
+                <div class="bg-slate-50 rounded-lg p-6 mb-6">
+                    <h3 class="font-bold text-lg mb-4">Common Social Media Scams</h3>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="bg-white p-4 rounded-lg border">
+                            <h4 class="font-semibold text-red-600 mb-2"><i class="fas fa-heart mr-1"></i> Romance Scam</h4>
+                            <p class="text-xs text-slate-600">Fake profiles build relationships then ask for money for "emergencies" or "travel to meet you"</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg border">
+                            <h4 class="font-semibold text-orange-600 mb-2"><i class="fas fa-clone mr-1"></i> Profile Cloning</h4>
+                            <p class="text-xs text-slate-600">Scammers copy your profile and message friends asking for urgent money</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg border">
+                            <h4 class="font-semibold text-purple-600 mb-2"><i class="fas fa-link mr-1"></i> Malicious Links</h4>
+                            <p class="text-xs text-slate-600">"See who viewed your profile" or viral video links that steal credentials</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fake News Alert -->
+                <div class="bg-yellow-50 border border-yellow-300 rounded-lg p-6">
+                    <h3 class="font-bold text-lg mb-3 text-yellow-800">
+                        <i class="fas fa-exclamation-triangle mr-2"></i> Stop Fake News & Misinformation
+                    </h3>
+                    <div class="grid md:grid-cols-2 gap-4 text-sm">
+                        <div>
+                            <h4 class="font-semibold mb-2">Before Sharing, Verify:</h4>
+                            <ul class="space-y-1 text-slate-700">
+                                <li>• Check the source - is it a credible news outlet?</li>
+                                <li>• Look for the same news on multiple trusted sources</li>
+                                <li>• Check the date - old news often recirculates</li>
+                                <li>• Use fact-checking sites like PIB Fact Check</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-2">Report Fake News:</h4>
+                            <ul class="space-y-1 text-slate-700">
+                                <li>• WhatsApp: <strong>+91 9643000085</strong></li>
+                                <li>• PIB Fact Check: <strong>factcheck.pib.gov.in</strong></li>
+                                <li>• Report on respective social media platforms</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Women & Child Safety -->
+            <div id="women" class="tab-content hidden">
+                <h2 class="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+                    <i class="fas fa-female text-pink-500"></i> Women & Child Online Safety
+                </h2>
+
+                <!-- Helplines -->
+                <div class="bg-gradient-to-r from-pink-500 to-purple-600 rounded-lg p-6 text-white mb-6">
+                    <h3 class="text-xl font-bold mb-4">Emergency Helplines</h3>
+                    <div class="grid md:grid-cols-4 gap-4">
+                        <div class="bg-white/20 rounded-lg p-4 text-center">
+                            <i class="fas fa-phone-alt text-3xl mb-2"></i>
+                            <p class="font-bold text-2xl">1930</p>
+                            <p class="text-sm">Cyber Crime Helpline</p>
+                        </div>
+                        <div class="bg-white/20 rounded-lg p-4 text-center">
+                            <i class="fas fa-female text-3xl mb-2"></i>
+                            <p class="font-bold text-2xl">181</p>
+                            <p class="text-sm">Women Helpline</p>
+                        </div>
+                        <div class="bg-white/20 rounded-lg p-4 text-center">
+                            <i class="fas fa-child text-3xl mb-2"></i>
+                            <p class="font-bold text-2xl">1098</p>
+                            <p class="text-sm">CHILDLINE India</p>
+                        </div>
+                        <div class="bg-white/20 rounded-lg p-4 text-center">
+                            <i class="fas fa-exclamation-circle text-3xl mb-2"></i>
+                            <p class="font-bold text-2xl">112</p>
+                            <p class="text-sm">Emergency Response</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Women Safety -->
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-pink-50 border border-pink-200 rounded-lg p-6">
+                        <h3 class="font-bold text-lg mb-4 text-pink-800">
+                            <i class="fas fa-shield-alt mr-2"></i> Women Cyber Safety
+                        </h3>
+                        <ul class="space-y-3 text-sm">
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                <span>Use gender-neutral usernames and profile pictures initially</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                <span>Block and report harassers immediately - don't engage</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                <span>Save evidence (screenshots) of harassment before blocking</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-times-circle text-red-500 mt-1"></i>
+                                <span>Never share intimate photos online - they can be misused</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                <span>Report cyberstalking and morphed photos to police</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
+                        <h3 class="font-bold text-lg mb-4 text-blue-800">
+                            <i class="fas fa-child mr-2"></i> Child Online Safety
+                        </h3>
+                        <ul class="space-y-3 text-sm">
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                <span>Enable <strong>parental controls</strong> on devices and apps</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                <span>Keep devices in common areas, not bedrooms</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                <span>Teach children about online stranger danger</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                <span>Monitor gaming platforms - predators target gaming communities</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                <span>Create safe environment for kids to report uncomfortable encounters</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Reportable Crimes -->
+                <div class="bg-red-50 border border-red-200 rounded-lg p-6">
+                    <h3 class="font-bold text-lg mb-4 text-red-800">
+                        <i class="fas fa-gavel mr-2"></i> Cyber Crimes Against Women & Children (Punishable by Law)
+                    </h3>
+                    <div class="grid md:grid-cols-3 gap-4 text-sm">
+                        <div class="bg-white p-4 rounded-lg">
+                            <h4 class="font-semibold text-red-700 mb-2">Cyber Stalking</h4>
+                            <p class="text-slate-600">Following, monitoring, or contacting repeatedly online causing fear - Up to 3 years jail (IT Act Sec 354D)</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg">
+                            <h4 class="font-semibold text-red-700 mb-2">Morphing/Deepfakes</h4>
+                            <p class="text-slate-600">Creating/sharing edited images - Up to 3 years jail & fine (IT Act Sec 66E, 67)</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg">
+                            <h4 class="font-semibold text-red-700 mb-2">CSAM</h4>
+                            <p class="text-slate-600">Child Sexual Abuse Material - Strict punishment under POCSO Act</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg">
+                            <h4 class="font-semibold text-red-700 mb-2">Sextortion</h4>
+                            <p class="text-slate-600">Blackmail using intimate content - Multiple sections of IPC apply</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg">
+                            <h4 class="font-semibold text-red-700 mb-2">Online Harassment</h4>
+                            <p class="text-slate-600">Abusive messages, threats, trolling - Punishable under IT Act & IPC</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg">
+                            <h4 class="font-semibold text-red-700 mb-2">Doxxing</h4>
+                            <p class="text-slate-600">Publishing private information publicly - Privacy violation, punishable by law</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- How to Report -->
+            <div id="report" class="tab-content hidden">
+                <h2 class="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+                    <i class="fas fa-file-alt text-blue-500"></i> How to Report Cyber Crime
+                </h2>
+
+                <!-- Step by Step -->
+                <div class="bg-slate-900 text-white rounded-lg p-6 mb-6">
+                    <h3 class="text-xl font-bold mb-6 text-center">Step-by-Step Reporting Process</h3>
+                    <div class="grid md:grid-cols-5 gap-4">
+                        <div class="text-center">
+                            <div class="bg-blue-500 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
+                                <span class="text-2xl font-bold">1</span>
+                            </div>
+                            <h4 class="font-semibold mb-2">Collect Evidence</h4>
+                            <p class="text-xs text-slate-300">Screenshots, transaction IDs, chat logs, emails, phone numbers</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-blue-500 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
+                                <span class="text-2xl font-bold">2</span>
+                            </div>
+                            <h4 class="font-semibold mb-2">Call 1930</h4>
+                            <p class="text-xs text-slate-300">National Cyber Crime Helpline (for financial frauds especially)</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-blue-500 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
+                                <span class="text-2xl font-bold">3</span>
+                            </div>
+                            <h4 class="font-semibold mb-2">Online Report</h4>
+                            <p class="text-xs text-slate-300">File complaint at cybercrime.gov.in with all details</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-blue-500 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
+                                <span class="text-2xl font-bold">4</span>
+                            </div>
+                            <h4 class="font-semibold mb-2">Get Acknowledgment</h4>
+                            <p class="text-xs text-slate-300">Note down complaint number for tracking</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-blue-500 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
+                                <span class="text-2xl font-bold">5</span>
+                            </div>
+                            <h4 class="font-semibold mb-2">File FIR</h4>
+                            <p class="text-xs text-slate-300">Visit nearest police station or cyber cell with evidence</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reporting Options -->
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
+                        <h3 class="font-bold text-lg mb-4 text-blue-800">
+                            <i class="fas fa-globe mr-2"></i> Online Reporting
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="bg-white p-4 rounded-lg border">
+                                <h4 class="font-semibold">National Cyber Crime Portal</h4>
+                                <a href="https://cybercrime.gov.in" target="_blank" class="text-blue-600 text-sm hover:underline">
+                                    <i class="fas fa-external-link-alt mr-1"></i> cybercrime.gov.in
+                                </a>
+                                <p class="text-xs text-slate-500 mt-1">For all types of cyber crimes</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg border">
+                                <h4 class="font-semibold">Women/Child Related Crimes</h4>
+                                <a href="https://cybercrime.gov.in" target="_blank" class="text-blue-600 text-sm hover:underline">
+                                    <i class="fas fa-external-link-alt mr-1"></i> Report anonymously on portal
+                                </a>
+                                <p class="text-xs text-slate-500 mt-1">Separate section for sensitive cases</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg border">
+                                <h4 class="font-semibold">Track Your Complaint</h4>
+                                <p class="text-sm text-slate-600">Login to cybercrime.gov.in with complaint ID</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-green-50 border border-green-200 rounded-lg p-6">
+                        <h3 class="font-bold text-lg mb-4 text-green-800">
+                            <i class="fas fa-phone-alt mr-2"></i> Helpline Numbers
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="bg-white p-4 rounded-lg border flex items-center gap-4">
+                                <div class="bg-red-500 text-white rounded-full w-12 h-12 flex items-center justify-center font-bold">
+                                    1930
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold">Cyber Crime Helpline</h4>
+                                    <p class="text-xs text-slate-500">24x7 - Report financial frauds</p>
+                                </div>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg border flex items-center gap-4">
+                                <div class="bg-pink-500 text-white rounded-full w-12 h-12 flex items-center justify-center font-bold">
+                                    181
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold">Women Helpline</h4>
+                                    <p class="text-xs text-slate-500">24x7 - Women safety issues</p>
+                                </div>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg border flex items-center gap-4">
+                                <div class="bg-blue-500 text-white rounded-full w-12 h-12 flex items-center justify-center font-bold">
+                                    112
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold">Emergency Response</h4>
+                                    <p class="text-xs text-slate-500">Police/Ambulance/Fire</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Information Required -->
+                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
+                    <h3 class="font-bold text-lg mb-4 text-yellow-800">
+                        <i class="fas fa-info-circle mr-2"></i> Information Required for Filing Complaint
+                    </h3>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div>
+                            <h4 class="font-semibold mb-2">Personal Details</h4>
+                            <ul class="text-sm space-y-1 text-slate-700">
+                                <li>• Full name & contact number</li>
+                                <li>• Email address</li>
+                                <li>• Address (State, District)</li>
+                                <li>• ID proof (Aadhaar/PAN)</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-2">Incident Details</h4>
+                            <ul class="text-sm space-y-1 text-slate-700">
+                                <li>• Date & time of incident</li>
+                                <li>• Type of cyber crime</li>
+                                <li>• Detailed description</li>
+                                <li>• Amount lost (if financial)</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-2">Evidence</h4>
+                            <ul class="text-sm space-y-1 text-slate-700">
+                                <li>• Screenshots of fraud</li>
+                                <li>• Transaction IDs/receipts</li>
+                                <li>• Suspect's details (phone, UPI, email)</li>
+                                <li>• Bank statements</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Official Resources -->
+    <div class="bg-white rounded-lg shadow-md border border-slate-100 p-6">
+        <h3 class="font-bold text-lg mb-4 text-slate-900">
+            <i class="fas fa-link mr-2 text-blue-500"></i> Official Government Resources
+        </h3>
+        <div class="grid md:grid-cols-4 gap-4">
+            <a href="https://cybercrime.gov.in" target="_blank" class="block p-4 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors text-center">
+                <i class="fas fa-shield-alt text-2xl text-blue-600 mb-2"></i>
+                <p class="font-semibold text-sm">National Cyber Crime Portal</p>
+                <p class="text-xs text-slate-500">cybercrime.gov.in</p>
+            </a>
+            <a href="https://www.cert-in.org.in" target="_blank" class="block p-4 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors text-center">
+                <i class="fas fa-laptop-code text-2xl text-green-600 mb-2"></i>
+                <p class="font-semibold text-sm">CERT-In</p>
+                <p class="text-xs text-slate-500">Indian Computer Emergency Response Team</p>
+            </a>
+            <a href="https://www.meity.gov.in" target="_blank" class="block p-4 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors text-center">
+                <i class="fas fa-building text-2xl text-purple-600 mb-2"></i>
+                <p class="font-semibold text-sm">MeitY</p>
+                <p class="text-xs text-slate-500">Ministry of Electronics & IT</p>
+            </a>
+            <a href="https://www.rbi.org.in" target="_blank" class="block p-4 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors text-center">
+                <i class="fas fa-university text-2xl text-red-600 mb-2"></i>
+                <p class="font-semibold text-sm">RBI</p>
+                <p class="text-xs text-slate-500">Banking Fraud Guidelines</p>
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+// Tab functionality
+document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        // Remove active from all buttons
+        document.querySelectorAll('.tab-btn').forEach(b => {
+            b.classList.remove('active', 'bg-blue-600', 'text-white');
+            b.classList.add('bg-slate-100', 'text-slate-700');
+        });
+        
+        // Add active to clicked button
+        this.classList.add('active', 'bg-blue-600', 'text-white');
+        this.classList.remove('bg-slate-100', 'text-slate-700');
+        
+        // Hide all content
+        document.querySelectorAll('.tab-content').forEach(content => {
+            content.classList.add('hidden');
+        });
+        
+        // Show selected content
+        const tabId = this.getAttribute('data-tab');
+        document.getElementById(tabId).classList.remove('hidden');
+    });
+});
+</script>
+{% endblock %}

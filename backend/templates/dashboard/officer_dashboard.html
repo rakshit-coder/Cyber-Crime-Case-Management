@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Officer Dashboard" %} - {% trans "Indian Cyber Crime Portal" %}{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Header -->
+    <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem;">
+        <div>
+            <h1 style="font-size: 2rem; font-weight: bold; color: #0052cc; display: flex; align-items: center; gap: 1rem;">
+                <i class="fas fa-shield-alt" style="font-size: 2.5rem; color: #28a745;"></i>
+                {% trans "Welcome" %}, {{ user.first_name }}!
+            </h1>
+            <p style="color: #555555; margin-top: 0.5rem;">
+                {% trans "Officer Dashboard" %} - {% trans "Badge" %} #{{ user.badge_number }}
+            </p>
+        </div>
+        <div style="text-align: right; font-size: 0.9rem;">
+            <p style="color: #555555;">{{ user.department }}</p>
+            <p style="color: #888888; margin-top: 0.25rem;">{% trans "Member since" %} {{ user.created_at|date:"M d, Y" }}</p>
+        </div>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+        <!-- Assigned Cases -->
+        <div class="stat-card" style="border-left-color: #0052cc;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div>
+                    <p class="stat-label">{% trans "Assigned Cases" %}</p>
+                    <p class="stat-value" style="color: #0052cc; font-size: 2rem; font-weight: 700;">{{ assigned_count }}</p>
+                </div>
+                <i class="fas fa-folder-open" style="font-size: 2rem; color: #0052cc; opacity: 0.2;"></i>
+            </div>
+        </div>
+
+        <!-- Investigating -->
+        <div class="stat-card" style="border-left-color: #9370db;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div>
+                    <p class="stat-label">{% trans "Investigating" %}</p>
+                    <p class="stat-value" style="color: #9370db; font-size: 2rem; font-weight: 700;">{{ investigating_count }}</p>
+                </div>
+                <i class="fas fa-magnifying-glass" style="font-size: 2rem; color: #9370db; opacity: 0.2;"></i>
+            </div>
+        </div>
+
+        <!-- Closed Cases -->
+        <div class="stat-card" style="border-left-color: #28a745;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div>
+                    <p class="stat-label">{% trans "Closed Cases" %}</p>
+                    <p class="stat-value" style="color: #28a745; font-size: 2rem; font-weight: 700;">{{ closed_count }}</p>
+                </div>
+                <i class="fas fa-check-circle" style="font-size: 2rem; color: #28a745; opacity: 0.2;"></i>
+            </div>
+        </div>
+
+        <!-- Pending Review -->
+        <div class="stat-card" style="border-left-color: #ff8c00;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div>
+                    <p class="stat-label">{% trans "Pending Review" %}</p>
+                    <p class="stat-value" style="color: #ff8c00; font-size: 2rem; font-weight: 700;">{{ pending_count }}</p>
+                </div>
+                <i class="fas fa-clock" style="font-size: 2rem; color: #ff8c00; opacity: 0.2;"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+        <a href="{% url 'cases_list' %}" class="card" style="text-decoration: none; color: inherit; display: block; border-left: 4px solid var(--primary-blue);">
+            <div class="card-body">
+                <i class="fas fa-list" style="font-size: 1.8rem; color: var(--primary-blue); margin-bottom: 1rem; display: block;"></i>
+                <h3 style="font-weight: bold; color: var(--primary-blue); margin-bottom: 0.5rem;">{% trans "View All Cases" %}</h3>
+                <p style="font-size: 0.9rem; color: var(--medium-gray);">{% trans "Review all assigned complaints and cases" %}</p>
+            </div>
+        </a>
+        
+        <a href="{% url 'complaints_list' %}" class="card" style="text-decoration: none; color: inherit; display: block; border-left: 4px solid var(--success-green);">
+            <div class="card-body">
+                <i class="fas fa-file-alt" style="font-size: 1.8rem; color: var(--success-green); margin-bottom: 1rem; display: block;"></i>
+                <h3 style="font-weight: bold; color: var(--success-green); margin-bottom: 0.5rem;">{% trans "View Complaints" %}</h3>
+                <p style="font-size: 0.9rem; color: var(--medium-gray);">{% trans "Check all active complaints in the system" %}</p>
+            </div>
+        </a>
+        
+        <a href="{% url 'profile' %}" class="card" style="text-decoration: none; color: inherit; display: block; border-left: 4px solid var(--accent-purple);">
+            <div class="card-body">
+                <i class="fas fa-user-circle" style="font-size: 1.8rem; color: var(--accent-purple); margin-bottom: 1rem; display: block;"></i>
+                <h3 style="font-weight: bold; color: var(--accent-purple); margin-bottom: 0.5rem;">{% trans "My Profile" %}</h3>
+                <p style="font-size: 0.9rem; color: var(--medium-gray);">{% trans "View and manage your profile information" %}</p>
+            </div>
+        </a>
+    </div>
+
+    <!-- Assigned Cases Table -->
+    <div class="card">
+        <div class="card-header" style="display: flex; align-items: center; gap: 1rem;">
+            <i class="fas fa-tasks" style="color: var(--primary-blue);"></i> {% trans "My Assigned Cases" %}
+        </div>
+        <div class="overflow-x-auto">
+            {% if assigned_cases %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>{% trans "Case #" %}</th>
+                        <th>{% trans "Title" %}</th>
+                        <th>{% trans "Complainant" %}</th>
+                        <th>{% trans "Status" %}</th>
+                        <th>{% trans "Priority" %}</th>
+                        <th>{% trans "Date Assigned" %}</th>
+                        <th>{% trans "Action" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for complaint in assigned_cases %}
+                    <tr>
+                        <td style="font-weight: 600; font-family: monospace;">{{ complaint.case_number }}</td>
+                        <td>{{ complaint.title|truncatewords:3 }}</td>
+                        <td>{{ complaint.complainant.get_full_name }}</td>
+                        <td>
+                            {% if complaint.status == 'pending' %}
+                                <span class="badge badge-pending">{% trans "Pending" %}</span>
+                            {% elif complaint.status == 'approved' %}
+                                <span class="badge badge-secondary">{% trans "Approved" %}</span>
+                            {% elif complaint.status == 'assigned' %}
+                                <span class="badge badge-in-progress">{% trans "Assigned" %}</span>
+                            {% elif complaint.status == 'in_progress' %}
+                                <span class="badge badge-info">{% trans "Investigating" %}</span>
+                            {% elif complaint.status == 'near_to_close' %}
+                                <span class="badge badge-success">{% trans "Near Closure" %}</span>
+                            {% elif complaint.status == 'closed' %}
+                                <span class="badge badge-resolved">{% trans "Closed" %}</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if complaint.priority == 'high' %}
+                                <span class="badge badge-danger"><i class="fas fa-arrow-up mr-1"></i> {% trans "High" %}</span>
+                            {% elif complaint.priority == 'medium' %}
+                                <span class="badge badge-warning"><i class="fas fa-minus mr-1"></i> {% trans "Medium" %}</span>
+                            {% elif complaint.priority == 'low' %}
+                                <span class="badge badge-success"><i class="fas fa-arrow-down mr-1"></i> {% trans "Low" %}</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ complaint.created_at|date:"M d, Y" }}</td>
+                        <td>
+                            <a href="{% url 'complaint_detail' complaint.case_number %}" style="color: var(--primary-blue); text-decoration: none; font-weight: 600;">
+                                <i class="fas fa-eye mr-1"></i> {% trans "View" %}
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <div style="padding: 3rem; text-align: center;">
+                <i class="fas fa-inbox" style="font-size: 2rem; opacity: 0.3; margin-bottom: 1rem; display: block;"></i>
+                <p style="color: var(--dark-gray);">{% trans "No cases assigned yet." %}</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

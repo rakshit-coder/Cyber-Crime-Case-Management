@@ -1,0 +1,276 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Profile" %} - {% trans "Indian Cyber Crime Portal" %}{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem;">
+        <div style="display: flex; justify-content: space-between; align-items: start;">
+            <div>
+                <h1 style="font-size: 2rem; font-weight: bold; color: var(--primary-blue); display: flex; align-items: center; gap: 1rem;">
+                    <i class="fas fa-user-circle" style="font-size: 2.5rem;"></i>
+                    {% trans "My Profile" %}
+                </h1>
+                <p style="color: var(--dark-gray); margin-top: 0.5rem;">{% trans "View and manage your account information" %}</p>
+            </div>
+            {% if can_edit %}
+            <button onclick="toggleEditMode()" style="background: var(--primary-blue); color: white; padding: 0.75rem 1.5rem; border: none; border-radius: 0.5rem; cursor: pointer; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+                <i class="fas fa-edit"></i> {% trans "Edit Profile" %}
+            </button>
+            {% endif %}
+        </div>
+        <a href="{% url 'dashboard' %}" style="display: inline-flex; align-items: center; gap: 0.5rem; color: var(--primary-blue); font-weight: 600; text-decoration: none; width: fit-content;">
+            <i class="fas fa-arrow-left"></i> {% trans "Back to Dashboard" %}
+        </a>
+    </div>
+
+    {% if messages %}
+    <div style="margin-bottom: 1.5rem;">
+        {% for message in messages %}
+        <div style="padding: 1rem; border-radius: 0.5rem; margin-bottom: 0.5rem; {% if message.tags == 'error' %}background: rgba(244, 67, 54, 0.1); border-left: 4px solid #f44336; color: #f44336;{% else %}background: rgba(40, 167, 69, 0.1); border-left: 4px solid #28a745; color: #28a745;{% endif %}">
+            {% if message.tags == 'error' %}<i class="fas fa-exclamation-circle"></i>{% else %}<i class="fas fa-check-circle"></i>{% endif %}
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Profile Card -->
+    <div class="card">
+        <div style="background: linear-gradient(to right, var(--primary-blue), var(--secondary-blue)); height: 8rem;"></div>
+        
+        <div style="padding: 2rem;">
+            <!-- Profile Header -->
+            <div style="display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--light-border);">
+                <div style="flex-shrink: 0; position: relative;">
+                    {% if user.profile_picture %}
+                    <img src="{{ user.profile_picture.url }}" alt="{{ user.get_full_name }}" 
+                         style="width: 6rem; height: 6rem; border-radius: 50%; border: 4px solid white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-top: -4rem;">
+                    {% else %}
+                    <div style="width: 6rem; height: 6rem; border-radius: 50%; border: 4px solid white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-top: -4rem; background: var(--light-bg); display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-user" style="font-size: 1.75rem; color: var(--medium-gray);"></i>
+                    </div>
+                    {% endif %}
+                </div>
+                <div>
+                    <h2 style="font-size: 1.75rem; font-weight: bold; color: var(--dark-gray);">{{ user.get_full_name }}</h2>
+                    <p style="color: var(--dark-gray); margin-top: 0.25rem;">
+                        <i class="fas fa-badge mr-2" style="color: var(--primary-blue);"></i>
+                        {{ user.get_role_display }}
+                    </p>
+                    {% if user.is_active %}
+                    <span class="badge badge-success" style="display: inline-block; margin-top: 0.5rem;">
+                        <i class="fas fa-check-circle mr-1"></i> {% trans "Active" %}
+                    </span>
+                    {% else %}
+                    <span class="badge badge-danger" style="display: inline-block; margin-top: 0.5rem;">
+                        <i class="fas fa-times-circle mr-1"></i> {% trans "Inactive" %}
+                    </span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Edit Form (Hidden by default) -->
+            {% if can_edit %}
+            <form id="editForm" method="POST" enctype="multipart/form-data" style="display: none;">
+                {% csrf_token %}
+                <h3 style="font-size: 1.2rem; font-weight: bold; color: var(--dark-gray); margin-bottom: 1.5rem;">{% trans "Edit Your Information" %}</h3>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+                    <!-- Left Column -->
+                    <div>
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; font-size: 0.9rem; font-weight: 600; color: var(--dark-gray); margin-bottom: 0.5rem;">{% trans "First Name" %}</label>
+                            <input type="text" name="first_name" value="{{ user.first_name }}" placeholder="{% trans 'First Name' %}"
+                                   style="width: 100%; padding: 0.75rem; border: 1px solid var(--light-border); border-radius: 0.5rem; font-size: 1rem;">
+                        </div>
+                        
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; font-size: 0.9rem; font-weight: 600; color: var(--dark-gray); margin-bottom: 0.5rem;">{% trans "Last Name" %}</label>
+                            <input type="text" name="last_name" value="{{ user.last_name }}" placeholder="{% trans 'Last Name' %}"
+                                   style="width: 100%; padding: 0.75rem; border: 1px solid var(--light-border); border-radius: 0.5rem; font-size: 1rem;">
+                        </div>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div>
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; font-size: 0.9rem; font-weight: 600; color: var(--dark-gray); margin-bottom: 0.5rem;">{% trans "Email" %}</label>
+                            <input type="email" name="email" value="{{ user.email }}" placeholder="{% trans 'your.email@example.com' %}"
+                                   style="width: 100%; padding: 0.75rem; border: 1px solid var(--light-border); border-radius: 0.5rem; font-size: 1rem;">
+                        </div>
+
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; font-size: 0.9rem; font-weight: 600; color: var(--dark-gray); margin-bottom: 0.5rem;">{% trans "Phone Number" %}</label>
+                            <input type="tel" name="phone" value="{{ user.phone|default:'' }}" placeholder="{% trans '+91 XXXXX XXXXX' %}"
+                                   style="width: 100%; padding: 0.75rem; border: 1px solid var(--light-border); border-radius: 0.5rem; font-size: 1rem;">
+                        </div>
+
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; font-size: 0.9rem; font-weight: 600; color: var(--dark-gray); margin-bottom: 0.5rem;">{% trans "Profile Picture" %}</label>
+                            <input type="file" name="profile_picture" accept="image/*"
+                                   style="width: 100%; padding: 0.75rem; border: 1px solid var(--light-border); border-radius: 0.5rem; font-size: 1rem;">
+                            <p style="font-size: 0.85rem; color: var(--medium-gray); margin-top: 0.5rem;">{% trans "Max file size: 5MB. Supported: JPG, PNG, GIF" %}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 1rem; align-items: center;">
+                    <button type="submit" style="background: var(--success-green); color: white; padding: 0.75rem 2rem; border: none; border-radius: 0.5rem; cursor: pointer; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-save"></i> {% trans "Save Changes" %}
+                    </button>
+                    <button type="button" onclick="toggleEditMode()" style="background: var(--light-bg); color: var(--dark-gray); padding: 0.75rem 2rem; border: 1px solid var(--light-border); border-radius: 0.5rem; cursor: pointer; font-weight: 600;">
+                        {% trans "Cancel" %}
+                    </button>
+                </div>
+            </form>
+            {% endif %}
+
+            <!-- View Mode (Shown by default) -->
+            <div id="viewMode" style="display: block;">
+                <!-- Profile Information -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+                    <!-- Left Column -->
+                    <div>
+                        <h3 style="font-size: 1.1rem; font-weight: bold; color: var(--dark-gray); margin-bottom: 1rem;">{% trans "Personal Information" %}</h3>
+                        
+                        <div style="display: flex; flex-direction: column; gap: 1rem;">
+                            <div>
+                                <label style="display: block; font-size: 0.8rem; font-weight: 600; color: var(--medium-gray); text-transform: uppercase; margin-bottom: 0.25rem;">{% trans "First Name" %}</label>
+                                <p style="color: var(--dark-gray); font-weight: 500;">{{ user.first_name }}</p>
+                            </div>
+                            
+                            <div>
+                                <label style="display: block; font-size: 0.8rem; font-weight: 600; color: var(--medium-gray); text-transform: uppercase; margin-bottom: 0.25rem;">{% trans "Last Name" %}</label>
+                                <p style="color: var(--dark-gray); font-weight: 500;">{{ user.last_name }}</p>
+                            </div>
+                            
+                            <div>
+                                <label style="display: block; font-size: 0.8rem; font-weight: 600; color: var(--medium-gray); text-transform: uppercase; margin-bottom: 0.25rem;">{% trans "Username" %}</label>
+                                <p style="color: var(--dark-gray); font-weight: 500; font-family: monospace;">{{ user.username }}</p>
+                            </div>
+                            
+                            <div>
+                                <label style="display: block; font-size: 0.8rem; font-weight: 600; color: var(--medium-gray); text-transform: uppercase; margin-bottom: 0.25rem;">{% trans "Email" %}</label>
+                                <p style="color: var(--dark-gray); font-weight: 500;">
+                                    <i class="fas fa-envelope" style="color: var(--primary-blue); margin-right: 0.5rem;"></i>
+                                    {{ user.email }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div>
+                        <h3 style="font-size: 1.1rem; font-weight: bold; color: var(--dark-gray); margin-bottom: 1rem;">{% trans "Contact Information" %}</h3>
+                        
+                        <div style="display: flex; flex-direction: column; gap: 1rem;">
+                            <div>
+                                <label style="display: block; font-size: 0.8rem; font-weight: 600; color: var(--medium-gray); text-transform: uppercase; margin-bottom: 0.25rem;">{% trans "Phone" %}</label>
+                                <p style="color: var(--dark-gray); font-weight: 500;">
+                                    {% if user.phone %}
+                                    <i class="fas fa-phone" style="color: var(--primary-blue); margin-right: 0.5rem;"></i>
+                                    {{ user.phone }}
+                                    {% else %}
+                                    <span style="color: var(--medium-gray);">{% trans "Not provided" %}</span>
+                                {% endif %}
+                            </p>
+                        </div>
+                            
+                            {% if user.role == 'officer' %}
+                            <div>
+                                <label style="display: block; font-size: 0.8rem; font-weight: 600; color: var(--medium-gray); text-transform: uppercase; margin-bottom: 0.25rem;">{% trans "Badge Number" %}</label>
+                                <p style="color: var(--dark-gray); font-weight: 500; font-family: monospace;">{{ user.badge_number|default:"Not assigned" }}</p>
+                            </div>
+                            
+                            <div>
+                                <label style="display: block; font-size: 0.8rem; font-weight: 600; color: var(--medium-gray); text-transform: uppercase; margin-bottom: 0.25rem;">{% trans "Department" %}</label>
+                                <p style="color: var(--dark-gray); font-weight: 500;">{{ user.department|default:"Not specified" }}</p>
+                            </div>
+                            {% endif %}
+                            
+                            <div>
+                                <label style="display: block; font-size: 0.8rem; font-weight: 600; color: var(--medium-gray); text-transform: uppercase; margin-bottom: 0.25rem;">{% trans "Member Since" %}</label>
+                                <p style="color: var(--dark-gray); font-weight: 500;">{{ user.created_at|date:"F d, Y" }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Account Status -->
+                <div style="background: var(--light-bg); border-radius: 0.5rem; padding: 1.5rem; border: 1px solid var(--light-border); margin-bottom: 2rem;">
+                    <h3 style="font-size: 1.1rem; font-weight: bold; color: var(--dark-gray); margin-bottom: 1rem;">{% trans "Account Status" %}</h3>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem;">
+                        <div>
+                            <p style="font-size: 0.85rem; color: var(--medium-gray); margin-bottom: 0.5rem;">{% trans "Email Verified" %}</p>
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                {% if user.is_email_verified %}
+                                <span style="display: inline-block; width: 0.75rem; height: 0.75rem; background: var(--success-green); border-radius: 50%;"></span>
+                                <span style="color: var(--dark-gray); font-weight: 600;">{% trans "Yes" %}</span>
+                                {% else %}
+                                <span style="display: inline-block; width: 0.75rem; height: 0.75rem; background: var(--accent-orange); border-radius: 50%;"></span>
+                                <span style="color: var(--dark-gray); font-weight: 600;">{% trans "Pending" %}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <p style="font-size: 0.85rem; color: var(--medium-gray); margin-bottom: 0.5rem;">{% trans "Account Status" %}</p>
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                {% if user.is_active %}
+                                <span style="display: inline-block; width: 0.75rem; height: 0.75rem; background: var(--success-green); border-radius: 50%;"></span>
+                                <span style="color: var(--dark-gray); font-weight: 600;">{% trans "Active" %}</span>
+                                {% else %}
+                                <span style="display: inline-block; width: 0.75rem; height: 0.75rem; background: var(--danger-red); border-radius: 50%;"></span>
+                                <span style="color: var(--dark-gray); font-weight: 600;">{% trans "Inactive" %}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <p style="font-size: 0.85rem; color: var(--medium-gray); margin-bottom: 0.5rem;">{% trans "Last Updated" %}</p>
+                            <p style="color: var(--dark-gray); font-weight: 600;">{{ user.updated_at|date:"F d, Y" }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Security Notice -->
+                <div style="background: rgba(0, 82, 204, 0.05); border: 1px solid var(--primary-blue); border-radius: 0.5rem; padding: 1.5rem;">
+                    <div style="display: flex; gap: 1rem;">
+                        <div>
+                            <i class="fas fa-lock" style="color: var(--primary-blue); font-size: 1.25rem;"></i>
+                        </div>
+                        <div>
+                            <h4 style="font-weight: 600; color: var(--dark-gray);">{% trans "Security Information" %}</h4>
+                            <p style="color: var(--dark-gray); font-size: 0.9rem; margin-top: 0.25rem;">
+                                {% trans "Your password and sensitive information are encrypted using AES-256 encryption. Never share your login credentials with anyone." %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleEditMode() {
+        const viewMode = document.getElementById('viewMode');
+        const editForm = document.getElementById('editForm');
+        
+        if (viewMode.style.display === 'none') {
+            // Switch to view mode
+            viewMode.style.display = 'block';
+            editForm.style.display = 'none';
+            document.querySelector('button[onclick="toggleEditMode()"]').textContent = '{% trans "Edit Profile" %}';
+        } else {
+            // Switch to edit mode
+            viewMode.style.display = 'none';
+            editForm.style.display = 'block';
+            document.querySelector('button[onclick="toggleEditMode()"]').textContent = '{% trans "Cancel Edit" %}';
+        }
+    }
+</script>
+{% endblock %}

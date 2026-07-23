@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Cases List" %} - {% trans "Indian Cyber Crime Portal" %}{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div style="display: flex; flex-direction: column; margin-bottom: 2rem; gap: 1rem;">
+        <div>
+            <h1 style="font-size: 2rem; font-weight: bold; color: var(--primary-blue); display: flex; align-items: center; gap: 1rem;">
+                <i class="fas fa-briefcase" style="font-size: 2.5rem;"></i>
+                {% trans "All Cases" %}
+            </h1>
+            <p style="color: var(--dark-gray); margin-top: 0.5rem;">{{ total }} {% trans "total case" %}{{ total|pluralize }}</p>
+        </div>
+        <a href="{% url 'dashboard' %}" style="display: inline-flex; align-items: center; gap: 0.5rem; color: var(--primary-blue); font-weight: 600; text-decoration: none; width: fit-content;">
+            <i class="fas fa-arrow-left"></i> {% trans "Back to Dashboard" %}
+        </a>
+    </div>
+
+    <!-- Filter Section -->
+    <div class="card mb-8">
+        <div class="card-body">
+            <form method="get" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; align-items: flex-end;">
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label style="font-weight: 600;">{% trans "Filter by Status" %}</label>
+                    <select name="status" class="form-control">
+                        <option value="">{% trans "All Status" %}</option>
+                        <option value="open" {% if request.GET.status == 'open' %}selected{% endif %}>{% trans "Open" %}</option>
+                        <option value="assigned" {% if request.GET.status == 'assigned' %}selected{% endif %}>{% trans "Assigned" %}</option>
+                        <option value="investigating" {% if request.GET.status == 'investigating' %}selected{% endif %}>{% trans "Investigating" %}</option>
+                        <option value="closed" {% if request.GET.status == 'closed' %}selected{% endif %}>{% trans "Closed" %}</option>
+                    </select>
+                </div>
+                <div style="display: flex; gap: 0.5rem;">
+                    <button type="submit" class="btn btn-primary" style="flex: 1;">
+                        <i class="fas fa-filter mr-2"></i> {% trans "Filter" %}
+                    </button>
+                    <a href="{% url 'cases_list' %}" class="btn btn-outline" style="flex: 1; text-align: center;">
+                        <i class="fas fa-redo mr-2"></i> {% trans "Reset" %}
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Cases Table -->
+    <div class="card">
+        <div class="overflow-x-auto">
+            {% if cases %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>{% trans "Case #" %}</th>
+                        <th>{% trans "Title" %}</th>
+                        <th>{% trans "Category" %}</th>
+                        <th>{% trans "Status" %}</th>
+                        <th>{% trans "Priority" %}</th>
+                        <th>{% trans "Officer" %}</th>
+                        <th>{% trans "Date Filed" %}</th>
+                        <th>{% trans "Action" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for case in cases %}
+                    <tr>
+                        <td style="font-weight: 600; font-family: monospace;">{{ case.case_number }}</td>
+                        <td title="{{ case.title }}">{{ case.title|truncatewords:5 }}</td>
+                        <td>{{ case.category }}</td>
+                        <td>
+                            {% if case.status == 'open' %}
+                                <span class="badge badge-pending">{% trans "Open" %}</span>
+                            {% elif case.status == 'assigned' %}
+                                <span class="badge badge-in-progress">{% trans "Assigned" %}</span>
+                            {% elif case.status == 'investigating' %}
+                                <span class="badge badge-info">{% trans "Investigating" %}</span>
+                            {% elif case.status == 'closed' %}
+                                <span class="badge badge-resolved">{% trans "Closed" %}</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if case.priority == 'high' %}
+                                <span class="badge badge-danger"><i class="fas fa-arrow-up mr-1"></i> {% trans "High" %}</span>
+                            {% elif case.priority == 'medium' %}
+                                <span class="badge badge-warning"><i class="fas fa-minus mr-1"></i> {% trans "Medium" %}</span>
+                            {% elif case.priority == 'low' %}
+                                <span class="badge badge-success"><i class="fas fa-arrow-down mr-1"></i> {% trans "Low" %}</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if case.assigned_officer %}
+                                <div>{{ case.assigned_officer.get_full_name }}</div>
+                                <div style="font-size: 0.8rem; color: var(--dark-gray);">{% trans "Badge" %}: {{ case.assigned_officer.badge_number }}</div>
+                            {% else %}
+                                <span style="color: var(--dark-gray);">{% trans "Unassigned" %}</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ case.created_at|date:"M d, Y" }}</td>
+                        <td>
+                            <a href="{% url 'complaint_detail' case.case_number %}" style="color: var(--primary-blue); text-decoration: none; font-weight: 600;">
+                                <i class="fas fa-eye mr-1"></i> {% trans "View" %}
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <div style="padding: 3rem; text-align: center;">
+                <i class="fas fa-inbox" style="font-size: 2rem; opacity: 0.3; margin-bottom: 1rem; display: block;"></i>
+                <p style="color: var(--dark-gray);">{% trans "No cases found." %}</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Pagination -->
+    {% if cases.has_other_pages %}
+    <div class="pagination" style="margin-top: 2rem;">
+        {% if cases.has_previous %}
+        <a href="?page=1{% if request.GET.status %}&status={{ request.GET.status }}{% endif %}">
+            <i class="fas fa-chevron-left mr-1"></i> {% trans "First" %}
+        </a>
+        <a href="?page={{ cases.previous_page_number }}{% if request.GET.status %}&status={{ request.GET.status }}{% endif %}">
+            <i class="fas fa-chevron-left mr-1"></i> {% trans "Previous" %}
+        </a>
+        {% endif %}
+
+        {% for num in cases.paginator.page_range %}
+            {% if cases.number == num %}
+            <span class="active">{{ num }}</span>
+            {% else %}
+            <a href="?page={{ num }}{% if request.GET.status %}&status={{ request.GET.status }}{% endif %}">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if cases.has_next %}
+        <a href="?page={{ cases.next_page_number }}{% if request.GET.status %}&status={{ request.GET.status }}{% endif %}">
+            {% trans "Next" %} <i class="fas fa-chevron-right ml-1"></i>
+        </a>
+        <a href="?page={{ cases.paginator.num_pages }}{% if request.GET.status %}&status={{ request.GET.status }}{% endif %}">
+            {% trans "Last" %} <i class="fas fa-chevron-right ml-1"></i>
+        </a>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

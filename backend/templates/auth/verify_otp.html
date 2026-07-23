@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Verify OTP" %} - {% trans "Indian Cyber Crime Portal" %}{% endblock %}
+
+{% block content %}
+<div class="max-w-md mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="bg-white rounded-lg shadow-lg border border-blue-200 p-8">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <i class="fas fa-shield-alt" style="font-size: 3rem; color: var(--primary-blue); margin-bottom: 1rem; display: block;"></i>
+            <h1 style="font-size: 1.8rem; font-weight: bold; color: var(--dark-gray); margin: 0;">{% trans "Verify OTP" %}</h1>
+            <p style="color: var(--medium-gray); margin-top: 0.5rem;">{% trans "Enter the OTP sent to your email" %}</p>
+        </div>
+
+        <!-- Messages -->
+        {% if messages %}
+        <div style="margin-bottom: 1.5rem;">
+            {% for message in messages %}
+            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" style="padding: 1rem; border-radius: 0.5rem; margin-bottom: 0.5rem;">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- Form -->
+        <form method="post" style="display: grid; gap: 1.5rem;">
+            {% csrf_token %}
+            
+            <!-- Email Field -->
+            <div>
+                <label for="email" style="display: block; font-weight: 600; color: var(--dark-gray); margin-bottom: 0.5rem;">
+                    {% trans "Email Address" %} <span style="color: red;">*</span>
+                </label>
+                <input type="email" id="email" name="email" required
+                    style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 0.5rem; font-size: 1rem; box-sizing: border-box;"
+                    placeholder="{% trans 'Enter your email' %}">
+            </div>
+
+            <!-- OTP Field -->
+            <div>
+                <label for="otp" style="display: block; font-weight: 600; color: var(--dark-gray); margin-bottom: 0.5rem;">
+                    {% trans "One-Time Password (OTP)" %} <span style="color: red;">*</span>
+                </label>
+                <input type="text" id="otp" name="otp" maxlength="6" required
+                    style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 0.5rem; font-size: 1.5rem; text-align: center; letter-spacing: 0.5rem; font-weight: bold; box-sizing: border-box;"
+                    placeholder="000000"
+                    autocomplete="off">
+                <p style="font-size: 0.85rem; color: var(--medium-gray); margin-top: 0.5rem;">
+                    {% trans "Enter the 6-digit code from your email" %}
+                </p>
+            </div>
+
+            <!-- Countdown Timer (Optional) -->
+            <div style="background: #f0f4f8; padding: 1rem; border-radius: 0.5rem; text-align: center;">
+                <p style="margin: 0; color: var(--medium-gray); font-size: 0.9rem;">
+                    <i class="fas fa-clock"></i> {% trans "OTP valid for" %}: <strong>15 minutes</strong>
+                </p>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" style="width: 100%; background: var(--primary-blue); color: white; padding: 0.75rem; border: none; border-radius: 0.5rem; font-size: 1rem; font-weight: 600; cursor: pointer; transition: background 0.3s ease;">
+                <i class="fas fa-check-circle"></i> {% trans "Verify OTP" %}
+            </button>
+
+            <!-- Back Link -->
+            <div style="text-align: center;">
+                <a href="{% url 'forgot_password' %}" style="color: var(--primary-blue); text-decoration: none; font-size: 0.95rem;">
+                    <i class="fas fa-arrow-left"></i> {% trans "Back to Forgot Password" %}
+                </a>
+            </div>
+        </form>
+
+        <!-- FAQ Section -->
+        <div style="margin-top: 2rem; background: #f0f4f8; padding: 1.5rem; border-radius: 0.5rem; border-left: 4px solid var(--primary-blue);">
+            <h3 style="font-size: 0.95rem; font-weight: 600; color: var(--dark-gray); margin-top: 0;">
+                <i class="fas fa-question-circle"></i> {% trans "Didn't receive the OTP?" %}
+            </h3>
+            <ul style="margin: 0.75rem 0 0 0; padding-left: 1.5rem; color: var(--medium-gray); font-size: 0.9rem; line-height: 1.6;">
+                <li>{% trans "Check your spam/junk folder" %}</li>
+                <li>{% trans "Verify you entered the correct email address" %}</li>
+                <li>{% trans "Wait a few moments and refresh your email" %}</li>
+                <li><a href="{% url 'forgot_password' %}" style="color: var(--primary-blue);">{% trans "Request a new OTP" %}</a></li>
+            </ul>
+        </div>
+
+        <!-- Security Notice -->
+        <div style="margin-top: 1.5rem; background: #fff3cd; padding: 1rem; border-radius: 0.5rem; border-left: 4px solid #ffc107;">
+            <p style="margin: 0; color: #856404; font-size: 0.85rem; line-height: 1.5;">
+                <strong><i class="fas fa-lock"></i> {% trans "Security Notice:" %}</strong><br>
+                {% trans "Never share your OTP with anyone. Our staff will never ask for your OTP." %}
+            </p>
+        </div>
+    </div>
+</div>
+
+<style>
+    .alert-success {
+        background: #d4edda;
+        border: 1px solid #c3e6cb;
+        color: #155724;
+    }
+    .alert-error {
+        background: #f8d7da;
+        border: 1px solid #f5c6cb;
+        color: #721c24;
+    }
+    button:hover {
+        background: #1b3256 !important;
+    }
+</style>
+{% endblock %}

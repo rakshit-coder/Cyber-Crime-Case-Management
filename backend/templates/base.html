@@ -1,0 +1,274 @@
+{% load i18n %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Indian Cyber Crime Reporting Portal - Official Government Platform">
+    <meta name="keywords" content="cybercrime, reporting, government, india, secure">
+    <title>{% block title %}{% trans "Indian Cyber Crime Portal" %}{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/govt-style.css' %}">
+    {% block extra_css %}{% endblock %}
+    <style>
+        :root {
+            --gov-primary: #003da5;
+            --gov-orange: #ff6b35;
+            --gov-green: #28a745;
+            --primary-blue: #1e40af;
+            --secondary-blue: #3b82f6;
+            --dark-gray: #333333;
+        }
+        html {
+            scroll-behavior: smooth;
+            /* Enhanced font visibility */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        body {
+            /* Disable text selection */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            letter-spacing: 0.3px;
+            line-height: 1.6;
+        }
+        /* Allow text selection in input fields, textareas, and content areas */
+        input, textarea, .selectable, [contenteditable] {
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
+        }
+        /* Improve font rendering for better visibility */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        p, li, a {
+            font-size: 1rem;
+            color: var(--dark-gray);
+        }
+        .btn, button, a[role="button"] {
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- Header with National Emblem -->
+    <header class="bg-white border-b border-gray-300 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-center py-2 border-b border-gray-200 text-xs text-gray-600">
+                <i class="fas fa-shield-alt mr-2"></i>
+                {% trans "A Digital India Initiative | Ministry of Internal Affairs" %}
+            </div>
+            <div class="flex h-20 items-center justify-between py-4">
+                <a href="{% url 'landing' %}" class="flex items-center gap-3">
+                    <div class="w-14 h-14 bg-gradient-to-b from-orange-500 via-white to-green-500 rounded-full flex items-center justify-center border-2 border-gray-800 shadow-md">
+                        <i class="fas fa-shield-alt text-gray-800 text-2xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-lg text-gray-800">{% trans "Cyber Crime Portal" %}</h1>
+                        <p class="text-xs text-gray-600">{% trans "Ministry of Internal Affairs" %}</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav class="bg-gradient-to-r from-blue-700 to-blue-900 text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex h-16 items-center justify-between">
+                <div class="flex items-center gap-8">
+                    {% if user.is_authenticated %}
+                        {% if user.role == 'admin' %}
+                        <a href="{% url 'admin_dashboard' %}" class="hover:bg-blue-600 px-3 py-2 rounded-md text-sm font-medium transition">
+                            <i class="fas fa-tachometer-alt mr-2"></i>{% trans "Dashboard" %}
+                        </a>
+                        <a href="{% url 'cases_list' %}" class="hover:bg-blue-600 px-3 py-2 rounded-md text-sm font-medium transition">
+                            <i class="fas fa-briefcase mr-2"></i>{% trans "Cases" %}
+                        </a>
+                        <a href="{% url 'complaints_list' %}" class="hover:bg-blue-600 px-3 py-2 rounded-md text-sm font-medium transition">
+                            <i class="fas fa-file-alt mr-2"></i>{% trans "Complaints" %}
+                        </a>
+                        {% elif user.role == 'officer' %}
+                        <a href="{% url 'dashboard' %}" class="hover:bg-blue-600 px-3 py-2 rounded-md text-sm font-medium transition">
+                            <i class="fas fa-tachometer-alt mr-2"></i>{% trans "Dashboard" %}
+                        </a>
+                        <a href="{% url 'cases_list' %}" class="hover:bg-blue-600 px-3 py-2 rounded-md text-sm font-medium transition">
+                            <i class="fas fa-briefcase mr-2"></i>{% trans "Assigned Cases" %}
+                        </a>
+                        <a href="{% url 'complaints_list' %}" class="hover:bg-blue-600 px-3 py-2 rounded-md text-sm font-medium transition">
+                            <i class="fas fa-file-alt mr-2"></i>{% trans "Complaints" %}
+                        </a>
+                        {% else %}
+                        <a href="{% url 'dashboard' %}" class="hover:bg-blue-600 px-3 py-2 rounded-md text-sm font-medium transition">
+                            <i class="fas fa-tachometer-alt mr-2"></i>{% trans "Dashboard" %}
+                        </a>
+                        <a href="{% url 'complaints_list' %}" class="hover:bg-blue-600 px-3 py-2 rounded-md text-sm font-medium transition">
+                            <i class="fas fa-file-alt mr-2"></i>{% trans "My Complaints" %}
+                        </a>
+                        {% endif %}
+                        <a href="{% url 'cyber_awareness' %}" class="hover:bg-blue-600 px-3 py-2 rounded-md text-sm font-medium transition">
+                            <i class="fas fa-graduation-cap mr-2"></i>{% trans "Awareness" %}
+                        </a>
+                        <a href="{% url 'laws:law_index' %}" class="hover:bg-blue-600 px-3 py-2 rounded-md text-sm font-medium transition">
+                            <i class="fas fa-book mr-2"></i>{% trans "Laws" %}
+                        </a>
+                    {% else %}
+                        <a href="{% url 'cyber_awareness' %}" class="hover:bg-blue-600 px-3 py-2 rounded-md text-sm font-medium transition">
+                            <i class="fas fa-graduation-cap mr-2"></i>{% trans "Awareness" %}
+                        </a>
+                        <a href="{% url 'laws:law_index' %}" class="hover:bg-blue-600 px-3 py-2 rounded-md text-sm font-medium transition">
+                            <i class="fas fa-book mr-2"></i>{% trans "Laws" %}
+                        </a>
+                    {% endif %}
+                </div>
+                <div class="flex items-center gap-4">
+                    <!-- Language Switcher -->
+                    <div class="relative group">
+                        <button class="hover:bg-blue-600 px-3 py-2 rounded-md text-sm font-medium flex items-center gap-1">
+                            <i class="fas fa-globe"></i>
+                            {% get_current_language as LANGUAGE_CODE %}
+                            {% if LANGUAGE_CODE == 'hi' %}हिंदी{% else %}EN{% endif %}
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-40 bg-white text-gray-800 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
+                            <form action="{% url 'set_language' %}" method="post" id="lang-form-nav">
+                                {% csrf_token %}
+                                <input type="hidden" name="next" value="{{ request.path }}">
+                                <button type="submit" name="language" value="en" class="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 {% if LANGUAGE_CODE == 'en' %}bg-blue-50 text-blue-600{% endif %}">
+                                    🇬🇧 English
+                                </button>
+                                <button type="submit" name="language" value="hi" class="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 {% if LANGUAGE_CODE == 'hi' %}bg-blue-50 text-blue-600{% endif %}">
+                                    🇮🇳 हिंदी
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    {% if user.is_authenticated %}
+                        <div class="relative group">
+                            <button class="hover:bg-blue-600 px-3 py-2 rounded-md text-sm font-medium flex items-center gap-2">
+                                <i class="fas fa-user-circle"></i> {{ user.first_name|default:user.username }}
+                                <i class="fas fa-chevron-down text-xs"></i>
+                            </button>
+                            <div class="absolute right-0 mt-2 w-48 bg-white text-gray-800 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
+                                <a href="{% url 'profile' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 border-b border-gray-200">
+                                    <i class="fas fa-user mr-2"></i>{% trans "Profile" %}
+                                </a>
+                                <a href="{% url 'logout' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                    <i class="fas fa-sign-out-alt mr-2"></i>{% trans "Logout" %}
+                                </a>
+                            </div>
+                        </div>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="text-white hover:bg-blue-600 px-3 py-2 rounded-md text-sm font-medium transition">
+                            {% trans "Login" %}
+                        </a>
+                        <a href="{% url 'register' %}" class="bg-orange-500 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-orange-600 transition">
+                            {% trans "Register" %}
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Messages -->
+    {% if messages %}
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
+        {% for message in messages %}
+        <div class="p-4 rounded-lg {% if message.tags == 'success' %}bg-green-50 border-l-4 border-green-500 text-green-800{% elif message.tags == 'error' %}bg-red-50 border-l-4 border-red-500 text-red-800{% else %}bg-blue-50 border-l-4 border-blue-500 text-blue-800{% endif %} flex justify-between items-center shadow-sm mb-4" role="alert">
+            <span>{{ message }}</span>
+            <button onclick="this.parentElement.style.display='none'" class="text-current hover:opacity-70">&times;</button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Main Content -->
+    <main class="min-h-screen">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-100 py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-4">
+                <div>
+                    <h3 class="text-white font-semibold mb-4">{% trans "About Us" %}</h3>
+                    <p class="text-sm text-gray-100">{% trans "Indian Cyber Crime Reporting Portal" %}</p>
+                </div>
+                <div>
+                    <h3 class="text-white font-semibold mb-4">{% trans "Quick Links" %}</h3>
+                    <ul class="text-sm space-y-2">
+                        <li><a href="{% url 'landing' %}" class="text-gray-100 hover:text-white hover:underline">{% trans "Home" %}</a></li>
+                        <li><a href="{% url 'cyber_awareness' %}" class="text-gray-100 hover:text-white hover:underline">{% trans "Awareness" %}</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white font-semibold mb-4">{% trans "Contact" %}</h3>
+                    <p class="text-sm text-gray-100">{% trans "Toll-Free: 1930" %}</p>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 pt-4">
+                <p class="text-center text-sm text-gray-100">{% trans "© 2024 Indian Cyber Crime Portal. All Rights Reserved." %}</p>
+            </div>
+        </div>
+    </footer>
+
+    {% block extra_js %}{% endblock %}
+    
+    <!-- Security Features: Disable Right-Click and Text Selection -->
+    <script>
+        // Disable right-click context menu for security
+        document.addEventListener('contextmenu', function(event) {
+            event.preventDefault();
+            return false;
+        });
+        
+        // Disable keyboard shortcuts for developer tools and selection
+        document.addEventListener('keydown', function(event) {
+            // F12 - Developer Tools
+            if (event.keyCode === 123) {
+                event.preventDefault();
+                return false;
+            }
+            // Ctrl+Shift+I (Windows/Linux) or Cmd+Option+I (Mac) - Developer Tools
+            if (event.ctrlKey && event.shiftKey && (event.keyCode === 73 || event.keyCode === 74 || event.keyCode === 75)) {
+                event.preventDefault();
+                return false;
+            }
+            // Ctrl+Shift+J (Windows/Linux) - Console
+            if (event.ctrlKey && event.shiftKey && event.keyCode === 74) {
+                event.preventDefault();
+                return false;
+            }
+            // Ctrl+Shift+C (Windows/Linux) - Inspect Element
+            if (event.ctrlKey && event.shiftKey && event.keyCode === 67) {
+                event.preventDefault();
+                return false;
+            }
+        });
+        
+        // Disable dragging images
+        document.addEventListener('dragstart', function(event) {
+            if (event.target.tagName === 'IMG') {
+                event.preventDefault();
+                return false;
+            }
+        });
+        
+        // Prevent printing sensitive pages
+        window.addEventListener('beforeprint', function() {
+            // Allow printing but could add warning if needed
+        });
+    </script>
+</body>
+</html>

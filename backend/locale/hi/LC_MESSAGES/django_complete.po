@@ -1,0 +1,1097 @@
+# Hindi translations for Indian Cyber Crime Portal
+# Copyright (C) 2024
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Indian Cyber Crime Portal 2.0\n"
+"Language: hi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# COMMON UI LABELS
+msgid "Dashboard"
+msgstr "डैशबोर्ड"
+
+msgid "Profile"
+msgstr "प्रोफाइल"
+
+msgid "Logout"
+msgstr "लॉग आउट"
+
+msgid "Login"
+msgstr "लॉगिन"
+
+msgid "Register"
+msgstr "पंजीकरण"
+
+msgid "Back to Dashboard"
+msgstr "डैशबोर्ड पर वापस जाएं"
+
+msgid "My Profile"
+msgstr "मेरी प्रोफाइल"
+
+msgid "Back to List"
+msgstr "सूची में वापस जाएं"
+
+msgid "Download as PDF"
+msgstr "पीडीएफ के रूप में डाउनलोड करें"
+
+msgid "View"
+msgstr "देखें"
+
+msgid "Edit"
+msgstr "संपादित करें"
+
+msgid "Delete"
+msgstr "हटाएं"
+
+msgid "Save"
+msgstr "सहेजें"
+
+msgid "Cancel"
+msgstr "रद्द करें"
+
+msgid "Submit"
+msgstr "जमा करें"
+
+msgid "Search"
+msgstr "खोजें"
+
+msgid "Filter"
+msgstr "फ़िल्टर"
+
+msgid "Export"
+msgstr "निर्यात करें"
+
+msgid "Download"
+msgstr "डाउनलोड"
+
+msgid "Upload"
+msgstr "अपलोड करें"
+
+msgid "Add"
+msgstr "जोड़ें"
+
+msgid "Edit Officer"
+msgstr "अधिकारी को संपादित करें"
+
+msgid "Add Officer"
+msgstr "अधिकारी जोड़ें"
+
+msgid "Manage"
+msgstr "प्रबंधित करें"
+
+msgid "Manage Users"
+msgstr "उपयोगकर्ताओं को प्रबंधित करें"
+
+msgid "Manage Officers"
+msgstr "अधिकारियों को प्रबंधित करें"
+
+msgid "View and manage registered users"
+msgstr "पंजीकृत उपयोगकर्ताओं को देखें और प्रबंधित करें"
+
+msgid "Manage cybercrime investigation officers"
+msgstr "साइबर अपराध जांच अधिकारियों को प्रबंधित करें"
+
+msgid "Pending Approvals"
+msgstr "पेंडिंग अनुमोदन"
+
+msgid "Review"
+msgstr "समीक्षा"
+
+msgid "Review and approve new complaints"
+msgstr "नई शिकायतों की समीक्षा करें और अनुमोदित करें"
+
+msgid "Active"
+msgstr "सक्रिय"
+
+msgid "Inactive"
+msgstr "निष्क्रिय"
+
+msgid "Yes"
+msgstr "हाँ"
+
+msgid "No"
+msgstr "नहीं"
+
+msgid "Pending"
+msgstr "पेंडिंग"
+
+msgid "In Progress"
+msgstr "प्रगति में"
+
+msgid "Resolved"
+msgstr "समाधान किया गया"
+
+msgid "Closed"
+msgstr "बंद"
+
+msgid "Critical"
+msgstr "गंभीर"
+
+msgid "High"
+msgstr "उच्च"
+
+msgid "Medium"
+msgstr "मध्यम"
+
+msgid "Low"
+msgstr "कम"
+
+# COMPLAINT RELATED
+msgid "Complaints"
+msgstr "शिकायतें"
+
+msgid "My Complaints"
+msgstr "मेरी शिकायतें"
+
+msgid "File New Complaint"
+msgstr "नई शिकायत दर्ज करें"
+
+msgid "File a Complaint"
+msgstr "एक शिकायत दर्ज करें"
+
+msgid "File This Complaint"
+msgstr "इस शिकायत को दर्ज करें"
+
+msgid "Complaint Filed Successfully!"
+msgstr "शिकायत सफलतापूर्वक दर्ज की गई!"
+
+msgid "Your complaint has been registered with case number"
+msgstr "आपकी शिकायत इस केस नंबर के साथ पंजीकृत की गई है"
+
+msgid "Below you will find information about the laws and legal sections that apply to your complaint category."
+msgstr "नीचे आपको आपकी शिकायत श्रेणी पर लागू कानूनों और कानूनी धाराओं की जानकारी मिलेगी।"
+
+msgid "Your Complaint Summary"
+msgstr "आपकी शिकायत सारांश"
+
+msgid "Complaint Title"
+msgstr "शिकायत शीर्षक"
+
+msgid "Complaint Details"
+msgstr "शिकायत विवरण"
+
+msgid "Legal Information & Applicable Laws"
+msgstr "कानूनी जानकारी और लागू कानून"
+
+msgid "Legal Information"
+msgstr "कानूनी जानकारी"
+
+msgid "Filing Date"
+msgstr "दाखिल करने की तारीख"
+
+msgid "Status"
+msgstr "स्थिति"
+
+msgid "Category"
+msgstr "श्रेणी"
+
+msgid "Priority"
+msgstr "प्राथमिकता"
+
+msgid "Priority Level"
+msgstr "प्राथमिकता स्तर"
+
+msgid "Case #"
+msgstr "केस #"
+
+msgid "Title"
+msgstr "शीर्षक"
+
+msgid "Complainant"
+msgstr "शिकायतकर्ता"
+
+msgid "Officer"
+msgstr "अधिकारी"
+
+msgid "Date"
+msgstr "तारीख"
+
+msgid "Action"
+msgstr "कार्रवाई"
+
+msgid "Details"
+msgstr "विवरण"
+
+msgid "Description"
+msgstr "विवरण"
+
+msgid "Detailed Description"
+msgstr "विस्तृत विवरण"
+
+msgid "Select Category"
+msgstr "श्रेणी चुनें"
+
+msgid "File Name"
+msgstr "फाइल का नाम"
+
+msgid "Type"
+msgstr "प्रकार"
+
+msgid "Size"
+msgstr "आकार"
+
+msgid "Uploaded"
+msgstr "अपलोड किया गया"
+
+msgid "Evidence Files"
+msgstr "साक्ष्य फाइलें"
+
+msgid "No evidence files uploaded yet"
+msgstr "अभी तक कोई साक्ष्य फाइलें अपलोड नहीं की गई हैं"
+
+msgid "Case Updates"
+msgstr "केस अपडेट"
+
+msgid "No updates yet"
+msgstr "अभी कोई अपडेट नहीं"
+
+msgid "Assigned Officer"
+msgstr "नियुक्त अधिकारी"
+
+msgid "Not yet assigned"
+msgstr "अभी तक नियुक्त नहीं"
+
+msgid "Department"
+msgstr "विभाग"
+
+msgid "Badge"
+msgstr "बिल्ला"
+
+msgid "Information"
+msgstr "जानकारी"
+
+msgid "Case Age"
+msgstr "केस की आयु"
+
+msgid "Secure"
+msgstr "सुरक्षित"
+
+msgid "All information is encrypted with AES-256 and protected at all times."
+msgstr "सभी जानकारी AES-256 के साथ एन्क्रिप्ट की गई है और सभी समय सुरक्षित है।"
+
+# LAWS PAGES
+msgid "Laws"
+msgstr "कानून"
+
+msgid "Laws Home"
+msgstr "कानून होम"
+
+msgid "Indian Cyber Crime Laws & Legal Information"
+msgstr "भारतीय साइबर अपराध कानून और कानूनी जानकारी"
+
+msgid "Cyber Crime Laws"
+msgstr "साइबर अपराध कानून"
+
+msgid "Cyber Crime Laws & Legal Information"
+msgstr "साइबर अपराध कानून और कानूनी जानकारी"
+
+msgid "Applicable Laws & Sections"
+msgstr "लागू कानून और धाराएं"
+
+msgid "Relevant Sections"
+msgstr "संबंधित धाराएं"
+
+msgid "Relevant Sections:"
+msgstr "संबंधित धाराएं:"
+
+msgid "What it covers:"
+msgstr "यह क्या कवर करता है:"
+
+msgid "Punishment"
+msgstr "दंड"
+
+msgid "Know Your Legal Rights"
+msgstr "अपने कानूनी अधिकार जानें"
+
+msgid "India has comprehensive laws to protect citizens from cyber crimes. This guide explains the key legal sections under the Information Technology Act 2000, Indian Penal Code, and other relevant statutes. Understanding these laws empowers you to recognize violations and take appropriate legal action."
+msgstr "भारत के पास नागरिकों को साइबर अपराधों से बचाने के लिए व्यापक कानून हैं। यह गाइड सूचना प्रौद्योगिकी अधिनियम 2000, भारतीय दंड संहिता, और अन्य प्रासंगिक कानूनों के तहत मुख्य कानूनी धाराओं की व्याख्या करता है।"
+
+msgid "Search laws by keyword..."
+msgstr "कीवर्ड से कानूनों को खोजें..."
+
+msgid "law(s) apply"
+msgstr "कानून लागू होते हैं"
+
+msgid "Learn More"
+msgstr "अधिक जानें"
+
+msgid "Government Resources & Support"
+msgstr "सरकारी संसाधन और समर्थन"
+
+msgid "Government Resources & Links"
+msgstr "सरकारी संसाधन और लिंक"
+
+msgid "Government Resources"
+msgstr "सरकारी संसाधन"
+
+msgid "Visit Resource"
+msgstr "संसाधन पर जाएं"
+
+msgid "Visit Portal"
+msgstr "पोर्टल पर जाएं"
+
+msgid "Key Points to Remember"
+msgstr "याद रखने के लिए मुख्य बिंदु"
+
+msgid "These laws protect you and provide legal remedies against cyber crimes"
+msgstr "ये कानून आपको साइबर अपराधों से बचाते हैं और कानूनी उपचार प्रदान करते हैं"
+
+msgid "Police investigation is free of charge"
+msgstr "पुलिस की जांच निःशुल्क है"
+
+msgid "You have the right to file a complaint with cybercrime.gov.in"
+msgstr "आपको cybercrime.gov.in के साथ शिकायत दर्ज करने का अधिकार है"
+
+msgid "Compensation can be claimed in civil court"
+msgstr "नागरिक न्यायालय में मुआवजे का दावा किया जा सकता है"
+
+msgid "Criminal proceedings can result in imprisonment and fines"
+msgstr "आपराधिक कार्यवाही से कारावास और जुर्माने हो सकते हैं"
+
+msgid "Time limits apply - report crimes as soon as possible"
+msgstr "समय सीमा लागू होती है - अपराधों की रिपोर्ट जितनी जल्दी संभव हो दें"
+
+msgid "What to Do Next"
+msgstr "अगले कदम"
+
+msgid "Document Evidence"
+msgstr "साक्ष्य को दस्तावेज़ करें"
+
+msgid "Collect screenshots, messages, emails, and transaction records as evidence."
+msgstr "साक्ष्य के रूप में स्क्रीनशॉट, संदेश, ईमेल और लेनदेन रिकॉर्ड एकत्र करें।"
+
+msgid "File your complaint through this portal to create an official record."
+msgstr "एक आधिकारिक रिकॉर्ड बनाने के लिए इस पोर्टल के माध्यम से अपनी शिकायत दर्ज करें।"
+
+msgid "Report to Government"
+msgstr "सरकार को रिपोर्ट करें"
+
+msgid "Also report on cybercrime.gov.in for official investigation."
+msgstr "आधिकारिक जांच के लिए cybercrime.gov.in पर भी रिपोर्ट करें।"
+
+msgid "Legal Action"
+msgstr "कानूनी कार्रवाई"
+
+msgid "Consult lawyer for civil suit and compensation claim."
+msgstr "नागरिक मुकदमे और मुआवजे के दावे के लिए वकील से सलाह लें।"
+
+msgid "Monitor Progress"
+msgstr "प्रगति की निगरानी करें"
+
+msgid "Keep track of case number and follow up with authorities regularly."
+msgstr "केस नंबर का ट्रैक रखें और नियमित रूप से अधिकारियों के साथ अनुवर्ती करें।"
+
+msgid "Disclaimer"
+msgstr "अस्वीकरण"
+
+msgid "This information is for educational purposes only and should not be considered as legal advice. For specific legal guidance, please consult with a qualified lawyer. Laws and punishments may change, and circumstances vary by case. Always rely on official government sources and professional legal counsel."
+msgstr "यह जानकारी केवल शैक्षिक उद्देश्यों के लिए है और इसे कानूनी सलाह नहीं माना जाना चाहिए। विशिष्ट कानूनी मार्गदर्शन के लिए, कृपया एक योग्य वकील से सलाह लें।"
+
+msgid "Report on cybercrime.gov.in"
+msgstr "cybercrime.gov.in पर रिपोर्ट करें"
+
+msgid "Report on Cybercrime.gov.in"
+msgstr "Cybercrime.gov.in पर रिपोर्ट करें"
+
+msgid "Back to Laws"
+msgstr "कानूनों पर वापस जाएं"
+
+msgid "Browse All Laws"
+msgstr "सभी कानूनों को ब्राउज़ करें"
+
+msgid "Go to Home"
+msgstr "होम पर जाएं"
+
+msgid "Law Category Not Found"
+msgstr "कानून श्रेणी नहीं मिली"
+
+msgid "The legal information you're looking for doesn't exist. Please browse our available law categories below or use our search feature."
+msgstr "आप जिस कानूनी जानकारी की तलाश कर रहे हैं वह मौजूद नहीं है। कृपया नीचे हमारी उपलब्ध कानून श्रेणियों को ब्राउज़ करें।"
+
+msgid "Available Law Categories"
+msgstr "उपलब्ध कानून श्रेणियां"
+
+msgid "Phishing & Spoofing"
+msgstr "फिशिंग और स्पूफिंग"
+
+msgid "Hacking & Unauthorized Access"
+msgstr "हैकिंग और अनधिकृत पहुंच"
+
+msgid "Data Breaches"
+msgstr "डेटा उल्लंघन"
+
+msgid "Cyberbullying & Online Harassment"
+msgstr "साइबर बुलिंग और ऑनलाइन उत्पीड़न"
+
+msgid "Comprehensive guide to laws protecting you against cyber crimes"
+msgstr "साइबर अपराधों से आपकी रक्षा करने वाले कानूनों के लिए व्यापक गाइड"
+
+# DASHBOARD
+msgid "Admin Dashboard"
+msgstr "प्रशासक डैशबोर्ड"
+
+msgid "System Administration & User Management"
+msgstr "सिस्टम प्रशासन और उपयोगकर्ता प्रबंधन"
+
+msgid "Officer Dashboard"
+msgstr "अधिकारी डैशबोर्ड"
+
+msgid "User Dashboard"
+msgstr "उपयोगकर्ता डैशबोर्ड"
+
+msgid "Total Users"
+msgstr "कुल उपयोगकर्ता"
+
+msgid "Officers"
+msgstr "अधिकारी"
+
+msgid "Total Cases"
+msgstr "कुल केस"
+
+msgid "Assigned"
+msgstr "नियुक्त"
+
+msgid "Investigating"
+msgstr "जांच कर रहे हैं"
+
+msgid "Unassigned"
+msgstr "अनियुक्त"
+
+msgid "Assign Now"
+msgstr "अभी नियुक्त करें"
+
+msgid "Pending"
+msgstr "पेंडिंग"
+
+msgid "Clear Pending Assignments"
+msgstr "पेंडिंग नियुक्तियों को साफ करें"
+
+msgid "cases awaiting assignment"
+msgstr "नियुक्ति की प्रतीक्षा में केस"
+
+msgid "Email Settings"
+msgstr "ईमेल सेटिंग्स"
+
+msgid "Configure email notifications"
+msgstr "ईमेल सूचनाएं कॉन्फ़िगर करें"
+
+msgid "Configure"
+msgstr "कॉन्फ़िगर करें"
+
+msgid "Pending Approvals"
+msgstr "पेंडिंग अनुमोदन"
+
+msgid "Recent Complaints"
+msgstr "हाल की शिकायतें"
+
+msgid "View All Cases"
+msgstr "सभी केस देखें"
+
+msgid "Review all complaints and cases"
+msgstr "सभी शिकायतों और केसों की समीक्षा करें"
+
+msgid "View All"
+msgstr "सभी देखें"
+
+msgid "Assign Cases"
+msgstr "केसों को नियुक्त करें"
+
+msgid "Assign unassigned cases to officers"
+msgstr "अनियुक्त केसों को अधिकारियों को नियुक्त करें"
+
+msgid "View Complaints"
+msgstr "शिकायतें देखें"
+
+msgid "View All Complaints"
+msgstr "सभी शिकायतें देखें"
+
+msgid "In Review"
+msgstr "समीक्षा में"
+
+msgid "Assigned Cases"
+msgstr "नियुक्त केस"
+
+msgid "Awareness"
+msgstr "जागरूकता"
+
+# PROFILE PAGES
+msgid "Personal Information"
+msgstr "व्यक्तिगत जानकारी"
+
+msgid "Contact Information"
+msgstr "संपर्क जानकारी"
+
+msgid "First Name"
+msgstr "पहला नाम"
+
+msgid "Last Name"
+msgstr "अंतिम नाम"
+
+msgid "Username"
+msgstr "उपयोगकर्ता नाम"
+
+msgid "Email"
+msgstr "ईमेल"
+
+msgid "Phone"
+msgstr "फोन"
+
+msgid "Not provided"
+msgstr "प्रदान नहीं किया गया"
+
+msgid "Badge Number"
+msgstr "बिल्ला नंबर"
+
+msgid "Member Since"
+msgstr "सदस्य बनने की तारीख"
+
+msgid "Account Status"
+msgstr "खाता स्थिति"
+
+msgid "Email Verified"
+msgstr "ईमेल सत्यापित"
+
+msgid "Last Updated"
+msgstr "अंतिम अपडेट"
+
+msgid "Security Information"
+msgstr "सुरक्षा जानकारी"
+
+msgid "Your password and sensitive information are encrypted using AES-256 encryption. Never share your login credentials with anyone."
+msgstr "आपका पासवर्ड और संवेदनशील जानकारी AES-256 एन्क्रिप्शन का उपयोग करके एन्क्रिप्ट की गई है।"
+
+# FOOTER
+msgid "About Us"
+msgstr "हमारे बारे में"
+
+msgid "Indian Cyber Crime Reporting Portal"
+msgstr "भारतीय साइबर अपराध रिपोर्टिंग पोर्टल"
+
+msgid "Quick Links"
+msgstr "त्वरित लिंक"
+
+msgid "Home"
+msgstr "होम"
+
+msgid "Contact"
+msgstr "संपर्क"
+
+msgid "Toll-Free: 1930"
+msgstr "टोल-फ्री: 1930"
+
+msgid "© 2024 Indian Cyber Crime Portal. All Rights Reserved."
+msgstr "© 2024 भारतीय साइबर अपराध पोर्टल। सर्वाधिकार सुरक्षित।"
+
+msgid "A Digital India Initiative | Ministry of Internal Affairs"
+msgstr "अ डिजिटल भारत पहल | आंतरिक मामलों का मंत्रालय"
+
+msgid "Cyber Crime Portal"
+msgstr "साइबर अपराध पोर्टल"
+
+msgid "Ministry of Internal Affairs"
+msgstr "आंतरिक मामलों का मंत्रालय"
+
+msgid "Government Resources"
+msgstr "सरकारी संसाधन"
+
+msgid "India.gov.in"
+msgstr "India.gov.in"
+
+msgid "Ministry of Home Affairs"
+msgstr "गृह मंत्रालय"
+
+msgid "Indian Cyber Crime Portal"
+msgstr "भारतीय साइबर अपराध पोर्टल"
+
+msgid "Ministry of Electronics & IT"
+msgstr "इलेक्ट्रॉनिक्स और आईटी मंत्रालय"
+
+msgid "Help & Support"
+msgstr "सहायता और समर्थन"
+
+msgid "FAQ"
+msgstr "अक्सर पूछे जाने वाले प्रश्न"
+
+msgid "Contact Us"
+msgstr "हमसे संपर्क करें"
+
+msgid "Report an Issue"
+msgstr "समस्या की रिपोर्ट करें"
+
+msgid "Legal"
+msgstr "कानूनी"
+
+msgid "Privacy Policy"
+msgstr "गोपनीयता नीति"
+
+msgid "Terms & Conditions"
+msgstr "शर्तें और शर्तें"
+
+msgid "Accessibility Statement"
+msgstr "पहुंच कथन"
+
+msgid "Follow Us"
+msgstr "हमारा पालन करें"
+
+msgid "This is an official Government of India portal powered by Ministry of Internal Affairs"
+msgstr "यह भारत सरकार का आधिकारिक पोर्टल है जो आंतरिक मामलों के मंत्रालय द्वारा संचालित है"
+
+msgid "Last Updated:"
+msgstr "अंतिम अपडेट:"
+
+msgid "Version:"
+msgstr "संस्करण:"
+
+msgid "Secure • Encrypted • Audited"
+msgstr "सुरक्षित • एन्क्रिप्टेड • ऑडिट की गई"
+
+# CYBER CRIME CATEGORIES
+msgid "Phishing"
+msgstr "फिशिंग"
+
+msgid "Fraudulent attempts to obtain sensitive information by disguising as trustworthy entities"
+msgstr "विश्वस्त संस्थाओं के रूप में प्रच्छन्न होकर संवेदनशील जानकारी प्राप्त करने के धोखाधड़ी प्रयास"
+
+msgid "Identity Theft"
+msgstr "पहचान की चोरी"
+
+msgid "Stealing personal information to commit fraud or open fake accounts"
+msgstr "धोखाधड़ी करने या नकली खाते खोलने के लिए व्यक्तिगत जानकारी की चोरी"
+
+msgid "Online Fraud"
+msgstr "ऑनलाइन धोखाधड़ी"
+
+msgid "Financial fraud, scams, and deceptive practices conducted online"
+msgstr "ऑनलाइन किए गए वित्तीय धोखाधड़ी, घोटाले और धोखेबाजी प्रथाएं"
+
+msgid "Hacking"
+msgstr "हैकिंग"
+
+msgid "Unauthorized access to computer systems and networks"
+msgstr "कंप्यूटर सिस्टम और नेटवर्क तक अनधिकृत पहुंच"
+
+msgid "Ransomware"
+msgstr "रैनसमवेयर"
+
+msgid "Malware that encrypts data and demands ransom for decryption"
+msgstr "मैलवेयर जो डेटा को एन्क्रिप्ट करता है और डिक्रिप्ट करने के लिए फिरौती मांगता है"
+
+msgid "Data Breach"
+msgstr "डेटा उल्लंघन"
+
+msgid "Unauthorized access or exposure of sensitive personal data"
+msgstr "संवेदनशील व्यक्तिगत डेटा तक अनधिकृत पहुंच या जोखिम"
+
+msgid "Cyberbullying"
+msgstr "साइबर बुलिंग"
+
+msgid "Harassment, threats, or abusive behavior through digital channels"
+msgstr "डिजिटल चैनलों के माध्यम से उत्पीड़न, धमकियां या दुर्व्यवहार"
+
+msgid "Malware Detection & Distribution"
+msgstr "मैलवेयर पहचान और वितरण"
+
+msgid "Creating, distributing, or executing malicious software"
+msgstr "दुर्भावनापूर्ण सॉफ्टवेयर बनाना, वितरित करना या निष्पादित करना"
+
+msgid "Other Cyber Crimes"
+msgstr "अन्य साइबर अपराध"
+
+msgid "Other types of cybercrime not listed above"
+msgstr "ऊपर सूचीबद्ध नहीं किए गए साइबर अपराध के अन्य प्रकार"
+
+# LAWS AND ACTS
+msgid "Information Technology Act, 2000"
+msgstr "सूचना प्रौद्योगिकी अधिनियम, 2000"
+
+msgid "Indian Penal Code (IPC)"
+msgstr "भारतीय दंड संहिता (आईपीसी)"
+
+msgid "Aadhaar Act, 2016"
+msgstr "आधार अधिनियम, 2016"
+
+msgid "Digital Personal Data Protection Act, 2023"
+msgstr "डिजिटल व्यक्तिगत डेटा संरक्षण अधिनियम, 2023"
+
+msgid "Bharatiya Nyaya Sanhita (BNS), 2023"
+msgstr "भारतीय न्याय संहिता (बीएनएस), 2023"
+
+# SECTIONS
+msgid "Section 66"
+msgstr "धारा 66"
+
+msgid "Section 66C"
+msgstr "धारा 66C"
+
+msgid "Section 66D"
+msgstr "धारा 66D"
+
+msgid "Section 420"
+msgstr "धारा 420"
+
+msgid "Section 406"
+msgstr "धारा 406"
+
+msgid "Section 409"
+msgstr "धारा 409"
+
+msgid "Section 66E"
+msgstr "धारा 66E"
+
+msgid "Section 468"
+msgstr "धारा 468"
+
+msgid "Section 23"
+msgstr "धारा 23"
+
+msgid "Section 511"
+msgstr "धारा 511"
+
+msgid "Section 43"
+msgstr "धारा 43"
+
+msgid "Section 379"
+msgstr "धारा 379"
+
+msgid "Section 405"
+msgstr "धारा 405"
+
+msgid "Section 66B"
+msgstr "धारा 66B"
+
+msgid "Section 383"
+msgstr "धारा 383"
+
+msgid "Section 384"
+msgstr "धारा 384"
+
+msgid "Section 43A"
+msgstr "धारा 43A"
+
+msgid "Section 72"
+msgstr "धारा 72"
+
+msgid "Section 6"
+msgstr "धारा 6"
+
+msgid "Section 8"
+msgstr "धारा 8"
+
+msgid "Section 66A"
+msgstr "धारा 66A"
+
+msgid "Section 67"
+msgstr "धारा 67"
+
+msgid "Section 67A"
+msgstr "धारा 67A"
+
+msgid "Section 294"
+msgstr "धारा 294"
+
+msgid "Section 354"
+msgstr "धारा 354"
+
+msgid "Section 509"
+msgstr "धारा 509"
+
+msgid "Section 351"
+msgstr "धारा 351"
+
+msgid "Section 352"
+msgstr "धारा 352"
+
+msgid "Multiple sections depending on nature of crime"
+msgstr "अपराध की प्रकृति पर निर्भर कई धाराएं"
+
+# SECTION TITLES AND DESCRIPTIONS
+msgid "Section 66 - Computer Related Offences"
+msgstr "धारा 66 - कंप्यूटर संबंधित अपराध"
+
+msgid "Imprisonment up to 3 years and fine up to ₹5 lakh"
+msgstr "3 साल तक कारावास और 5 लाख रुपये तक जुर्माना"
+
+msgid "Whoever commits an offence of fraud, forgery or cheating by impersonation shall be punishable with imprisonment and fine."
+msgstr "जो कोई छद्म प्रतिरूपण द्वारा धोखाधड़ी, जालसाजी या धोखेबाजी का अपराध करता है, उसे कारावास और जुर्माने से दंडित किया जाएगा।"
+
+msgid "Section 66C - Identity Theft"
+msgstr "धारा 66C - पहचान की चोरी"
+
+msgid "Imprisonment up to 3 years and fine up to ₹1 lakh"
+msgstr "3 साल तक कारावास और 1 लाख रुपये तक जुर्माना"
+
+msgid "Whoever fraudulently or dishonestly makes use of electronic signature, password or any other unique identification feature of any other person shall be punishable."
+msgstr "जो कोई किसी अन्य व्यक्ति के इलेक्ट्रॉनिक हस्ताक्षर, पासवर्ड या किसी अन्य अद्वितीय पहचान सुविधा का धोखाधड़ी या बेईमानी से उपयोग करता है, उसे दंडित किया जाएगा।"
+
+msgid "Section 66D - Phishing"
+msgstr "धारा 66D - फिशिंग"
+
+msgid "Whoever, by means of any electronic record, makes any misrepresentation to induce any person to part with any money, valuable security or property shall be punishable."
+msgstr "जो कोई किसी इलेक्ट्रॉनिक रिकॉर्ड के माध्यम से किसी व्यक्ति को पैसे, मूल्यवान सुरक्षा या संपत्ति से अलग करने के लिए कोई गलत प्रतिनिधित्व करता है, उसे दंडित किया जाएगा।"
+
+msgid "Section 420 - Cheating and Dishonestly Inducing Delivery of Property"
+msgstr "धारा 420 - धोखाधड़ी और बेईमानी से संपत्ति की डिलीवरी के लिए प्रेरित करना"
+
+msgid "Imprisonment up to 7 years and fine up to ₹10 lakh"
+msgstr "7 साल तक कारावास और 10 लाख रुपये तक जुर्माना"
+
+msgid "Whoever cheats and by means of such cheating induces the person deceived to deliver any property to any person, or to make, alter or destroy the whole or any part of a valuable security, or makes an entry in any book or record."
+msgstr "जो कोई धोखाधड़ी करता है और इस तरह की धोखाधड़ी के माध्यम से धोखा खाए गए व्यक्ति को कोई संपत्ति प्रदान करने के लिए प्रेरित करता है।"
+
+msgid "Section 406 - Criminal Breach of Trust"
+msgstr "धारा 406 - आपराधिक विश्वास का उल्लंघन"
+
+msgid "Dishonest misappropriation of property or personal information entrusted with a person."
+msgstr "किसी व्यक्ति के साथ सौंपी गई संपत्ति या व्यक्तिगत जानकारी का बेईमान दुरुपयोग।"
+
+msgid "Section 43 - Penalty for Damage to Computer, Computer System, etc."
+msgstr "धारा 43 - कंप्यूटर, कंप्यूटर सिस्टम आदि को नुकसान के लिए दंड"
+
+msgid "Compensation up to ₹1 crore"
+msgstr "1 करोड़ रुपये तक मुआवजा"
+
+msgid "Civil liability for unauthorized access, data theft, or system damage."
+msgstr "अनधिकृत पहुंच, डेटा चोरी या सिस्टम क्षति के लिए नागरिक दायित्व।"
+
+msgid "Section 66B - Punishment for Stealing Computer Material or Data"
+msgstr "धारा 66B - कंप्यूटर सामग्री या डेटा की चोरी के लिए दंड"
+
+msgid "Imprisonment up to 3 years and fine up to ₹2 lakh"
+msgstr "3 साल तक कारावास और 2 लाख रुपये तक जुर्माना"
+
+msgid "Stealing or acquiring computer source code or confidential information."
+msgstr "कंप्यूटर स्रोत कोड या गोपनीय जानकारी की चोरी या अधिग्रहण।"
+
+msgid "Section 66E - Violation of Privacy"
+msgstr "धारा 66E - गोपनीयता का उल्लंघन"
+
+msgid "Imprisonment up to 3 years and fine up to ₹2 lakh"
+msgstr "3 साल तक कारावास और 2 लाख रुपये तक जुर्माना"
+
+msgid "Whoever captures, publishes or transmits the image of a private area of any person without his/her consent shall be punishable."
+msgstr "जो कोई किसी व्यक्ति के निजी क्षेत्र की तस्वीर बिना उसकी सहमति के कैप्चर, प्रकाशित या प्रसारित करता है, उसे दंडित किया जाएगा।"
+
+msgid "Section 23 - Punishment for Wrongfully Collecting/Using Aadhaar Data"
+msgstr "धारा 23 - आधार डेटा को गलत तरीके से एकत्र करने / उपयोग करने के लिए दंड"
+
+msgid "Imprisonment up to 3 years and fine up to ₹10 lakh"
+msgstr "3 साल तक कारावास और 10 लाख रुपये तक जुर्माना"
+
+msgid "Collecting Aadhaar information without consent or using it improperly."
+msgstr "सहमति के बिना आधार जानकारी एकत्र करना या इसका अनुचित उपयोग करना।"
+
+# GOVERNMENT RESOURCES
+msgid "Cyber Crime Helpline - Report Phishing"
+msgstr "साइबर अपराध हेल्पलाइन - फिशिंग की रिपोर्ट करें"
+
+msgid "Report phishing and fraud attempts to Indian Government Cyber Crime Portal"
+msgstr "भारतीय सरकार के साइबर अपराध पोर्टल को फिशिंग और धोखाधड़ी के प्रयासों की रिपोर्ट करें"
+
+msgid "RBI - Phishing & Fraud Prevention"
+msgstr "आरबीआई - फिशिंग और धोखाधड़ी रोकथाम"
+
+msgid "RBI guidelines on phishing prevention and online security"
+msgstr "फिशिंग रोकथाम और ऑनलाइन सुरक्षा पर आरबीआई दिशानिर्देश"
+
+msgid "CERT-IN - Phishing Alerts"
+msgstr "सर्ट-इन - फिशिंग अलर्ट"
+
+msgid "CERT-IN security alerts and advisories on phishing attacks"
+msgstr "फिशिंग हमलों पर सर्ट-इन सुरक्षा अलर्ट और सलाह"
+
+msgid "Cyber Crime Helpline - Identity Theft"
+msgstr "साइबर अपराध हेल्पलाइन - पहचान की चोरी"
+
+msgid "Report identity theft and fraud to Indian Government Cyber Crime Portal"
+msgstr "भारतीय सरकार के साइबर अपराध पोर्टल को पहचान की चोरी और धोखाधड़ी की रिपोर्ट करें"
+
+msgid "UIDAI - Identity Protection"
+msgstr "यूआईडीएआई - पहचान सुरक्षा"
+
+msgid "Aadhaar Authority guidelines on protecting your personal identity and preventing theft"
+msgstr "आधार प्राधिकरण द्वारा आपकी व्यक्तिगत पहचान की सुरक्षा करने और चोरी को रोकने के लिए दिशानिर्देश"
+
+msgid "NCRB - Identity Crime Data"
+msgstr "एनसीआरबी - पहचान अपराध डेटा"
+
+msgid "National Crime Records Bureau statistics on identity-related crimes"
+msgstr "पहचान से संबंधित अपराधों पर राष्ट्रीय अपराध रिकॉर्ड ब्यूरो आंकड़े"
+
+msgid "Cyber Crime Helpline - Online Fraud"
+msgstr "साइबर अपराध हेल्पलाइन - ऑनलाइन धोखाधड़ी"
+
+msgid "Report online fraud and financial scams to official portal"
+msgstr "ऑनलाइन धोखाधड़ी और वित्तीय घोटालों की आधिकारिक पोर्टल को रिपोर्ट करें"
+
+msgid "RBI - Online Fraud Prevention"
+msgstr "आरबीआई - ऑनलाइन धोखाधड़ी रोकथाम"
+
+msgid "RBI guidelines on preventing online financial fraud and safe banking"
+msgstr "ऑनलाइन वित्तीय धोखाधड़ी को रोकने और सुरक्षित बैंकिंग पर आरबीआई दिशानिर्देश"
+
+msgid "SEBI - Investor Protection"
+msgstr "सेबी - निवेशक सुरक्षा"
+
+msgid "SEBI guidelines on securities fraud and investor complaint resolution"
+msgstr "प्रतिभूति धोखाधड़ी और निवेशक शिकायत समाधान पर सेबी दिशानिर्देश"
+
+msgid "Cyber Crime Helpline - Hacking"
+msgstr "साइबर अपराध हेल्पलाइन - हैकिंग"
+
+msgid "Report unauthorized access and hacking incidents"
+msgstr "अनधिकृत पहुंच और हैकिंग घटनाओं की रिपोर्ट करें"
+
+msgid "CERT-IN - Hacking Advisories"
+msgstr "सर्ट-इन - हैकिंग सलाह"
+
+msgid "CERT-IN security alerts on unauthorized access and exploits"
+msgstr "अनधिकृत पहुंच और शोषण पर सर्ट-इन सुरक्षा अलर्ट"
+
+msgid "MeitY - Cybersecurity Guidelines"
+msgstr "मेइटी - साइबर सुरक्षा दिशानिर्देश"
+
+msgid "Government cybersecurity guidelines and best practices"
+msgstr "सरकार के साइबर सुरक्षा दिशानिर्देश और सर्वोत्तम प्रथाएं"
+
+msgid "Cyber Crime Helpline - Ransomware"
+msgstr "साइबर अपराध हेल्पलाइन - रैनसमवेयर"
+
+msgid "Report ransomware attacks and extortion incidents"
+msgstr "रैनसमवेयर हमलों और बर्खास्तगी की घटनाओं की रिपोर्ट करें"
+
+msgid "CERT-IN - Ransomware Alerts"
+msgstr "सर्ट-इन - रैनसमवेयर अलर्ट"
+
+msgid "CERT-IN warnings and advisories on active ransomware threats"
+msgstr "सक्रिय रैनसमवेयर खतरों पर सर्ट-इन चेतावनी और सलाह"
+
+msgid "MeitY - Incident Response"
+msgstr "मेइटी - घटना प्रतिक्रिया"
+
+msgid "Government incident response guidelines for ransomware attacks"
+msgstr "रैनसमवेयर हमलों के लिए सरकार की घटना प्रतिक्रिया दिशानिर्देश"
+
+msgid "Cyber Crime Helpline - Data Breach"
+msgstr "साइबर अपराध हेल्पलाइन - डेटा उल्लंघन"
+
+msgid "Report data breaches and unauthorized data disclosure"
+msgstr "डेटा उल्लंघन और अनधिकृत डेटा प्रकटीकरण की रिपोर्ट करें"
+
+msgid "CERT-IN - Data Security Advisories"
+msgstr "सर्ट-इन - डेटा सुरक्षा सलाह"
+
+msgid "CERT-IN advisories on data breaches and security incidents"
+msgstr "डेटा उल्लंघन और सुरक्षा घटनाओं पर सर्ट-इन सलाह"
+
+msgid "MeitY - Data Protection Framework"
+msgstr "मेइटी - डेटा संरक्षण ढांचा"
+
+msgid "Government data protection policies and regulations"
+msgstr "सरकार की डेटा संरक्षण नीतियां और नियम"
+
+msgid "Cyber Crime Helpline - Cyberbullying"
+msgstr "साइबर अपराध हेल्पलाइन - साइबर बुलिंग"
+
+msgid "Report cyberbullying and harassment incidents"
+msgstr "साइबर बुलिंग और उत्पीड़न घटनाओं की रिपोर्ट करें"
+
+msgid "NCW - Online Harassment Resources"
+msgstr "एनसीडब्लू - ऑनलाइन उत्पीड़न संसाधन"
+
+msgid "National Commission for Women guidelines on cyber harassment of women"
+msgstr "महिलाओं के साइबर उत्पीड़न पर राष्ट्रीय महिला आयोग दिशानिर्देश"
+
+msgid "CHILDLINE - Child Cyberbullying"
+msgstr "चाइल्डलाइन - बाल साइबर बुलिंग"
+
+msgid "Report cyberbullying of children and minors"
+msgstr "बच्चों और नाबालिगों की साइबर बुलिंग की रिपोर्ट करें"
+
+msgid "Cyber Crime Helpline - Malware Report"
+msgstr "साइबर अपराध हेल्पलाइन - मैलवेयर रिपोर्ट"
+
+msgid "Report malware infections and suspicious software"
+msgstr "मैलवेयर संक्रमण और संदिग्ध सॉफ्टवेयर की रिपोर्ट करें"
+
+msgid "CERT-IN - Malware Alerts"
+msgstr "सर्ट-इन - मैलवेयर अलर्ट"
+
+msgid "CERT-IN analysis and alerts on malicious software threats"
+msgstr "दुर्भावनापूर्ण सॉफ्टवेयर खतरों पर सर्ट-इन विश्लेषण और अलर्ट"
+
+msgid "MeitY - Malware Resources"
+msgstr "मेइटी - मैलवेयर संसाधन"
+
+msgid "Government resources for malware detection and removal"
+msgstr "मैलवेयर पहचान और हटाने के लिए सरकार के संसाधन"
+
+msgid "Cyber Crime Helpline - General Report"
+msgstr "साइबर अपराध हेल्पलाइन - सामान्य रिपोर्ट"
+
+msgid "Report all types of cyber crimes to official portal"
+msgstr "सभी प्रकार के साइबर अपराधों की आधिकारिक पोर्टल को रिपोर्ट करें"
+
+msgid "CERT-IN - Security Advisories"
+msgstr "सर्ट-इन - सुरक्षा सलाह"
+
+msgid "CERT-IN general security advisories and threat alerts"
+msgstr "सर्ट-इन सामान्य सुरक्षा सलाह और खतरे अलर्ट"
+
+msgid "MeitY - Cybersecurity Resources"
+msgstr "मेइटी - साइबर सुरक्षा संसाधन"
+
+msgid "Ministry of Electronics and Information Technology resources"
+msgstr "इलेक्ट्रॉनिक्स और सूचना प्रौद्योगिकी मंत्रालय के संसाधन"
+
+# ADDITIONAL STRINGS
+msgid "For complaints related to"
+msgstr "से संबंधित शिकायतों के लिए"
+
+msgid "the following laws and sections apply:"
+msgstr "निम्नलिखित कानून और धाराएं लागू होती हैं:"
+
+msgid "Keep Your Case Number Safe"
+msgstr "अपना केस नंबर सुरक्षित रखें"
+
+msgid "is your unique reference number. Use it to track your complaint."
+msgstr "आपका अद्वितीय संदर्भ नंबर है। इसका उपयोग करके अपनी शिकायत को ट्रैक करें।"
+
+msgid "Report to Police (if financial loss)"
+msgstr "पुलिस को रिपोर्ट करें (यदि वित्तीय नुकसान है)"
+
+msgid "File an FIR at the nearest police station with your complaint details and case number."
+msgstr "निकटतम पुलिस स्टेशन में अपनी शिकायत विवरण और केस नंबर के साथ एफआईआर दर्ज करें।"
+
+msgid "Gather Evidence"
+msgstr "साक्ष्य एकत्र करें"
+
+msgid "Collect screenshots, emails, transaction receipts, and other supporting documents mentioned in your complaint."
+msgstr "आपकी शिकायत में उल्लेख किए गए स्क्रीनशॉट, ईमेल, लेनदेन रसीदें और अन्य सहायक दस्तावेज एकत्र करें।"
+
+msgid "Monitor Your Case"
+msgstr "अपने केस की निगरानी करें"
+
+msgid "Use your dashboard to track the progress of your complaint."
+msgstr "अपनी शिकायत की प्रगति को ट्रैक करने के लिए अपने डैशबोर्ड का उपयोग करें।"
+
+msgid "Know Your Rights"
+msgstr "अपने अधिकारों को जानें"
+
+msgid "As a victim, you have rights under the applicable laws. Consult a legal professional if needed."
+msgstr "एक पीड़ित के रूप में, आपको लागू कानूनों के तहत अधिकार हैं। यदि आवश्यक हो तो, एक कानूनी पेशेवर से परामर्श लें।"
+
+msgid "View Complaint Details"
+msgstr "शिकायत विवरण देखें"
+
+msgid "Important Notice:"
+msgstr "महत्वपूर्ण नोटिस:"
+
+msgid "This information is for educational purposes. For specific legal advice, please consult with a qualified lawyer. The information provided is based on Indian laws as of the date of filing."
+msgstr "यह जानकारी केवल शैक्षिक उद्देश्यों के लिए है। विशिष्ट कानूनी सलाह के लिए, कृपया एक योग्य वकील से परामर्श लें।"
+
+msgid "Indian Cyber Crime Portal"
+msgstr "भारतीय साइबर अपराध पोर्टल"

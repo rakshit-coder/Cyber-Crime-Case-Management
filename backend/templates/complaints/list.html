@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Complaints" %} - {% trans "Indian Cyber Crime Portal" %}{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Header -->
+    <div style="display: flex; flex-direction: column; margin-bottom: 2rem; gap: 1.5rem;">
+        <div>
+            <h1 style="font-size: 2rem; font-weight: bold; color: var(--primary-blue); display: flex; align-items: center; gap: 1rem;">
+                <i class="fas fa-file-alt" style="font-size: 2.5rem;"></i>
+                {% trans "Complaints" %}
+            </h1>
+        </div>
+        {% if user.role == 'user' %}
+        <a href="{% url 'new_complaint' %}" class="btn btn-primary" style="width: fit-content;">
+            <i class="fas fa-plus-circle mr-2"></i> {% trans "File New Complaint" %}
+        </a>
+        {% endif %}
+    </div>
+
+    <!-- Filters Section -->
+    <div class="card mb-8">
+        <div class="card-body">
+            <form method="GET" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label for="search" style="font-weight: 600;">
+                        <i class="fas fa-search" style="color: var(--primary-blue); margin-right: 0.5rem;"></i> {% trans "Search" %}
+                    </label>
+                    <input type="text" name="search" placeholder="{% trans "Search case number or title..." %}" 
+                           class="form-control">
+                </div>
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label for="status" style="font-weight: 600;">
+                        <i class="fas fa-filter" style="color: var(--primary-blue); margin-right: 0.5rem;"></i> {% trans "Status" %}
+                    </label>
+                    <select name="status" class="form-control">
+                        <option value="">{% trans "All Status" %}</option>
+                        <option value="pending">{% trans "Pending" %}</option>
+                        <option value="in_progress">{% trans "In Progress" %}</option>
+                        <option value="resolved">{% trans "Resolved" %}</option>
+                        <option value="closed">{% trans "Closed" %}</option>
+                    </select>
+                </div>
+                <div style="display: flex; align-items: flex-end;">
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">
+                        <i class="fas fa-search mr-2"></i> {% trans "Filter" %}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Complaints Table -->
+    {% if complaints %}
+    <div class="card">
+        <div class="overflow-x-auto">
+            <table>
+                <thead>
+                    <tr>
+                        <th>{% trans "Case #" %}</th>
+                        <th>{% trans "Title" %}</th>
+                        <th>{% trans "Category" %}</th>
+                        <th>{% trans "Status" %}</th>
+                        <th>{% trans "Priority" %}</th>
+                        <th>{% trans "Officer" %}</th>
+                        <th>{% trans "Date" %}</th>
+                        <th>{% trans "Action" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for complaint in complaints %}
+                    <tr>
+                        <td style="font-weight: 600;">{{ complaint.case_number }}</td>
+                        <td>{{ complaint.title|truncatewords:5 }}</td>
+                        <td>
+                            <span style="background: var(--medium-gray); color: var(--dark-gray); padding: 0.375rem 0.75rem; border-radius: 12px; font-size: 0.85rem; font-weight: 600;">
+                                {{ complaint.get_category_display }}
+                            </span>
+                        </td>
+                        <td>
+                            {% if complaint.status == 'pending' %}
+                                <span class="badge badge-pending">{% trans "Pending" %}</span>
+                            {% elif complaint.status == 'in_progress' %}
+                                <span class="badge badge-in-progress">{% trans "In Progress" %}</span>
+                            {% elif complaint.status == 'resolved' %}
+                                <span class="badge badge-resolved">{% trans "Resolved" %}</span>
+                            {% else %}
+                                <span class="badge badge-closed">{% trans "Closed" %}</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if complaint.priority == 'critical' %}
+                                <span class="badge badge-danger">{% trans "Critical" %}</span>
+                            {% elif complaint.priority == 'high' %}
+                                <span class="badge badge-warning">{% trans "High" %}</span>
+                            {% elif complaint.priority == 'medium' %}
+                                <span class="badge badge-warning">{% trans "Medium" %}</span>
+                            {% else %}
+                                <span class="badge badge-info">{% trans "Low" %}</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if complaint.assigned_officer %}
+                                {{ complaint.assigned_officer.get_full_name }}
+                            {% else %}
+                                <span style="color: var(--dark-gray); font-size: 0.85rem;">{% trans "Unassigned" %}</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ complaint.created_at|date:"M d, Y" }}</td>
+                        <td>
+                            <a href="{% url 'complaint_detail' complaint.case_number %}" style="color: var(--primary-blue); text-decoration: none; font-weight: 600;">
+                                <i class="fas fa-eye"></i> {% trans "View" %}
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Pagination -->
+    {% if complaints.has_other_pages %}
+    <div class="pagination" style="margin-top: 2rem;">
+        {% if complaints.has_previous %}
+        <a href="?page=1">
+            <i class="fas fa-chevron-left mr-1"></i> {% trans "First" %}
+        </a>
+        <a href="?page={{ complaints.previous_page_number }}">
+            <i class="fas fa-chevron-left mr-1"></i> {% trans "Previous" %}
+        </a>
+        {% endif %}
+
+        {% for num in complaints.paginator.page_range %}
+            {% if complaints.number == num %}
+            <span class="active">{{ num }}</span>
+            {% else %}
+            <a href="?page={{ num }}">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if complaints.has_next %}
+        <a href="?page={{ complaints.next_page_number }}">
+            {% trans "Next" %} <i class="fas fa-chevron-right ml-1"></i>
+        </a>
+        <a href="?page={{ complaints.paginator.num_pages }}">
+            {% trans "Last" %} <i class="fas fa-chevron-right ml-1"></i>
+        </a>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    {% else %}
+    <div class="card" style="text-align: center; padding: 3rem;">
+        <i class="fas fa-inbox" style="font-size: 2rem; opacity: 0.3; margin-bottom: 1rem; display: block;"></i>
+        <p style="color: var(--dark-gray); margin-bottom: 1rem;">{% trans "No complaints found." %}</p>
+        {% if user.role == 'user' %}
+            <a href="{% url 'new_complaint' %}" style="color: var(--primary-blue); font-weight: 600; text-decoration: none;">
+                {% trans "File a new complaint" %}
+            </a>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
